@@ -1,10 +1,12 @@
-import React from "react";
-import { View, Text } from "react-native";
-export default App =() =>{
-    return (
-        <View>
-            <Text style={{fontSize:25}}>Alo</Text>
+import React, { Component } from "react"
+import AppNavigator from "./modules/navigators/AppNavigator"
 
-        </View>
-    )
+
+function App() {
+	return (
+		
+			<AppNavigator />
+		
+	)
 }
+export default App
