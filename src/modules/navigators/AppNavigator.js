@@ -3,7 +3,7 @@ import HomeScreen from '../screens/HomeScreen';
 
 import FriendScreen from '../screens/FriendScreen';
 
-import ProfileScreen from '../screens/ProfileScreen';
+import MenuScreen from '../screens/MenuScreen';
 
 import ScreenNames from '../../general/constants/ScreenNames';
 

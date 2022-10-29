@@ -8,8 +8,8 @@ import {View,
   TouchableOpacity,} from 'react-native';
 
 
-export default function ProfileScreen(props) {
-    console.log("ProfileScreen is rendering !!!!")
+export default function MenuScreen(props) {
+    console.log("MenuScreen is rendering !!!!")
 	
     return (
         <View style={{flex:1}}>

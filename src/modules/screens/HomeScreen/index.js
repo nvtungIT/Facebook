@@ -7,6 +7,7 @@ import {View,
   StatusBar,
   TouchableOpacity,} from 'react-native';
 
+ import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function HomeScreen(props){
     console.log("HomeScreen is rendering !!!!")
