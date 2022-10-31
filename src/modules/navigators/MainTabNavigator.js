@@ -10,7 +10,13 @@ import MenuScreen from '../screens/MenuScreen';
 
 import ScreenNames from '../../general/constants/ScreenNames';
 
+import NotificationScreen from '../screens/NotificationScreen';
+
+import VideoScreen from '../screens/VideoScreen';
+
 import Icon from 'react-native-vector-icons/Ionicons';
+
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -30,8 +36,8 @@ export default MainTabNavigator => {
         name={ScreenNames.homeScreen}
         component={HomeScreen}
       />
-      <Tab.Screen 
-      options={{
+      <Tab.Screen
+        options={{
           title: ({color, focused}) => (
             <Icon
               size={25}
@@ -39,19 +45,49 @@ export default MainTabNavigator => {
               color={focused ? '#1877f2' : '#272727'}
             />
           ),
-        }} name={ScreenNames.friendScreen} component={FriendScreen} />
-      <Tab.Screen 
-      
-      options={{
-        title: ({color, focused}) => (
-          <Icon
-            size={25}
-            name={focused ? 'menu' : 'menu-outline'}
-            color={focused ? '#1877f2' : '#272727'}
-          />
-        ),
-      }} 
-         name={ScreenNames.menuScreen} component={MenuScreen} />
+        }}
+        name={ScreenNames.friendScreen}
+        component={FriendScreen}
+      />
+      <Tab.Screen
+        options={{
+          title: ({color, focused}) => (
+            <Icon
+              size={25}
+              name={focused ? 'tv' : 'tv-outline'}
+              color={focused ? '#1877f2' : '#272727'}
+            />
+          ),
+        }}
+        name={ScreenNames.videoScreen}
+        component={VideoScreen}
+      />
+      <Tab.Screen
+        options={{
+          title: ({color, focused}) => (
+            <Icon
+              size={25}
+              name={focused ? 'notifications' : 'notifications-outline'}
+              color={focused ? '#1877f2' : '#272727'}
+            />
+          ),
+        }}
+        name={ScreenNames.notificationScreen}
+        component={NotificationScreen}
+      />
+      <Tab.Screen
+        options={{
+          title: ({color, focused}) => (
+            <Icon
+              size={25}
+              name={focused ? 'menu' : 'menu-outline'}
+              color={focused ? '#1877f2' : '#272727'}
+            />
+          ),
+        }}
+        name={ScreenNames.menuScreen}
+        component={MenuScreen}
+      />
     </Tab.Navigator>
   );
 };

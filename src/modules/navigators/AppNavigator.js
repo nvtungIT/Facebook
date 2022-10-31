@@ -25,14 +25,13 @@ export default AppNavigator = () => {
             component={MainTabNavigator}
             options={{headerShown: false}}
           />
-         
         </Stack.Group>
         <Stack.Group>
-        <Stack.Screen
+          {/* <Stack.Screen
             name={ScreenNames.homeScreen}
             component={HomeScreen}
             options={{headerShown: false}}
-          />  
+          />   */}
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
