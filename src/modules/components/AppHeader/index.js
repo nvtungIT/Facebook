@@ -1,6 +1,6 @@
 import { View, Image, Text } from 'react-native'
 
-import AppImage from '~/general/constants/AppImage'
+import AppImage from 'general/constants/AppImage'
 
 export default function AppHeader(props) {
   return (

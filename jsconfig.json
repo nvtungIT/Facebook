@@ -1,12 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "commonjs",
-    "allowSyntheticDefaultImports": true,
-    "checkJs": true,
-    "jsx": "react-native",
-    "baseUrl": "./src"
+    "baseUrl": ".",
+    "paths": {
+      "*": ["src/*"]
+    }
   },
-  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }
