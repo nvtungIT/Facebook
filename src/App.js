@@ -1,7 +1,9 @@
-import React, {Component} from 'react';
-import AppNavigator from './modules/navigators/AppNavigator';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {StatusBar} from 'react-native';
+import React, { Component } from 'react'
+import { StatusBar } from 'react-native'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+
+import AppNavigator from '~/modules/navigators/AppNavigator'
+
 function App() {
   return (
     <SafeAreaProvider>
@@ -12,6 +14,6 @@ function App() {
       />
       <AppNavigator />
     </SafeAreaProvider>
-  );
+  )
 }
-export default App;
+export default App
