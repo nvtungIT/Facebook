@@ -1,5 +1,7 @@
-import {View, Image, Text} from 'react-native';
-import AppImage from '../../../general/constants/AppImage';
+import { View, Image, Text } from 'react-native'
+
+import AppImage from '~/general/constants/AppImage'
+
 export default function AppHeader(props) {
   return (
     <View
@@ -22,5 +24,5 @@ export default function AppHeader(props) {
         facebook
       </Text>
     </View>
-  );
+  )
 }
