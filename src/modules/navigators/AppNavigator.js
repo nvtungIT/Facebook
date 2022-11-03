@@ -1,19 +1,14 @@
-import {View, Text} from 'react-native';
-import HomeScreen from '../screens/HomeScreen';
+import { View, Text } from 'react-native'
+import { NavigationContainer, StackActions } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-import FriendScreen from '../screens/FriendScreen';
+import HomeScreen from 'modules/screens/HomeScreen'
+import FriendScreen from 'modules/screens/FriendScreen'
+import MenuScreen from 'modules/screens/MenuScreen'
+import ScreenNames from 'general/constants/ScreenNames'
+import MainTabNavigator from './MainTabNavigator'
 
-import ProfileScreen from '../screens/ProfileScreen';
-
-import ScreenNames from '../../general/constants/ScreenNames';
-
-import MainTabNavigator from './MainTabNavigator';
-
-import {NavigationContainer, StackActions} from '@react-navigation/native';
-
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator()
 
 export default AppNavigator = () => {
   return (
@@ -23,18 +18,17 @@ export default AppNavigator = () => {
           <Stack.Screen
             name={ScreenNames.mainTab}
             component={MainTabNavigator}
-            options={{headerShown: false}}
+            options={{ headerShown: false }}
           />
-         
         </Stack.Group>
         <Stack.Group>
-        <Stack.Screen
+          {/* <Stack.Screen
             name={ScreenNames.homeScreen}
             component={HomeScreen}
             options={{headerShown: false}}
-          />  
+          />   */}
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
-  );
-};
+  )
+}

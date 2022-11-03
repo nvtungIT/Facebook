@@ -9,16 +9,13 @@ import {
   TouchableOpacity,
 } from 'react-native'
 
-import AppStatusBar from 'modules/components/AppStatusBar'
-import Icon from 'react-native-vector-icons/FontAwesome'
-
-export default function HomeScreen(props) {
-  console.log('HomeScreen is rendering !!!!')
+export default function MenuScreen(props) {
+  console.log('MenuScreen is rendering !!!!')
 
   return (
     <View style={{ flex: 1 }}>
       <SafeAreaView>
-        <Text style={{ fontSize: 20, color: 'black' }}>HomeScreen</Text>
+        <Text style={{ fontSize: 20, color: 'black' }}>ProfileScreen</Text>
       </SafeAreaView>
     </View>
   )
