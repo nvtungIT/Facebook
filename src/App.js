@@ -3,6 +3,7 @@ import { StatusBar } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import AppNavigator from 'modules/navigators/AppNavigator'
+import SignupScreen from 'modules/screens/SignupScreen'
 import AddPost from 'modules/views/CreatePost'
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       />
       <AppNavigator /> */}
       <AddPost />
+	  {/* <SignupScreen/> */}
     </SafeAreaProvider>
   )
 }
