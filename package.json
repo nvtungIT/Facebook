@@ -1,5 +1,5 @@
 {
-  "name": "facebook",
+  "name": "Facebook",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -14,14 +14,10 @@
     "@react-navigation/material-top-tabs": "^6.3.0",
     "@react-navigation/native-stack": "^6.9.1",
     "react": "18.1.0",
-    "react-hook-form": "^7.39.1",
     "react-native": "0.70.4",
-    "react-native-date-picker": "^4.2.5",
     "react-native-pager-view": "^6.0.1",
-    "react-native-phone-number-input": "^2.1.0",
     "react-native-safe-area-context": "^4.4.1",
-    "react-native-screens": "^3.18.2",
-    "react-native-vector-icons": "^9.2.0"
+    "react-native-screens": "^3.18.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -37,17 +33,5 @@
   },
   "jest": {
     "preset": "react-native"
-  },
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nvtung194208/Facebook.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/nvtung194208/Facebook/issues"
-  },
-  "homepage": "https://github.com/nvtung194208/Facebook#readme",
-  "description": ""
+  }
 }

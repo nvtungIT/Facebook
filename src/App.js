@@ -15,8 +15,8 @@ function App() {
         barStyle="dark-content"
       />
       <AppNavigator /> */}
-      <AddPost />
-	  {/* <SignupScreen/> */}
+      {/* <AddPost /> */}
+	  <SignupScreen/>
     </SafeAreaProvider>
   )
 }
