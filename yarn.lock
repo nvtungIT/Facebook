@@ -6063,7 +6063,6 @@
     "kleur" "^3.0.3"
     "sisteransi" "^1.0.5"
 
-<<<<<<< HEAD
 "prop-types@^15.6.0", "prop-types@^15.6.2", "prop-types@15.7.2":
   "integrity" "sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.7.2.tgz"
@@ -6073,8 +6072,6 @@
     "object-assign" "^4.1.1"
     "react-is" "^16.8.1"
 
-=======
->>>>>>> 2954672245ef1b5f27dce297217cbaa37a0fff70
 "prop-types@^15.7.2", "prop-types@^15.8.1":
   "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
@@ -6272,7 +6269,6 @@
     "prop-types" "^15.7.2"
     "yargs" "^16.1.1"
 
-<<<<<<< HEAD
 "react-native-web@*", "react-native-web@0.9.x":
   "integrity" "sha512-P1nCvBVFrv3J5BXu39iS4A3fR7m0vtGaCAy4MigAtZpakIuara/98h516fDQajPqoVy2T4cQgYZUQAr+FBnppQ=="
   "resolved" "https://registry.npmjs.org/react-native-web/-/react-native-web-0.9.13.tgz"
@@ -6289,8 +6285,6 @@
     "prop-types" "^15.6.0"
     "react-timer-mixin" "^0.13.4"
 
-=======
->>>>>>> 2954672245ef1b5f27dce297217cbaa37a0fff70
 "react-native@*", "react-native@0.70.4":
   "integrity" "sha512-1e4jWotS20AJ/4lGVkZQs2wE0PvCpIRmPQEQ1FyH7wdyuewFFIxbUHqy6vAj1JWVFfAzbDakOQofrIkkHWLqNA=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.70.4.tgz"
