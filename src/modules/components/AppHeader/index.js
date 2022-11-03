@@ -1,4 +1,4 @@
-import {View, Image, Text} from 'react-native';
+import {View, Image, Text, TouchableOpacity} from 'react-native';
 import AppImage from '../../../general/constants/AppImage';
 import Icon from 'react-native-vector-icons/Fontisto';
 export default function AppHeader(props) {
@@ -10,7 +10,7 @@ export default function AppHeader(props) {
         backgroundColor: '#ffffff',
       }}
     >
-      <View
+      <TouchableOpacity
         style={{
           height: 45,
         }}
@@ -27,7 +27,7 @@ export default function AppHeader(props) {
         >
           facebook
         </Text>
-      </View>
+      </TouchableOpacity>
       <View
         style={{
           flex: 1,
@@ -36,7 +36,7 @@ export default function AppHeader(props) {
           alignItems: 'center',
         }}
       >
-        <View
+        <TouchableOpacity
           style={{
             backgroundColor: '#d4d2d2',
             width: 35,
@@ -47,8 +47,8 @@ export default function AppHeader(props) {
           }}
         >
           <Icon size={20} name="search" color="black" />
-        </View>
-        <View
+        </TouchableOpacity>
+        <TouchableOpacity
           style={{
             backgroundColor: '#d4d2d2',
             width: 35,
@@ -62,7 +62,7 @@ export default function AppHeader(props) {
           }}
         >
           <Icon size={20} name="messenger" color="black" />
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
