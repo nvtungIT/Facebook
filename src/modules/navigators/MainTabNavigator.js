@@ -44,6 +44,7 @@ export default MainTabNavigator => {
           options={{
             title: ({color, focused}) => (
               <Icon
+                style={{transform: [{rotateY: '180deg'}]}}
                 size={25}
                 name={focused ? 'people' : 'people-outline'}
                 color={focused ? '#1778F2' : '#272727'}
