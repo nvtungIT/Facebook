@@ -1,35 +1,27 @@
-import React from 'react';
+import React from 'react'
+import Icon from 'react-native-vector-icons/Ionicons'
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import HomeScreen from 'modules/screens/HomeScreen'
+import FriendScreen from 'modules/screens/FriendScreen'
+import MenuScreen from 'modules/screens/MenuScreen'
+import ScreenNames from 'general/constants/ScreenNames'
+import NotificationScreen from 'modules/screens/NotificationScreen'
+import VideoScreen from 'modules/screens/VideoScreen'
+import AppHeader from 'modules/components/AppHeader'
 
-import HomeScreen from '../screens/HomeScreen';
+const Tab = createMaterialTopTabNavigator()
 
-import FriendScreen from '../screens/FriendScreen';
-
-import MenuScreen from '../screens/MenuScreen';
-
-import ScreenNames from '../../general/constants/ScreenNames';
-
-import NotificationScreen from '../screens/NotificationScreen';
-
-import VideoScreen from '../screens/VideoScreen';
-
-import Icon from 'react-native-vector-icons/Ionicons';
-
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import AppHeader from '../components/AppHeader';
-const Tab = createMaterialTopTabNavigator();
-
-export default MainTabNavigator => {
+export default (MainTabNavigator) => {
   return (
     <SafeAreaProvider>
       <AppHeader />
       <Tab.Navigator>
         <Tab.Screen
           options={{
-            title: ({color, focused}) => (
+            title: ({ color, focused }) => (
               <Icon
                 size={25}
                 name={focused ? 'home' : 'home-outline'}
@@ -42,7 +34,7 @@ export default MainTabNavigator => {
         />
         <Tab.Screen
           options={{
-            title: ({color, focused}) => (
+            title: ({ color, focused }) => (
               <Icon
                 style={{transform: [{rotateY: '180deg'}]}}
                 size={25}
@@ -56,7 +48,7 @@ export default MainTabNavigator => {
         />
         <Tab.Screen
           options={{
-            title: ({color, focused}) => (
+            title: ({ color, focused }) => (
               <Icon
                 size={25}
                 name={focused ? 'tv' : 'tv-outline'}
@@ -69,7 +61,7 @@ export default MainTabNavigator => {
         />
         <Tab.Screen
           options={{
-            title: ({color, focused}) => (
+            title: ({ color, focused }) => (
               <Icon
                 size={25}
                 name={focused ? 'notifications' : 'notifications-outline'}
@@ -82,7 +74,7 @@ export default MainTabNavigator => {
         />
         <Tab.Screen
           options={{
-            title: ({color, focused}) => (
+            title: ({ color, focused }) => (
               <Icon
                 size={25}
                 name={focused ? 'menu' : 'menu-outline'}
@@ -95,5 +87,5 @@ export default MainTabNavigator => {
         />
       </Tab.Navigator>
     </SafeAreaProvider>
-  );
-};
+  )
+}

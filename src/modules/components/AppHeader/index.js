@@ -1,6 +1,10 @@
 import {View, Image, Text, TouchableOpacity} from 'react-native';
 import AppImage from '../../../general/constants/AppImage';
 import Icon from 'react-native-vector-icons/Fontisto';
+import {View, Image, Text} from 'react-native';
+
+import AppImage from 'general/constants/AppImage';
+
 export default function AppHeader(props) {
   return (
     <View
