@@ -9,13 +9,13 @@ import {
   TouchableOpacity,
 } from 'react-native'
 
-export default function MenuScreen(props) {
-  console.log('MenuScreen is rendering !!!!')
+export default function VideoScreen(props) {
+  console.log('VideoScreen is rendering !!!!')
 
   return (
     <View style={{ flex: 1 }}>
       <SafeAreaView>
-        <Text style={{ fontSize: 20, color: 'black' }}>ProfileScreen</Text>
+        <Text style={{ fontSize: 20, color: 'black' }}>VideoScreen</Text>
       </SafeAreaView>
     </View>
   )

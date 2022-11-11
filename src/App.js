@@ -1,13 +1,25 @@
-import React, { Component } from "react"
-import AppNavigator from "./modules/navigators/AppNavigator"
-import LoginScreen from "./modules/screens/LoginScreen"
-import ExistAccScreen from "./modules/screens/LoginScreen/LoginExistAcc/ExistAccScreen"
-import LoginWithExistAccScreen from "./modules/screens/LoginScreen/LoginExistAcc/LoginWithExistAccScreen"
+import React, { Component } from 'react'
+import { StatusBar } from 'react-native'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+
+import AppNavigator from 'modules/navigators/AppNavigator'
+import SignupScreen from 'modules/screens/SignupScreen'
+import AddPost from 'modules/views/CreatePost'
+import LoginScreen from 'modules/screens/LoginScreen'
+
 function App() {
-	return (
-		// <LoginScreen />
-		<ExistAccScreen />
-		// <LoginWithExistAccScreen/>
-	)
+  return (
+    <SafeAreaProvider>
+      {/* <StatusBar
+        animated={true}
+        backgroundColor="#ffffff"
+        barStyle="dark-content"
+      />
+      <AppNavigator /> */}
+      {/* <AddPost /> */}
+			{/* <SignupScreen/> */}
+			<LoginScreen/>
+    </SafeAreaProvider>
+  )
 }
 export default App
