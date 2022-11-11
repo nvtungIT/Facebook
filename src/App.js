@@ -1,8 +1,11 @@
-import React, {Component} from 'react';
-import AppNavigator from './modules/navigators/AppNavigator';
-import SignupScreen from './modules/screens/SignupScreen';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {StatusBar} from 'react-native';
+import React, { Component } from 'react'
+import { StatusBar } from 'react-native'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+
+import AppNavigator from 'modules/navigators/AppNavigator'
+import SignupScreen from 'modules/screens/SignupScreen'
+import AddPost from 'modules/views/CreatePost'
+
 function App() {
   return (
     <SafeAreaProvider>
@@ -12,8 +15,9 @@ function App() {
         barStyle="dark-content"
       />
       <AppNavigator /> */}
-      <SignupScreen />
+      <AddPost />
+      {/* <SignupScreen/> */}
     </SafeAreaProvider>
-  );
+  )
 }
-export default App;
+export default App
