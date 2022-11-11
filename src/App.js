@@ -9,13 +9,13 @@ import AddPost from 'modules/views/CreatePost'
 function App() {
   return (
     <SafeAreaProvider>
-      {/* <StatusBar
+      <StatusBar
         animated={true}
         backgroundColor="#ffffff"
         barStyle="dark-content"
       />
-      <AppNavigator /> */}
-      <AddPost />
+      <AppNavigator />
+      {/* <AddPost /> */}
       {/* <SignupScreen/> */}
     </SafeAreaProvider>
   )
