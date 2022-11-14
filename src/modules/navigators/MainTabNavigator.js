@@ -3,6 +3,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { useIsFocused } from '@react-navigation/native'
 
 import HomeScreen from 'modules/screens/HomeScreen'
 import FriendScreen from 'modules/screens/FriendScreen'
@@ -14,11 +15,12 @@ import AppHeader from 'modules/components/AppHeader'
 
 const Tab = createMaterialTopTabNavigator()
 
-export default (MainTabNavigator) => {
+export default MainTabNavigator = () => {
+  const isHomeTabFocused = useIsFocused()
   return (
     <SafeAreaProvider>
       <AppHeader />
-      <Tab.Navigator>
+      <Tab.Navigator initialRouteName={ScreenNames.friendScreen}>
         <Tab.Screen
           options={{
             title: ({ color, focused }) => (
@@ -36,7 +38,7 @@ export default (MainTabNavigator) => {
           options={{
             title: ({ color, focused }) => (
               <Icon
-                style={{transform: [{rotateY: '180deg'}]}}
+                style={{ transform: [{ rotateY: '180deg' }] }}
                 size={25}
                 name={focused ? 'people' : 'people-outline'}
                 color={focused ? '#1778F2' : '#272727'}
