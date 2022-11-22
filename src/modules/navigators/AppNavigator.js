@@ -7,6 +7,7 @@ import FriendScreen from 'modules/screens/FriendScreen'
 import MenuScreen from 'modules/screens/MenuScreen'
 import ScreenNames from 'general/constants/ScreenNames'
 import MainTabNavigator from './MainTabNavigator'
+import SignupScreen from 'modules/screens/SignupScreen'
 
 const Stack = createNativeStackNavigator()
 
@@ -14,20 +15,16 @@ export default AppNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Group>
-          <Stack.Screen
-            name={ScreenNames.mainTab}
-            component={MainTabNavigator}
-            options={{ headerShown: false }}
-          />
-        </Stack.Group>
-        <Stack.Group>
-          {/* <Stack.Screen
-            name={ScreenNames.homeScreen}
-            component={HomeScreen}
-            options={{headerShown: false}}
-          />   */}
-        </Stack.Group>
+        <Stack.Screen
+          name={ScreenNames.signUpScreen}
+          component={SignupScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name={ScreenNames.mainTab}
+          component={MainTabNavigator}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   )
