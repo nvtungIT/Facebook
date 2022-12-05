@@ -5,5 +5,6 @@ export default ScreenNames = {
   menuScreen: 'MenuScreen',
   notificationScreen: 'NotificationScreen',
   videoScreen: 'VideoScreen',
-  signupScreen:"SignupScreen",
+
+  signUpScreen: 'SignUpScreen',
 }

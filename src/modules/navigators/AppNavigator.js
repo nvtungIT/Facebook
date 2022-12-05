@@ -8,6 +8,7 @@ import FriendScreen from 'modules/screens/FriendScreen'
 import MenuScreen from 'modules/screens/MenuScreen'
 import ScreenNames from 'general/constants/ScreenNames'
 import MainTabNavigator from './MainTabNavigator'
+import SignupScreen from 'modules/screens/SignupScreen'
 
 const Stack = createNativeStackNavigator()
 
