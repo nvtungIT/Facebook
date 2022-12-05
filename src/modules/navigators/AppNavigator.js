@@ -2,6 +2,7 @@ import { View, Text } from 'react-native'
 import { NavigationContainer, StackActions } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
+import SignupScreen from 'modules/screens/SignupScreen'
 import HomeScreen from 'modules/screens/HomeScreen'
 import FriendScreen from 'modules/screens/FriendScreen'
 import MenuScreen from 'modules/screens/MenuScreen'
@@ -14,6 +15,13 @@ export default AppNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+      <Stack.Group>
+          <Stack.Screen
+            name={ScreenNames.signUpScreen}
+            component={SignupScreen}
+            options={{headerShown: false}}
+          />  
+        </Stack.Group>
         <Stack.Group>
           <Stack.Screen
             name={ScreenNames.mainTab}
@@ -21,13 +29,7 @@ export default AppNavigator = () => {
             options={{ headerShown: false }}
           />
         </Stack.Group>
-        <Stack.Group>
-          {/* <Stack.Screen
-            name={ScreenNames.homeScreen}
-            component={HomeScreen}
-            options={{headerShown: false}}
-          />   */}
-        </Stack.Group>
+        
       </Stack.Navigator>
     </NavigationContainer>
   )

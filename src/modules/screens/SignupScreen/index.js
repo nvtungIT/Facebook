@@ -4,16 +4,18 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import DatePicker from "react-native-date-picker";
 import { useForm, Controller } from "react-hook-form";
 import PhoneInput from "react-native-phone-number-input";
+import ScreenNames from "general/constants/ScreenNames";
 import styles from "./styles";
 
-export default function SignupScreen(props){
+
+export default function SignupScreen({ navigation }){
 	const [lastName, setLastName] = useState('');
 	const [firstName, setFirstName] = useState('');
     const [phone, setPhone] = useState('');
     const [date, setDate] = useState(new Date());
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    const [checkPhone, setCheckPhone] = useState(false);
+    const [checkPhone, setCheckPhone] = useState(true);
     const phoneInput = useRef(null);
 
     const [field, setField] = useState(0);
@@ -34,7 +36,40 @@ export default function SignupScreen(props){
 
     const onSubmitPassword = (data) => {
         setField(field+1);
-       }
+    };
+
+    const handleRegister = async () => {
+        console.log({name: lastName + firstName,
+            birthday: date,
+            phoneNumber: phone,
+            email: email,
+            password: password,});
+        try {
+            const response = await fetch(
+              'http://192.168.8.121:5000/it4788/auth/signup',{
+                method: 'POST',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  name: lastName + firstName,
+                  birthday: date,
+                  phoneNumber: phone,
+                  email: email,
+                  password: password,
+                })
+              }
+            );
+            const json = await response.json();
+            console.log(json);
+            return json.movies;
+          } catch (error) {
+            console.error(error);
+          }
+        navigation.navigate(ScreenNames.mainTab)
+    }
+    
     return (
         <View style={styles.wrapper}>
             {field == 0 && 
@@ -248,7 +283,7 @@ export default function SignupScreen(props){
                                 onChangeText={
                                     (email) => {
                                         onChange(email);
-                                        setLastName(email)
+                                        setEmail(email)
                                     }
                                 }
                                 value={value}
@@ -331,6 +366,7 @@ export default function SignupScreen(props){
                     <Text style={styles.formNote}>Bằng cách nhấn vào Đăng ký, bạn đồng ý với ... </Text>
                     <View style={styles.buttonView}>
                     <Button
+                    onPress={handleRegister}
                     title="Đăng ký"/>
                     </View>
                 </View>

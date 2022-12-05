@@ -14,7 +14,7 @@ import AppHeader from 'modules/components/AppHeader'
 
 const Tab = createMaterialTopTabNavigator()
 
-export default (MainTabNavigator) => {
+export default MainTabNavigator = ({ navigation: { navigate } }) => {
   return (
     <SafeAreaProvider>
       <AppHeader />

@@ -6216,10 +6216,10 @@
     "prop-types" "15.7.2"
     "react-async-hook" "3.6.1"
 
-"react-native-date-picker@^4.2.5":
-  "integrity" "sha512-YjwiMpZEnVVS+ymLvmJDicVZ3pSR+nJHgtAhctMl6fO8f7iRNcYhY427gemlTBf2Ji+XIAK0Agyl255DhaemFw=="
-  "resolved" "https://registry.npmjs.org/react-native-date-picker/-/react-native-date-picker-4.2.5.tgz"
-  "version" "4.2.5"
+"react-native-date-picker@^4.2.6":
+  "integrity" "sha512-qnSLefvCInFp1etQ27AsDzpCJgvi0Q0eIYRtIzjBp5WC5hzINIY7WWeQESAA/QUPbwFJU7Vk06ouQc51dC1Qaw=="
+  "resolved" "https://registry.npmjs.org/react-native-date-picker/-/react-native-date-picker-4.2.6.tgz"
+  "version" "4.2.6"
   dependencies:
     "prop-types" "^15.8.1"
 
