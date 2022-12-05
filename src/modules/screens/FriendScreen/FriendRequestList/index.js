@@ -1,0 +1,42 @@
+import React, { useState, useEffect } from 'react'
+import { View, Text } from 'react-native'
+import { FriendDataTest } from '../../../../assets/FriendDataTest'
+import FriendChoiceItem from 'modules/components/FriendChoiceItem'
+export default function FriendRequestList() {
+  const [isLoading, setLoading] = useState(true)
+  const [data, setData] = useState([])
+  const getRequestedFriendList = async () => {
+    try {
+      const response = await fetch('https://reactnative.dev/movies.json')
+      const json = await response.json()
+      setData(json.movies)
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    getRequestedFriendList()
+  }, [])
+  return (
+    <View>
+      <Text
+        style={{
+          fontFamily: 'FACEBOLF',
+          fontSize: 20,
+          fontWeight: 'bold',
+          color: 'black',
+          marginLeft: 20,
+          lineHeight: 40,
+        }}
+      >
+        Lời mời kết bạn
+      </Text>
+      {FriendDataTest.map((item) => (
+        <FriendChoiceItem key={item.id} avt={item.avtUrl} name={item.name} />
+      ))}
+    </View>
+  )
+}
