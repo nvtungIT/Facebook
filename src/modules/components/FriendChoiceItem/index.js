@@ -13,10 +13,12 @@ export default function FriendChoiceItem(props) {
         </View>
         <View style={styles.button_container}>
           <TouchableOpacity style={styles.first_button}>
-            <Text style={styles.button_text}>Chấp nhận</Text>
+            <Text style={styles.button_text}>{props.first_button}</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.second_button}>
-            <Text style={[styles.button_text, { color: 'black' }]}>Xoá</Text>
+            <Text style={[styles.button_text, { color: 'black' }]}>
+              {props.second_button}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

@@ -11,4 +11,9 @@ export const FriendDataTest = [
   { id: 6, name: 'John', avtUrl: require('./images/nvtung_image.png') },
   { id: 7, name: 'John', avtUrl: require('./images/nvtung_image.png') },
   { id: 8, name: 'John', avtUrl: require('./images/nvtung_image.png') },
+  { id: 9, name: 'John', avtUrl: require('./images/nvtung_image.png') },
+  { id: 10, name: 'John', avtUrl: require('./images/nvtung_image.png') },
+  { id: 11, name: 'John', avtUrl: require('./images/nvtung_image.png') },
+  { id: 12, name: 'John', avtUrl: require('./images/nvtung_image.png') },
+  { id: 13, name: 'John', avtUrl: require('./images/nvtung_image.png') },
 ]

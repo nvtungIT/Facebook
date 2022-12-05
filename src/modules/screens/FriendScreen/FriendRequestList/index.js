@@ -35,7 +35,13 @@ export default function FriendRequestList() {
         Lời mời kết bạn
       </Text>
       {FriendDataTest.map((item) => (
-        <FriendChoiceItem key={item.id} avt={item.avtUrl} name={item.name} />
+        <FriendChoiceItem
+          first_button="Chấp nhận"
+          second_button="Xoá"
+          key={item.id}
+          avt={item.avtUrl}
+          name={item.name}
+        />
       ))}
     </View>
   )
