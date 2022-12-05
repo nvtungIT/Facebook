@@ -2,6 +2,7 @@ import { View, Text } from 'react-native'
 import { NavigationContainer, StackActions } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
+import SignupScreen from 'modules/screens/SignupScreen'
 import HomeScreen from 'modules/screens/HomeScreen'
 import FriendScreen from 'modules/screens/FriendScreen'
 import MenuScreen from 'modules/screens/MenuScreen'
@@ -22,11 +23,11 @@ export default AppNavigator = () => {
           />
         </Stack.Group>
         <Stack.Group>
-          {/* <Stack.Screen
-            name={ScreenNames.homeScreen}
-            component={HomeScreen}
+          <Stack.Screen
+            name={ScreenNames.signupScreen}
+            component={SignupScreen}
             options={{headerShown: false}}
-          />   */}
+          />  
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
