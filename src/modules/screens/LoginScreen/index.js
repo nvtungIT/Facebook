@@ -1,3 +1,6 @@
+import { useScrollToTop } from '@react-navigation/native';
+import ScreenNames from 'general/constants/ScreenNames';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import {
     View,
@@ -7,14 +10,52 @@ import {
     TextInput,
     TouchableOpacity,
     Keyboard,
-    TouchableHighlight
+    TouchableHighlight,
+    Modal,
+    Pressable
     
 } from 'react-native';
 
 import styles from './styles';
 
+const ModalPopup = ({ visibile, modalTitle, modalContent, setVisible }) => {
 
-export default LoginScreen = () => {
+    const toggleModal = () => {
+        if (visibile) {
+            setVisible(true)
+        } else {
+            setVisible(false)
+        }
+    }
+    
+    useEffect(() => {
+        toggleModal()
+    }, [visibile])
+    return (
+        <Modal transparent visible={visibile}>
+            <View style={styles.modalBackground}>
+                <View style={[styles.modalContainer]}>
+                    <View style={styles.modalTitleWrap}>
+                        <Text style={styles.modalTitle}>{ modalTitle ? modalTitle : "Modal Title Default"}</Text>
+                    </View>
+                    <View style={styles.modalContentWrap}>
+                        <Text style={styles.modalContent}>{ modalContent ? modalContent : "Modal Content Default slkgjsldfgjs;ldgjlds;fgjfdklgjfdgj"}</Text>
+                    </View>
+                    <TouchableOpacity
+                        style={styles.modalExitWrap}
+                        onPress={() => {
+                            setVisible(false)
+                        }}
+                    >
+                        <Text style={styles.modalExit}>OK</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </Modal>
+    )
+}
+
+export default LoginScreen = ({navigation}) => {
     const [underPhone, setUnderPhone] = useState(false) 
     const [underPassword, setUnderPassword] = useState(false)
     const [pressInPhone, setPressInPhone] = useState(false)
@@ -27,6 +68,10 @@ export default LoginScreen = () => {
     const [isLoginBtnPressed, setIsLoginBtnPressed] = useState(false)
     const [isCreateAccPressed, setIsCreateAccPressed] = useState(false)
 
+    const [modalTitle, setModalTitle] = useState("modal title default")
+    const [modalContent, setModalContent] = useState("modal content default")
+    const [visible, setVisible] = useState()
+
     Keyboard.addListener('keyboardDidShow', () => {
         setIsKeyBoardShow(true)
     })
@@ -34,6 +79,48 @@ export default LoginScreen = () => {
     Keyboard.addListener('keyboardDidHide', () => {
         setIsKeyBoardShow(false)
     })
+
+
+    const login = async (phoneNumber, password) => {
+        try {
+            const response = await fetch(`http://192.168.1.40:5000/it4788/auth/login`, {
+                method: 'POST',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    phoneNumber,
+                    password
+                })
+            })
+
+            const data = await response.json()
+            if (data) {
+                console.log(data);
+
+                if (data.code === "1000") {
+                    const token = await data.data.token;
+                    navigation.navigate(ScreenNames.homeScreen, {token: token})
+                    console.log("Đăng nhập thành công, token:  ", token)
+                } else if (data.code === "9995" || data.code === "1004") {
+                    setModalTitle("Sai thông tin đăng nhập")
+                    setModalContent("Tên người dùng hoặc mật khẩu không hợp lệ")
+                    setVisible(true)
+                } else if (data.code === "1002") {
+                    setModalTitle("Thiếu thông tin")
+                    setModalContent("Thiếu thông tin tên người dùng hoặc mật khẩu")
+                    setVisible(true)
+                } 
+            } else {
+                setModalTitle("Đăng nhập không thành công")
+                setModalContent("Rất tiếc, không thể đăng nhập. Vui lòng kiểm tra kết nối Internet.")
+                setVisible(true)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
     
@@ -43,6 +130,12 @@ export default LoginScreen = () => {
                 flex: 1
             }}
         >
+            <ModalPopup visibile={visible} setVisible={setVisible} modalTitle={modalTitle} modalContent={modalContent}>
+                <View styles={{alignItems: 'center'}}>
+                    
+                </View>
+                
+            </ModalPopup>
             <View>
                 <View>
                     <Image
@@ -70,7 +163,7 @@ export default LoginScreen = () => {
                             setPhoneNumber(newPhone)
                         }}
 
-                        keyboardType='phone-pad'
+                        // keyboardType='phone-pad'
                         onFocus={() => {
                             setUnderPhone(true)
                             setUnderPassword(false)
@@ -141,7 +234,8 @@ export default LoginScreen = () => {
                     underlayColor='#999999'
                     activeOpacity={0.9}
                     onPress={() => {
-                        // setIsLoginBtnPressed(true)
+                        console.log("Login: ", phoneNumber, password)
+                        login(phoneNumber, password)
                     }}
                     onShowUnderlay={() => {
                         setIsLoginBtnPressed(true)

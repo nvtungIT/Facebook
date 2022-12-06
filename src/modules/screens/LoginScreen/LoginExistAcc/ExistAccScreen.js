@@ -1,12 +1,15 @@
+import ScreenNames from "general/constants/ScreenNames";
 import { useState } from "react";
 import { Button, Image, Pressable, SafeAreaView, StyleSheet, Text, TextInput, TouchableHighlight, TouchableNativeFeedback, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
 import Icon from 'react-native-vector-icons/Entypo';
 
-export default ExistAccScreen = () => {
+export default ExistAccScreen = ({navigation}) => {
   const [isPlusPress, setIsPlusPress] = useState(false)
   const [isSearchPress, setIsSearchPress] = useState(false)
   const [isCreateNewPress, setIsCreateNewPress] = useState(false)
   const [isShowExtendedList, setIsShowExtendedList] = useState(false)
+
+  console.log(navigation)
 
   return (
     <SafeAreaView style={styles.body}>
@@ -34,7 +37,7 @@ export default ExistAccScreen = () => {
           ]}
           
           onPress={() => {
-            
+            navigation.navigate(ScreenNames.loginWithExistAccScreen)
           }}
         >
           <View

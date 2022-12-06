@@ -95,8 +95,51 @@ const styles = StyleSheet.create({
     color: 'gray',
     textAlign: 'center',
     paddingTop: 5
-  }
+  },
 
+  modalBackground: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  modalContainer: {
+    width: '80%',
+    height: 240,
+    backgroundColor: 'white',
+    paddingHorizontal: 20,
+    paddingVertical: 30,
+    borderRadius: 3,
+    position: 'relative'
+  },
+  modalTitleWrap: {
+    color: 'black',
+    marginBottom: 30
+
+  },
+  modalTitle: {
+    color: 'black',
+    fontSize: 19,
+  },
+  modalContentWrap: {
+    marginBottom: 20
+  },
+  modalContent: {
+    fontSize: 15
+  },
+
+  modalExitWrap: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    padding: 10,
+    margin: 20
+  },
+  modalExit: {
+    fontSize: 17,
+    fontWeight: '600',
+    color: '#126cd6'
+  }
 })
 
 export default styles;
