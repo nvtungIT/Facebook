@@ -39,11 +39,6 @@ export default function SignupScreen({ navigation }){
     };
 
     const handleRegister = async () => {
-        console.log({name: lastName + firstName,
-            birthday: date,
-            phoneNumber: phone,
-            email: email,
-            password: password,});
         try {
             const response = await fetch(
               'http://192.168.8.121:5000/it4788/auth/signup',{
@@ -62,12 +57,11 @@ export default function SignupScreen({ navigation }){
               }
             );
             const json = await response.json();
-            console.log(json);
+            // console.log(json);
             return json.movies;
           } catch (error) {
             console.error(error);
           }
-        navigation.navigate(ScreenNames.mainTab)
     }
     
     return (
@@ -100,6 +94,7 @@ export default function SignupScreen({ navigation }){
                 </View>
             </View>
             }
+            {/* Name */}
             {field == 1 && 
             <View style={styles.formGroup}>
                 <View style={styles.formNavigate}>
@@ -136,6 +131,7 @@ export default function SignupScreen({ navigation }){
                                 style={styles.formInput}
                                 onBlur={onBlur}
                                 placeholder="Họ"
+                                placeholderTextColor="#8a8b8d"
                                 onChangeText={
                                     (lastName) => {
                                         onChange(lastName);
@@ -156,6 +152,7 @@ export default function SignupScreen({ navigation }){
                             <TextInput
                                 style={styles.formInput}
                                 placeholder="Tên"
+                                placeholderTextColor="#8a8b8d" 
                                 onBlur={onBlur}
                                 onChangeText={
                                     (firstName) => {
@@ -178,6 +175,7 @@ export default function SignupScreen({ navigation }){
                 </View>
             </View>
             }
+            {/* Birthday */}
             {field == 2 && 
             <View style={styles.formGroup}>
                 <View style={styles.formNavigate}>
@@ -199,6 +197,7 @@ export default function SignupScreen({ navigation }){
                         onDateChange={setDate}
                         mode="date"
                         fadeToColor="none"
+                        theme="light"
                         />
                     </View>
                     <View style={styles.buttonView}>
@@ -209,6 +208,7 @@ export default function SignupScreen({ navigation }){
                 </View>
             </View>
             }
+            {/* Phone */}
             {field == 3 && 
             <View style={styles.formGroup}>
                 <View style={styles.formNavigate}>
@@ -246,6 +246,7 @@ export default function SignupScreen({ navigation }){
                 </View>
             </View>
             }
+            {/* Email */}
             {field == 4 && 
             <View style={styles.formGroup}>
                 <View style={styles.formNavigate}>
@@ -280,6 +281,7 @@ export default function SignupScreen({ navigation }){
                                 style={styles.formInput}
                                 onBlur={onBlur}
                                 placeholder="Email"
+                                placeholderTextColor="#8a8b8d"
                                 onChangeText={
                                     (email) => {
                                         onChange(email);
@@ -300,6 +302,7 @@ export default function SignupScreen({ navigation }){
                 </View>
             </View>
             }
+        {/* Mật khẩu */}
             {field == 5 && 
             <View style={styles.formGroup}>
                 <View style={styles.formNavigate}>
@@ -330,6 +333,7 @@ export default function SignupScreen({ navigation }){
                                 style={styles.formInput}
                                 onBlur={onBlur}
                                 placeholder="Mật khẩu"
+                                placeholderTextColor="#8a8b8d"
                                 onChangeText={
                                     (password) => {
                                         onChange(password);
@@ -366,7 +370,10 @@ export default function SignupScreen({ navigation }){
                     <Text style={styles.formNote}>Bằng cách nhấn vào Đăng ký, bạn đồng ý với ... </Text>
                     <View style={styles.buttonView}>
                     <Button
-                    onPress={handleRegister}
+                    onPress={() => {
+                        handleRegister();
+                        navigation.navigate(ScreenNames.mainTab);
+                    }}
                     title="Đăng ký"/>
                     </View>
                 </View>

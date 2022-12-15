@@ -17,18 +17,19 @@ export default AppNavigator = () => {
       <Stack.Navigator>
       <Stack.Group>
           <Stack.Screen
-            name={ScreenNames.signUpScreen}
-            component={SignupScreen}
-            options={{headerShown: false}}
-          />  
-        </Stack.Group>
-        <Stack.Group>
-          <Stack.Screen
             name={ScreenNames.mainTab}
             component={MainTabNavigator}
             options={{ headerShown: false }}
           />
         </Stack.Group>
+      <Stack.Group>
+          <Stack.Screen
+            name={ScreenNames.signUpScreen}
+            component={SignupScreen}
+            options={{headerShown: false}}
+          />  
+        </Stack.Group>
+        
         
       </Stack.Navigator>
     </NavigationContainer>
