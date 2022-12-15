@@ -9,4 +9,12 @@ export default ScreenNames = {
   // views
   allFriendView: 'Tất cả bạn bè',
   suggestedFriendView: 'Gợi ý',
+
+  //login screens
+  loginScreen: 'LoginScreen',
+  existAccScreen: 'ExistAccScreen',
+  loginWithExistAccScreen: 'LoginWithExistAccScreen',
+
+  //Signup
+  signupScreen: 'SignupScreen',
 }
