@@ -12,7 +12,7 @@ import {
 import AppStatusBar from 'modules/components/AppStatusBar'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-export default function HomeScreen(props) {
+export default HomeScreen = (props) => {
   console.log('HomeScreen is rendering !!!!')
   console.log(props)
   return (
