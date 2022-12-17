@@ -87,7 +87,7 @@ export default LoginScreen = ({ navigation }) => {
   const login = async (phoneNumber, password) => {
     try {
       const response = await fetch(
-        `http://192.168.1.40:5000/it4788/auth/login`,
+        `http://192.168.1.56:5000/it4788/auth/login`,
         {
           method: 'POST',
           headers: {
@@ -107,7 +107,7 @@ export default LoginScreen = ({ navigation }) => {
 
         if (data.code === '1000') {
           const token = await data.data.token
-          navigation.navigate(ScreenNames.homeScreen, { token: token })
+          navigation.navigate(ScreenNames.mainTab, { token: token })
           console.log('Đăng nhập thành công, token:  ', token)
         } else if (data.code === '9995' || data.code === '1004') {
           setModalTitle('Sai thông tin đăng nhập')

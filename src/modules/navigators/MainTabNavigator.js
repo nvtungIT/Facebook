@@ -20,7 +20,7 @@ export default MainTabNavigator = () => {
   return (
     <SafeAreaProvider>
       <AppHeader />
-      <Tab.Navigator initialRouteName={ScreenNames.friendScreen}>
+      <Tab.Navigator initialRouteName={ScreenNames.homeScreen}>
         <Tab.Screen
           options={{
             title: ({ color, focused }) => (
