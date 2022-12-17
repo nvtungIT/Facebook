@@ -58,7 +58,7 @@ const AddPost = () => {
             {imageSrc.length > 0 && 
               <View style={styles.imageWrapper}>
                 {[0, 1, 2, 3].map(image => {
-                  return <ImageBox key={image} uri={imageSrc[image]} setImageSrc={setImageSrc} />
+                  return <ImageBox key={image} uri={imageSrc[image]} setImageSrc={setImageSrc} chooseFiles={chooseFiles} />
                 })}
               </View>
             }
@@ -76,7 +76,7 @@ const AddPost = () => {
   )
 }
 
-function ImageBox({uri, setImageSrc}) {
+function ImageBox({uri, setImageSrc, chooseFiles}) {
   const deleteImage = () => {
     setImageSrc(preState => preState.filter(item => item !== uri))
   }
@@ -91,7 +91,9 @@ function ImageBox({uri, setImageSrc}) {
           <Image key={uri} source={{uri}} width={30} height={30} />
         </View>
       :
-        <EntypoIcon name='plus' size={30} color='black' />
+        <Pressable onPress={chooseFiles}>
+          <EntypoIcon name='plus' size={30} color='black' />
+        </Pressable>
       }
     </View>
   )
