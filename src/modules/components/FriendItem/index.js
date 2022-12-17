@@ -1,9 +1,21 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import Icon from 'react-native-vector-icons/Entypo'
-
+import MoreAllFriendModal from 'modules/views/MoreAllFriendModal'
+import { useState } from 'react'
 export default function FriendItem(props) {
+  const [moreAllFriendModalVisible, setMoreAllFriendModalVisible] = useState(
+    false,
+  )
+
   return (
     <View style={styles.container}>
+      <MoreAllFriendModal
+        isVisible={moreAllFriendModalVisible}
+        onModalHidden={() => {
+          setMoreAllFriendModalVisible(false)
+        }}
+        {...props}
+      ></MoreAllFriendModal>
       <View style={styles.left_part}>
         <Image style={[styles.avt, { marginLeft: 20 }]} source={props.avt} />
       </View>
@@ -12,7 +24,12 @@ export default function FriendItem(props) {
           <View style={{}}>
             <Text style={styles.name}>{props.name}</Text>
           </View>
-          <TouchableOpacity style={{ marginRight: 20 }}>
+          <TouchableOpacity
+            onPress={() => {
+              setMoreAllFriendModalVisible(true)
+            }}
+            style={{ marginRight: 20 }}
+          >
             <Icon size={20} color="#63666A" name="dots-three-horizontal" />
           </TouchableOpacity>
         </View>
