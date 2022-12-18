@@ -8,7 +8,7 @@ export default function FriendItem(props) {
   )
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container}>
       <MoreAllFriendModal
         isVisible={moreAllFriendModalVisible}
         onModalHidden={() => {
@@ -34,7 +34,7 @@ export default function FriendItem(props) {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 const styles = StyleSheet.create({

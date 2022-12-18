@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     color: '#000000',
     marginLeft: 20,
   },
-  right_part: {},
+
   tab: {
     width: '100%',
     display: 'flex',
@@ -39,10 +39,21 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlignVertical: 'center',
+    fontWeight: 'bold',
+    color: '#000000',
+    fontSize: 16,
   },
   icon: {
     fontSize: 30,
-    color: 'grey',
+    color: '#000000',
+    fontWeight: 'bold',
+    marginLeft: 20,
+  },
+  icon_container: {
+    width: 65,
+    height: 50,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
   },
 })
 

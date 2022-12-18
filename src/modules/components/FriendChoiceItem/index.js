@@ -1,9 +1,11 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
-
+import { useState, useEffect } from 'react'
 export default function FriendChoiceItem(props) {
+  const [isFirstButtonClicked, setIsFirstButtonClicked] = useState(false)
+
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container}>
       <View style={styles.left_part}>
         <Image style={[styles.avt, { marginLeft: 20 }]} source={props.avt} />
       </View>
@@ -11,18 +13,31 @@ export default function FriendChoiceItem(props) {
         <View style={styles.name_container}>
           <Text style={styles.name}>{props.name}</Text>
         </View>
-        <View style={styles.button_container}>
-          <TouchableOpacity style={styles.first_button}>
-            <Text style={styles.button_text}>{props.first_button}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.second_button}>
-            <Text style={[styles.button_text, { color: 'black' }]}>
-              {props.second_button}
-            </Text>
-          </TouchableOpacity>
-        </View>
+        {isFirstButtonClicked ? (
+          <View style={styles.button_container}>
+            <Text sty>Đã chấp nhận</Text>
+          </View>
+        ) : (
+          <View style={styles.button_container}>
+            <TouchableOpacity
+              onPress={() => {
+                setIsFirstButtonClicked(true)
+                console.log(isFirstButtonClicked)
+              }}
+              style={styles.first_button}
+            >
+              <Text style={styles.button_text}>{props.first_button}</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.second_button}>
+              <Text style={[styles.button_text, { color: 'black' }]}>
+                {props.second_button}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 const styles = StyleSheet.create({

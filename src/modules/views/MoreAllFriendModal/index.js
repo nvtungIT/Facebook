@@ -1,8 +1,9 @@
 const { default: ReactNativeModal } = require('react-native-modal')
 import React from 'react'
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
 import styles from './style'
-import FontAwesome5Brands from 'react-native-vector-icons/FontAwesome5Pro'
+import AntDesign from 'react-native-vector-icons/AntDesign'
+import Feather from 'react-native-vector-icons/Feather'
 export default function MoreAllFriendModal(props) {
   const { isVisible, onModalHidden, avt, name } = props
   return (
@@ -22,17 +23,31 @@ export default function MoreAllFriendModal(props) {
       style={{ margin: 0 }}
     >
       <View style={styles.modal_container}>
-        <View style={styles.info_container}>
+        <TouchableOpacity style={styles.info_container}>
           <Image style={styles.avt} source={avt} />
           <Text style={styles.name}>{name}</Text>
-        </View>
-        <View style={styles.tab}>
-          <FontAwesome5Brands style={styles.icon} name="facebook-messenger" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.tab}>
+          <View style={styles.icon_container}>
+            <AntDesign
+              style={[styles.icon, { marginLeft: 16 }]}
+              name="message1"
+            />
+          </View>
           <Text style={styles.text}>Nhắn tin cho {name}</Text>
-        </View>
-        <View style={styles.tab}></View>
-        <View style={styles.tab}></View>
-        <View style={styles.tab}></View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.tab}>
+          <View style={styles.icon_container}>
+            <Feather name="user-minus" style={styles.icon} />
+          </View>
+          <Text style={styles.text}>Chặn trang cá nhân của {name}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.tab}>
+          <View style={styles.icon_container}>
+            <Feather name="user-x" style={styles.icon} />
+          </View>
+          <Text style={styles.text}>Huỷ kết bạn với {name}</Text>
+        </TouchableOpacity>
       </View>
     </ReactNativeModal>
   )
