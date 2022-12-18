@@ -9,10 +9,15 @@ import {
 import ImagesComponent from './imagesComponent';
 import TextComponent from './textComponent';
 import VideoComponent from './videoComponent';
+import AntDesignIcon from 'react-native-vector-icons/AntDesign';
+import Octicons from 'react-native-vector-icons/Octicons';
+import FeatherIcon from 'react-native-vector-icons/Feather';
+import { useState } from 'react';
 const window = Dimensions.get('window');
 
 export default PostComponent = ({ post, type }) => {
-  const onPressFunc = () => {};
+  const showModal = () => {};
+
   return (
     <View style={styles.container}>
       <View style={styles.topPart}>
@@ -26,6 +31,9 @@ export default PostComponent = ({ post, type }) => {
           <Text>{post.userName}</Text>
           <Text>{post.postStatus}</Text>
         </View>
+        <Pressable onPress={showModal} style={styles.moreicon}>
+          <FeatherIcon name="more-horizontal" size={20} color="black" />
+        </Pressable>
       </View>
       <View style={styles.contentPart}>
         <TextComponent type={type} content={post.postContent} />
@@ -37,11 +45,34 @@ export default PostComponent = ({ post, type }) => {
         )}
       </View>
       <View style={styles.bottomPart}>
-        <Text>Show number likes, comments here </Text>
+        <View style={styles.bottomPart.part1}>
+          <View style={{ flex: 1 }}>
+            <Text>
+              <AntDesignIcon name="like2" size={20} color="blue" />
+              {post.like}
+            </Text>
+          </View>
+          <View style={{ flex: 1, alignItems: 'flex-end' }}>
+            <Text>{post.comment} bình luận</Text>
+          </View>
+        </View>
+        <View style={[styles.bottomPart.part2, {}]}>
+          <Pressable style={{ flex: 1, alignItems: 'center' }}>
+            <Text>
+              <AntDesignIcon name="like2" size={15} color="black" />
+              <Text style={{ textAlign: 'right' }}> Thích</Text>
+            </Text>
+          </Pressable>
+          {post.can_comment == '1' && (
+            <Pressable style={{ flex: 1, alignItems: 'center' }}>
+              <Text>
+                <Octicons name="comment" size={15} color="black" />
+                <Text> Bình luận</Text>
+              </Text>
+            </Pressable>
+          )}
+        </View>
       </View>
-      <Pressable onPress={onPressFunc}>
-        <Text>I'm pressable!</Text>
-      </Pressable>
     </View>
   );
 };
@@ -56,8 +87,16 @@ const styles = StyleSheet.create({
   },
   topPart: {
     flexDirection: 'row',
+    flex: 1,
   },
-  userNamePart: {},
+  userNamePart: {
+    flex: 1,
+  },
+  moreicon: {
+    flex: 1,
+    alignItems: 'flex-end',
+    paddingRight: 20,
+  },
   avaImg: {
     width: 50,
     height: 50,
@@ -77,7 +116,23 @@ const styles = StyleSheet.create({
     right: 0,
   },
   bottomPart: {
-    flexDirection: 'row',
+    part1: {
+      flexDirection: 'row',
+      flex: 1,
+      padding: 5,
+      margin: 5,
+    },
+    part2: {
+      flexDirection: 'row',
+      flex: 1,
+      padding: 5,
+      paddingTop: 15,
+      marginLeft: 10,
+      marginRight: 10,
+      borderTopColor: '#ECECEC',
+      borderWidth: 1,
+      borderColor: 'white',
+    },
   },
   logo: {
     width: 66,

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { View, Image, StyleSheet, Dimensions } from 'react-native';
 const window = Dimensions.get('window');
 
