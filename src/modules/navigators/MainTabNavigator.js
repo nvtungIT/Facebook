@@ -1,20 +1,20 @@
-import React from 'react'
-import Icon from 'react-native-vector-icons/Ionicons'
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
+import React from 'react';
+import Icon from 'react-native-vector-icons/Ionicons';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import HomeScreen from 'modules/screens/HomeScreen'
-import FriendScreen from 'modules/screens/FriendScreen'
-import MenuScreen from 'modules/screens/MenuScreen'
-import ScreenNames from 'general/constants/ScreenNames'
-import NotificationScreen from 'modules/screens/NotificationScreen'
-import VideoScreen from 'modules/screens/VideoScreen'
-import AppHeader from 'modules/components/AppHeader'
+import HomeScreen from 'modules/screens/HomeScreen';
+import FriendScreen from 'modules/screens/FriendScreen';
+import MenuScreen from 'modules/screens/MenuScreen';
+import ScreenNames from 'general/constants/ScreenNames';
+import NotificationScreen from 'modules/screens/NotificationScreen';
+import VideoScreen from 'modules/screens/VideoScreen';
+import AppHeader from 'modules/components/AppHeader';
 
-const Tab = createMaterialTopTabNavigator()
+const Tab = createMaterialTopTabNavigator();
 
-export default (MainTabNavigator) => {
+export default MainTabNavigator = ({ navigation }) => {
   return (
     <SafeAreaProvider>
       <AppHeader />
@@ -86,5 +86,5 @@ export default (MainTabNavigator) => {
         />
       </Tab.Navigator>
     </SafeAreaProvider>
-  )
-}
+  );
+};

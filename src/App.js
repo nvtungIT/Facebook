@@ -14,9 +14,9 @@ function App() {
         backgroundColor="#ffffff"
         barStyle="dark-content"
       />
-      {/* <AppNavigator /> */}
+      <AppNavigator />
       {/* <AddPost /> */}
-      <SignupScreen />
+      {/* <SignupScreen /> */}
     </SafeAreaProvider>
   );
 }
