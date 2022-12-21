@@ -5,21 +5,21 @@ import {
   StyleSheet,
   StatusBar,
   ScrollView,
+  View,
 } from 'react-native';
 import PostComponent from '../postComponent';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default function SinglePostScreen({ navigation, route }) {
   const { post } = route.params;
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView}>
-        <Pressable onPress={() => navigation.goBack()}>
-          <Image
-            style={{ width: 30, height: 30 }}
-            source={{
-              uri: 'https://haycafe.vn/wp-content/uploads/2022/03/avatar-facebook-doc.jpg',
-            }}
-          />
+      <ScrollView horizontal={false} style={styles.scrollView}>
+        <Pressable
+          style={styles.goBackIcon}
+          onPress={() => navigation.goBack()}
+        >
+          <Ionicons name="chevron-back" size={25} color="black" />
         </Pressable>
         <PostComponent post={post} type={'single'} />
       </ScrollView>
@@ -32,9 +32,13 @@ const styles = StyleSheet.create({
     flex: 1,
     // paddingTop: StatusBar.currentHeight,
   },
+  goBackIcon: {
+    position: 'absolute',
+    zIndex: 1,
+    paddingTop: 25,
+  },
   scrollView: {
     backgroundColor: 'white',
-    // marginHorizontal: 20,
   },
   text: {
     fontSize: 42,

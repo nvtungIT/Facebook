@@ -1,8 +1,6 @@
 import { View, Image, StyleSheet, Dimensions } from 'react-native';
 const window = Dimensions.get('window');
 
-// const [typePost, setTypePost] = useState();
-
 const Image1 = ({ type, imgUrls }) => {
   return (
     <View style={styles.oneImage}>
@@ -13,7 +11,12 @@ const Image1 = ({ type, imgUrls }) => {
 
 const Image2 = ({ type, imgUrls }) => {
   return (
-    <View style={styles.twoImage}>
+    <View
+      style={[
+        styles.twoImage,
+        { flexDirection: type == 'single' ? 'column' : 'row' },
+      ]}
+    >
       <Image style={{ flex: 1 }} source={{ uri: imgUrls[0] }} />
       <Image style={{ flex: 1 }} source={{ uri: imgUrls[1] }} />
     </View>
@@ -71,7 +74,6 @@ const styles = StyleSheet.create({
   },
   twoImage: {
     flex: 1,
-    flexDirection: 'row',
     height: window.height / 3,
   },
   threeImage: {
