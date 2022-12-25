@@ -11,10 +11,10 @@ import ExistAccScreen from 'modules/screens/LoginScreen/LoginExistAcc/ExistAccSc
 import LoginWithExistAccScreen from 'modules/screens/LoginScreen/LoginExistAcc/LoginWithExistAccScreen'
 import LoginScreen from 'modules/screens/LoginScreen'
 import HomeScreen from 'modules/screens/HomeScreen'
-
+import SearchFriendView from 'modules/views/SearchFriendView'
 const Stack = createNativeStackNavigator()
 
-export default AppNavigator = () => {
+export default AppNavigator = (navigation) => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -57,26 +57,20 @@ export default AppNavigator = () => {
           }}
         >
           <Stack.Screen
-            name={ScreenNames.allFriendView}
-            component={AllFriendView}
-            options={{
-              headerRight: () => (
-                <TouchableOpacity>
-                  <Icon size={24} name="search" color="black" />
-                </TouchableOpacity>
-              ),
-            }}
-          />
-          <Stack.Screen
             name={ScreenNames.suggestedFriendView}
             component={SuggestedFriendView}
-            options={{
-              headerRight: () => (
-                <TouchableOpacity>
-                  <Icon size={24} name="search" color="black" />
-                </TouchableOpacity>
-              ),
-            }}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name={ScreenNames.allFriendView}
+            component={AllFriendView}
+            options={{ headerShown: false }}
+          />
+
+          <Stack.Screen
+            name={ScreenNames.searchFriendView}
+            component={SearchFriendView}
+            options={{ headerShown: false }}
           />
         </Stack.Group>
       </Stack.Navigator>

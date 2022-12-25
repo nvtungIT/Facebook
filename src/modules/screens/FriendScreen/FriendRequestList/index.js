@@ -5,17 +5,7 @@ import FriendChoiceItem from 'modules/components/FriendChoiceItem'
 export default function FriendRequestList() {
   const [isLoading, setLoading] = useState(true)
   const [data, setData] = useState([])
-  const getRequestedFriendList = async () => {
-    try {
-      const response = await fetch('https://reactnative.dev/movies.json')
-      const json = await response.json()
-      setData(json.movies)
-    } catch (error) {
-      console.error(error)
-    } finally {
-      setLoading(false)
-    }
-  }
+  const getRequestedFriendList = async () => {}
 
   useEffect(() => {
     getRequestedFriendList()

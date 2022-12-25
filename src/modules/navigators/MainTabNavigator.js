@@ -16,7 +16,6 @@ import AppHeader from 'modules/components/AppHeader'
 const Tab = createMaterialTopTabNavigator()
 
 export default MainTabNavigator = () => {
-  const isHomeTabFocused = useIsFocused()
   return (
     <SafeAreaProvider>
       <AppHeader />

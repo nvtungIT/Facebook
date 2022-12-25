@@ -9,6 +9,7 @@ export default ScreenNames = {
   // views
   allFriendView: 'Tất cả bạn bè',
   suggestedFriendView: 'Gợi ý',
+  searchFriendView: 'SearchFriendView',
 
   //login screens
   loginScreen: 'LoginScreen',
@@ -17,4 +18,6 @@ export default ScreenNames = {
 
   //Signup
   signupScreen: 'SignupScreen',
+
+  // friendScreen
 }

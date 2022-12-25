@@ -11,9 +11,6 @@ export default function FriendItem(props) {
     <TouchableOpacity style={styles.container}>
       <MoreAllFriendModal
         isVisible={moreAllFriendModalVisible}
-        onModalHidden={() => {
-          setMoreAllFriendModalVisible(false)
-        }}
         {...props}
       ></MoreAllFriendModal>
       <View style={styles.left_part}>

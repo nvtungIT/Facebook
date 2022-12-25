@@ -24,6 +24,9 @@ export default function FriendSearch(props) {
           Bạn bè
         </Text>
         <TouchableOpacity
+          onPress={() => {
+            props.navigation.navigate(ScreenNames.searchFriendView)
+          }}
           style={{
             backgroundColor: '#d4d2d2',
             width: 40,

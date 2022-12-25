@@ -1,12 +1,13 @@
 import { StyleSheet } from 'react-native'
 const styles = StyleSheet.create({
   modal_container: {
-    width: '100%',
-    bottom: 0,
-    position: 'absolute',
-    backgroundColor: '#ffffff',
+    height: 200,
+
+    backgroundColor: '#d3d5d5',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
+    justifyContent: 'center',
+    marginHorizontal: '10%',
   },
   info_container: {
     width: '100%',
