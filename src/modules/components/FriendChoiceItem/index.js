@@ -4,14 +4,15 @@ import { useState, useEffect } from 'react'
 import VerifyModal from '../../components/VerifyModal'
 export default function FriendChoiceItem(props) {
   const [isFirstButtonClicked, setIsFirstButtonClicked] = useState(false)
-
+  const [isVerifyModalVisible, setIsVerifyModalVisible] = useState(false)
   return (
     <>
       <VerifyModal
-        isVisible={isFirstButtonClicked}
+        isVisible={isVerifyModalVisible}
         onModalHidden={() => {
-          setIsFirstButtonClicked(false)
+          setIsVerifyModalVisible(false)
         }}
+        {...props}
       ></VerifyModal>
       <TouchableOpacity style={styles.container}>
         <View style={styles.left_part}>
@@ -22,14 +23,15 @@ export default function FriendChoiceItem(props) {
             <Text style={styles.name}>{props.name}</Text>
           </View>
           {isFirstButtonClicked ? (
-            <View style={styles.button_container}>
-              <Text sty>Đã chấp nhận</Text>
+            <View style={[styles.button_container, { marginTop: 20 }]}>
+              <Text>Đã chấp nhận</Text>
             </View>
           ) : (
             <View style={styles.button_container}>
               <TouchableOpacity
                 onPress={() => {
                   setIsFirstButtonClicked(true)
+                  setIsVerifyModalVisible(true)
                   console.log(isFirstButtonClicked)
                 }}
                 style={styles.first_button}

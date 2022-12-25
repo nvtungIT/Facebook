@@ -31,6 +31,7 @@ export default function FriendRequestList() {
           key={item.id}
           avt={item.avtUrl}
           name={item.name}
+          taskName="trở thành bạn bè với"
         />
       ))}
     </View>

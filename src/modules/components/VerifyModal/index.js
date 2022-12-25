@@ -5,7 +5,7 @@ import styles from './style'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Feather from 'react-native-vector-icons/Feather'
 export default function VerifyModal(props) {
-  const { isVisible, onModalHidden } = props
+  const { isVisible, onModalHidden, name, taskName } = props
   return (
     <ReactNativeModal
       isVisible={isVisible}
@@ -15,7 +15,7 @@ export default function VerifyModal(props) {
         }
       }}
       coverScreen={true}
-      hasBackdrop={false}
+      hasBackdrop={true}
       onSwipeComplete={() => {
         onModalHidden()
       }}
@@ -23,7 +23,19 @@ export default function VerifyModal(props) {
       style={{ margin: 0 }}
     >
       <View style={styles.modal_container}>
-        <Text>Bạn có đồng ý thêm </Text>
+        <View style={styles.text_container}>
+          <Text style={styles.title}>Xác nhận {taskName}</Text>
+          <Text style={[styles.title, { fontWeight: 'bold' }]}>{name}</Text>
+        </View>
+        <View style={styles.button_container}>
+          <TouchableOpacity style={styles.first_button}>
+            <Text style={styles.button_text}>Xác nhận</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.second_button}>
+            <Text style={[styles.button_text, { color: 'black' }]}>Hủy</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </ReactNativeModal>
   )

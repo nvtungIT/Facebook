@@ -2,59 +2,60 @@ import { StyleSheet } from 'react-native'
 const styles = StyleSheet.create({
   modal_container: {
     height: 200,
-
-    backgroundColor: '#d3d5d5',
+    backgroundColor: '#ffffff',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    justifyContent: 'center',
     marginHorizontal: '10%',
   },
-  info_container: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: 80,
-    borderBottomColor: '#d4d2d2',
-    borderBottomWidth: 1,
-    paddingLeft: 20,
-  },
-  avt: {
-    height: 60,
-    width: 60,
-    borderRadius: 60,
-  },
-  name: {
+
+  title: {
     fontSize: 18,
-    fontWeight: 'bold',
     color: '#000000',
-    marginLeft: 20,
+    textAlign: 'center',
   },
 
-  tab: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row',
-    height: 50,
-    alignItems: 'center',
-  },
   text: {
     textAlignVertical: 'center',
     fontWeight: 'bold',
     color: '#000000',
     fontSize: 16,
   },
-  icon: {
-    fontSize: 30,
-    color: '#000000',
-    fontWeight: 'bold',
-    marginLeft: 20,
-  },
-  icon_container: {
-    width: 65,
-    height: 50,
-    alignItems: 'flex-start',
+  text_container: {
+    height: '50%',
+    width: '100%',
     justifyContent: 'center',
+  },
+  first_button: {
+    width: '30%',
+    backgroundColor: '#1778F2',
+    borderRadius: 20,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: '15%',
+  },
+  second_button: {
+    width: '30%',
+    backgroundColor: '#d4d2d2',
+    borderRadius: 20,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: '15%',
+  },
+  button_container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    // backgroundColor: 'red',
+    width: '100%',
+    height: '50%',
+  },
+
+  button_text: {
+    fontSize: 16,
+    color: 'white',
+    fontWeight: 'bold',
   },
 })
 
