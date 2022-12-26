@@ -9,6 +9,14 @@ export default function FriendChoiceItem(props) {
     <>
       <VerifyModal
         isVisible={isVerifyModalVisible}
+        onCancelPressed={() => {
+          setIsFirstButtonClicked(false)
+          setIsVerifyModalVisible(false)
+        }}
+        onVerifyPressed={() => {
+          setIsFirstButtonClicked(true)
+          setIsVerifyModalVisible(false)
+        }}
         onModalHidden={() => {
           setIsVerifyModalVisible(false)
         }}
@@ -30,9 +38,7 @@ export default function FriendChoiceItem(props) {
             <View style={styles.button_container}>
               <TouchableOpacity
                 onPress={() => {
-                  setIsFirstButtonClicked(true)
                   setIsVerifyModalVisible(true)
-                  console.log(isFirstButtonClicked)
                 }}
                 style={styles.first_button}
               >

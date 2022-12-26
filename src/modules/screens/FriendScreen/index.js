@@ -15,13 +15,13 @@ export default function FriendScreen({ navigation }) {
   console.log('FriendScreen is rendering !!!!')
 
   return (
-    <View style={{ flex: 1 }}>
+    
       <SafeAreaView>
         <ScrollView>
           <FriendSearch navigation={navigation} />
           <FriendRequestList />
         </ScrollView>
       </SafeAreaView>
-    </View>
+    
   )
 }

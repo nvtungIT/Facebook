@@ -27,7 +27,8 @@ export default function SuggestedFriendView({ navigation }) {
             key={item.id}
             avt={item.avtUrl}
             name={item.name}
-            taskName="gửi lời mời kết bạn cho "
+            firstTaskName="gửi lời mời kết bạn cho "
+            secondTaskName="gỡ gợi ý kết bạn của"
           />
         ))}
       </ScrollView>
