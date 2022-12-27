@@ -11,6 +11,7 @@ export default function VerifyModal(props) {
     onCancelPressed,
     name,
     firstTaskName,
+    onModalHidden,
   } = props
   return (
     <ReactNativeModal

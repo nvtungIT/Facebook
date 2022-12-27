@@ -4,17 +4,27 @@ import { useState, useEffect } from 'react'
 import VerifyModal from '../../components/VerifyModal'
 export default function FriendChoiceItem(props) {
   const [isFirstButtonClicked, setIsFirstButtonClicked] = useState(false)
+  const [isSecondButtonClicked, setIsSecondButtonClicked] = useState(false)
   const [isVerifyModalVisible, setIsVerifyModalVisible] = useState(false)
+  const [isVerifyButtonClicked, setIsVerifyButtonClicked] = useState(false)
+  var respondeText
+
+  if (isFirstButtonClicked && isVerifyButtonClicked) {
+    respondeText = 'Đã gửi'
+  }
+  if (isSecondButtonClicked && isVerifyButtonClicked) {
+    respondeText = 'Đã gỡ '
+  }
+
   return (
     <>
       <VerifyModal
         isVisible={isVerifyModalVisible}
         onCancelPressed={() => {
-          setIsFirstButtonClicked(false)
           setIsVerifyModalVisible(false)
         }}
         onVerifyPressed={() => {
-          setIsFirstButtonClicked(true)
+          setIsVerifyButtonClicked(true)
           setIsVerifyModalVisible(false)
         }}
         onModalHidden={() => {
@@ -30,14 +40,16 @@ export default function FriendChoiceItem(props) {
           <View style={styles.name_container}>
             <Text style={styles.name}>{props.name}</Text>
           </View>
-          {isFirstButtonClicked ? (
+          {isFirstButtonClicked || isSecondButtonClicked ? (
             <View style={[styles.button_container, { marginTop: 20 }]}>
-              <Text>Đã chấp nhận</Text>
+              <Text>{respondeText}</Text>
             </View>
           ) : (
             <View style={styles.button_container}>
               <TouchableOpacity
                 onPress={() => {
+                  setIsFirstButtonClicked(true)
+                  setIsSecondButtonClicked(false)
                   setIsVerifyModalVisible(true)
                 }}
                 style={styles.first_button}
@@ -45,7 +57,14 @@ export default function FriendChoiceItem(props) {
                 <Text style={styles.button_text}>{props.first_button}</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.second_button}>
+              <TouchableOpacity
+                style={styles.second_button}
+                onPress={() => {
+                  setIsFirstButtonClicked(false)
+                  setIsSecondButtonClicked(true)
+                  setIsVerifyModalVisible(true)
+                }}
+              >
                 <Text style={[styles.button_text, { color: 'black' }]}>
                   {props.second_button}
                 </Text>
