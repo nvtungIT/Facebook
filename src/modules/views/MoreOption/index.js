@@ -4,31 +4,30 @@ import {
   Modal,
   StyleSheet,
   View,
-  Text,
-  Image,
   Pressable,
+  ScrollView,
 } from 'react-native';
+import OptionComponent from './optionComponent';
 
-export default MoreOpt = ({ visible }) => {
-  const [modalVisible, setModalVisible] = useState();
-  setModalVisible(visible);
+export default MoreOption = ({ visible, setvisible, isposter }) => {
+  // const [modalVisible, setModalVisible] = useState(visible);
   return (
-    <View style={styles.modalView}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        // onRequestClose={() => setModalVisible(!modalVisible)}
-      >
-        <Pressable onPress={() => setModalVisible(false)}>
-          <Image
-            source={{
-              uri: 'https://haycafe.vn/wp-content/uploads/2022/03/avatar-facebook-doc.jpg',
-            }}
-            style={{ width: 50, height: 50 }}
+    <View>
+      <Modal animationType="slide" transparent={true} visible={visible}>
+        <View style={styles.modalView}>
+          <Pressable
+            style={styles.darkArea}
+            onPress={() => setvisible(false)}
           />
-        </Pressable>
-        <Text>More option view</Text>
+          <View style={styles.whiteArea}>
+            <ScrollView style={styles.optionsArea}>
+              <OptionComponent optionName={'option 1'} />
+              <OptionComponent optionName={'option 2'} />
+              <OptionComponent optionName={'option 3'} />
+              <OptionComponent optionName={'option 4'} />
+            </ScrollView>
+          </View>
+        </View>
       </Modal>
     </View>
   );
@@ -36,7 +35,25 @@ export default MoreOpt = ({ visible }) => {
 
 const styles = StyleSheet.create({
   modalView: {
+    flex: 1,
+    backgroundColor: 'rgba(52, 52, 52, 0.5)',
+  },
+  darkArea: {
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height / 2,
+    flex: 1,
+  },
+  whiteArea: {
+    backgroundColor: '#e6e6e6',
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+  },
+  optionsArea: {
+    backgroundColor: '#ffffff',
+    marginTop: 25,
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 20,
+    borderRadius: 8,
+    padding: 10,
   },
 });

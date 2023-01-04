@@ -31,7 +31,7 @@ const SingleComment = ({ comment }) => {
   );
 };
 
-const CommentInputComp = ({ avaUser }) => {
+export const CommentInputComp = ({ avaUser }) => {
   return (
     <View style={styles.inputcontainer}>
       <Image source={{ uri: avaUser }} style={styles.avaUser} />
@@ -55,7 +55,7 @@ export default CommentsComponent = ({ comments, avaUser }) => {
           keyExtractor={(comment) => comment.id}
         />
       </ScrollView>
-      <CommentInputComp avaUser={avaUser} />
+      {/* <CommentInputComp avaUser={avaUser} /> */}
     </SafeAreaView>
   );
 };
