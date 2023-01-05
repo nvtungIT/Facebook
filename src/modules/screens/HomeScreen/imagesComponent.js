@@ -1,15 +1,15 @@
 import { View, Image, StyleSheet, Dimensions } from 'react-native';
 const window = Dimensions.get('window');
 
-const Image1 = ({ type, imgUrls }) => {
+const Image1 = ({ type, image }) => {
   return (
     <View style={styles.oneImage}>
-      <Image style={{ flex: 1 }} source={{ uri: imgUrls[0] }} />
+      <Image style={{ flex: 1 }} source={{ uri: image[0].url }} />
     </View>
   );
 };
 
-const Image2 = ({ type, imgUrls }) => {
+const Image2 = ({ type, image }) => {
   return (
     <View
       style={[
@@ -17,36 +17,36 @@ const Image2 = ({ type, imgUrls }) => {
         { flexDirection: type == 'single' ? 'column' : 'row' },
       ]}
     >
-      <Image style={{ flex: 1 }} source={{ uri: imgUrls[0] }} />
-      <Image style={{ flex: 1 }} source={{ uri: imgUrls[1] }} />
+      <Image style={{ flex: 1 }} source={{ uri: image[0].url }} />
+      <Image style={{ flex: 1 }} source={{ uri: image[1].url }} />
     </View>
   );
 };
 
-const Image3 = ({ type, imgUrls }) => {
+const Image3 = ({ type, image }) => {
   return (
     <View style={styles.threeImage}>
       <View style={{ flex: 1 }}>
-        <Image style={{ flex: 1 }} source={{ uri: imgUrls[0] }} />
-        <Image style={{ flex: 1 }} source={{ uri: imgUrls[1] }} />
+        <Image style={{ flex: 1 }} source={{ uri: image[0].url }} />
+        <Image style={{ flex: 1 }} source={{ uri: image[1].url }} />
       </View>
       <View style={{ flex: 1 }}>
-        <Image style={{ flex: 1 }} source={{ uri: imgUrls[2] }} />
+        <Image style={{ flex: 1 }} source={{ uri: image[2].url }} />
       </View>
     </View>
   );
 };
 
-const Image4 = ({ type, imgUrls }) => {
+const Image4 = ({ type, image }) => {
   return (
     <View style={styles.fourImage}>
       <View style={{ flex: 1 }}>
-        <Image style={{ flex: 1 }} source={{ uri: imgUrls[0] }} />
-        <Image style={{ flex: 1 }} source={{ uri: imgUrls[1] }} />
+        <Image style={{ flex: 1 }} source={{ uri: image[0].url }} />
+        <Image style={{ flex: 1 }} source={{ uri: image[1].url }} />
       </View>
       <View style={{ flex: 1 }}>
-        <Image style={{ flex: 1 }} source={{ uri: imgUrls[2] }} />
-        <Image style={{ flex: 1 }} source={{ uri: imgUrls[3] }} />
+        <Image style={{ flex: 1 }} source={{ uri: image[2].url }} />
+        <Image style={{ flex: 1 }} source={{ uri: image[3].url }} />
       </View>
     </View>
   );
@@ -59,12 +59,12 @@ const components = {
   4: Image4,
 };
 
-export default ImagesComponent = ({ type, imgUrls }) => {
+export default ImagesComponent = ({ type, image }) => {
   // setTypePost(type);
-  var numberImg = imgUrls.length;
+  var numberImg = image.length;
   numberImg = numberImg > 4 ? 4 : numberImg;
   const ComponentName = components[numberImg];
-  return <ComponentName type={type} imgUrls={imgUrls} />;
+  return <ComponentName type={type} image={image} />;
 };
 
 const styles = StyleSheet.create({

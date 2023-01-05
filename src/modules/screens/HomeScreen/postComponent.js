@@ -16,8 +16,26 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import MoreOption from 'modules/views/MoreOption';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useEffect } from 'react';
 
 const window = Dimensions.get('window');
+
+function postStatus(modifiedTime) {
+  let time = Math.floor(Date.now() / 1000) - modifiedTime; // đơn vị time: giây
+  if (time < 60) return 'Vừa xong';
+  else {
+    time = Math.floor(time / 60); // đơn vị time: phút
+    if (time < 60) return time + ' phút';
+    else {
+      time = Math.floor(time / 60); //đơn vị time: giờ
+      if (time < 24) return time + ' giờ';
+      else {
+        time = Math.floor(time / 24);
+        return time + ' ngày';
+      }
+    }
+  }
+}
 
 export default PostComponent = ({ post, type, goBack }) => {
   const comments = [
@@ -57,11 +75,20 @@ export default PostComponent = ({ post, type, goBack }) => {
     },
   ];
 
-  const showhideButton = post.postContent.length > 300 ? true : false;
+  const showhideButton = post.described.length > 300 ? true : false;
   const [numOfLine, setNumOfLine] = useState(type == 'single' ? 0 : 4);
   const [iconLikeName, setIconLikeName] = useState('like2');
   const [iconLikeColor, setIconLikeColor] = useState('black');
   const [numLikes, setNumLikes] = useState(post.like);
+
+  useEffect(() => {
+    post.postStatus = postStatus(post.modified);
+  }, []);
+
+  const avatarImg =
+    post.author.avatar != null
+      ? { uri: post.author.avatar }
+      : require('assets/images/default_avafb.jpg');
 
   const changeState = () => {
     if (!(type == 'single')) {
@@ -95,14 +122,9 @@ export default PostComponent = ({ post, type, goBack }) => {
           </Pressable>
         )}
         <View style={styles.topPart.posterInfo}>
-          <Image
-            style={styles.avaImg}
-            source={{
-              uri: post.avaUrl,
-            }}
-          />
+          <Image style={styles.avaImg} source={avatarImg} />
           <View>
-            <Text style={styles.userNamePart}>{post.userName}</Text>
+            <Text style={styles.userNamePart}>{post.author.username}</Text>
             <Text>{post.postStatus}</Text>
           </View>
         </View>
@@ -113,17 +135,15 @@ export default PostComponent = ({ post, type, goBack }) => {
       </View>
       <View style={styles.contentPart}>
         <Pressable onPress={changeState} style={styles.contentPart.textPart}>
-          <TextComponent numLine={numOfLine} content={post.postContent} />
+          <TextComponent numLine={numOfLine} content={post.described} />
           {!(type == 'single') && showhideButton && (
             <Text onPress={changeState}>Show/hide</Text>
           )}
         </Pressable>
-        {!post.vidUrl && post.imgUrls.length > 0 && (
-          <ImagesComponent type={type} imgUrls={post.imgUrls} />
+        {!post.video && post.image && (
+          <ImagesComponent type={type} image={post.image} />
         )}
-        {post.vidUrl.length > 0 && !post.imgUrls && (
-          <VideoComponent vidUrl={post.vidUrl} />
-        )}
+        {post.video && !post.image && <VideoComponent vidUrl={post.video} />}
       </View>
       <View
         style={[
@@ -133,12 +153,14 @@ export default PostComponent = ({ post, type, goBack }) => {
       >
         <View style={styles.bottomPart.part1}>
           <View style={{ flex: 1 }}>
-            <Text>
-              <AntDesignIcon name="like2" size={20} color="blue" />
-              {numLikes}
-            </Text>
+            {numLikes > 0 && (
+              <Text>
+                <AntDesignIcon name="like2" size={20} color="blue" />
+                {numLikes}
+              </Text>
+            )}
           </View>
-          {!(type == 'single') && (
+          {!(type == 'single') && post.comment > 0 && (
             <View style={{ flex: 1, alignItems: 'flex-end' }}>
               <Text>{post.comment} bình luận</Text>
             </View>
@@ -175,9 +197,7 @@ export default PostComponent = ({ post, type, goBack }) => {
           )}
         </View>
       </View>
-      {type == 'single' && (
-        <CommentsComponent comments={comments} avaUser={post.avaUrl} />
-      )}
+      {type == 'single' && <CommentsComponent comments={comments} />}
     </View>
   );
 };

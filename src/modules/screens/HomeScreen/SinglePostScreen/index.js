@@ -20,6 +20,12 @@ const wait = (timeout) => {
 export default function SinglePostScreen({ navigation, route }) {
   const [refreshing, setRefreshing] = useState(false);
   const { post } = route.params;
+
+  const avatarImg =
+    post.author.avatar != null
+      ? { uri: post.author.avatar }
+      : require('assets/images/default_avafb.jpg');
+
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
@@ -44,7 +50,7 @@ export default function SinglePostScreen({ navigation, route }) {
       >
         <PostComponent post={post} type={'single'} goBack={goBack} />
       </ScrollView>
-      <CommentInputComp avaUser={post.avaUrl} />
+      <CommentInputComp avatarImg={avatarImg} />
     </SafeAreaView>
   );
 }

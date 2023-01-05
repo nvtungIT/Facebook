@@ -31,10 +31,10 @@ const SingleComment = ({ comment }) => {
   );
 };
 
-export const CommentInputComp = ({ avaUser }) => {
+export const CommentInputComp = ({ avatarImg }) => {
   return (
     <View style={styles.inputcontainer}>
-      <Image source={{ uri: avaUser }} style={styles.avaUser} />
+      <Image source={avatarImg} style={styles.avaUser} />
       <TextInput style={styles.commentinput}>
         type your thinking here...
       </TextInput>
@@ -42,7 +42,7 @@ export const CommentInputComp = ({ avaUser }) => {
   );
 };
 
-export default CommentsComponent = ({ comments, avaUser }) => {
+export default CommentsComponent = ({ comments }) => {
   const renderItem = ({ item }) => {
     return <SingleComment comment={item} />;
   };
