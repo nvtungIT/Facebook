@@ -18,8 +18,8 @@ export default AppNavigator = (navigation) => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Group>
-          <Stack.Screen
+        <Stack.Group>
+          {/* <Stack.Screen
             name={ScreenNames.loginScreen}
             component={LoginScreen}
             options={{
@@ -39,8 +39,8 @@ export default AppNavigator = (navigation) => {
             name={ScreenNames.homeScreen}
             component={HomeScreen}
             options={{ headerShown: false }}
-          />
-        </Stack.Group> */}
+          /> */}
+        </Stack.Group>
 
         <Stack.Group>
           <Stack.Screen

@@ -87,7 +87,7 @@ export default LoginScreen = ({ navigation }) => {
   const login = async (phoneNumber, password) => {
     try {
       const response = await fetch(
-        `http://192.168.1.56:5000/it4788/auth/login`,
+        `http://192.168.254.43:5000/it4788/auth/login`,
         {
           method: 'POST',
           headers: {

@@ -12,7 +12,7 @@ import ScreenNames from 'general/constants/ScreenNames'
 import NotificationScreen from 'modules/screens/NotificationScreen'
 import VideoScreen from 'modules/screens/VideoScreen'
 import AppHeader from 'modules/components/AppHeader'
-
+import { AppColors } from 'general/constants/AppColor'
 const Tab = createMaterialTopTabNavigator()
 
 export default MainTabNavigator = () => {
@@ -26,7 +26,7 @@ export default MainTabNavigator = () => {
               <Icon
                 size={25}
                 name={focused ? 'home' : 'home-outline'}
-                color={focused ? '#1778F2' : '#272727'}
+                color={focused ? AppColors.primaryColor : '#272727'}
               />
             ),
           }}

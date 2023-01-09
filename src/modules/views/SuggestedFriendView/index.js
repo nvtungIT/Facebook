@@ -22,6 +22,7 @@ export default function SuggestedFriendView({ navigation }) {
         </Text>
         {FriendDataTest.map((item) => (
           <FriendChoiceItem
+            isSuggestedFriend={true}
             first_button="Thêm bạn bè"
             second_button="Gỡ"
             key={item.id}
@@ -29,6 +30,8 @@ export default function SuggestedFriendView({ navigation }) {
             name={item.name}
             firstTaskName="gửi lời mời kết bạn cho "
             secondTaskName="gỡ gợi ý kết bạn của"
+            firstTaskResponse="Đã gửi yêu cầu"
+            secondTaskResponse="Đã gỡ lời mời"
           />
         ))}
       </ScrollView>

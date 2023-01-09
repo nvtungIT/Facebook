@@ -2,24 +2,88 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { useState, useEffect } from 'react'
 import VerifyModal from '../../components/VerifyModal'
+import styles from './style'
 export default function FriendChoiceItem(props) {
   const [isFirstButtonClicked, setIsFirstButtonClicked] = useState(false)
   const [isSecondButtonClicked, setIsSecondButtonClicked] = useState(false)
   const [isVerifyModalVisible, setIsVerifyModalVisible] = useState(false)
   const [isVerifyButtonClicked, setIsVerifyButtonClicked] = useState(false)
+  const [isCancelButtonClicked, setIsCancelButtonClicked] = useState(false)
   var respondeText
 
+  let cancelButton = (
+    <TouchableOpacity
+      onPress={() => {
+        setIsCancelButtonClicked(true)
+      }}
+      style={styles.cancel_button}
+    >
+      <Text style={[styles.button_text, { color: 'black' }]}>Hủy</Text>
+    </TouchableOpacity>
+  )
+
+  let choiceButtons = (
+    <View style={styles.button_container}>
+      <TouchableOpacity
+        onPress={() => {
+          setIsFirstButtonClicked(true)
+          setIsSecondButtonClicked(false)
+          setIsVerifyModalVisible(true)
+        }}
+        style={styles.first_button}
+      >
+        <Text style={styles.button_text}>{props.first_button}</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.second_button}
+        onPress={() => {
+          setIsFirstButtonClicked(false)
+          setIsSecondButtonClicked(true)
+          setIsVerifyModalVisible(true)
+        }}
+      >
+        <Text style={[styles.button_text, { color: 'black' }]}>
+          {props.second_button}
+        </Text>
+      </TouchableOpacity>
+    </View>
+  )
+  let noButton = <View style={styles.button_container}></View>
+
+  let respondeView = choiceButtons
+  // chấp nhận lời mời kết bạn
   if (isFirstButtonClicked && isVerifyButtonClicked) {
-    respondeText = 'Đã gửi'
+    respondeText = props.firstTaskResponse
+    respondeView = noButton
   }
+  // gửi lời mời kết bạn
+  if (
+    isFirstButtonClicked &&
+    isVerifyButtonClicked &&
+    props.isSuggestedFriend
+  ) {
+    respondeText = props.firstTaskResponse
+    respondeView = cancelButton
+  }
+  // xoá lời mời kết bạn / xoá gợi ý kết bạn
   if (isSecondButtonClicked && isVerifyButtonClicked) {
-    respondeText = 'Đã gỡ '
+    respondeText = props.secondTaskResponse
+    respondeView = noButton
+  }
+
+  // huỷ gửi yêu cầu kết bạn
+  if (isCancelButtonClicked) {
+    respondeText = 'Đã hủy yêu cầu'
+    respondeView = noButton
   }
 
   return (
     <>
       <VerifyModal
         isVisible={isVerifyModalVisible}
+        isFirstButtonClicked={isFirstButtonClicked}
+        isSecondButtonClicked={isSecondButtonClicked}
         onCancelPressed={() => {
           setIsVerifyModalVisible(false)
         }}
@@ -40,104 +104,12 @@ export default function FriendChoiceItem(props) {
           <View style={styles.name_container}>
             <Text style={styles.name}>{props.name}</Text>
           </View>
-          {isFirstButtonClicked || isSecondButtonClicked ? (
-            <View style={[styles.button_container, { marginTop: 20 }]}>
-              <Text>{respondeText}</Text>
-            </View>
-          ) : (
-            <View style={styles.button_container}>
-              <TouchableOpacity
-                onPress={() => {
-                  setIsFirstButtonClicked(true)
-                  setIsSecondButtonClicked(false)
-                  setIsVerifyModalVisible(true)
-                }}
-                style={styles.first_button}
-              >
-                <Text style={styles.button_text}>{props.first_button}</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.second_button}
-                onPress={() => {
-                  setIsFirstButtonClicked(false)
-                  setIsSecondButtonClicked(true)
-                  setIsVerifyModalVisible(true)
-                }}
-              >
-                <Text style={[styles.button_text, { color: 'black' }]}>
-                  {props.second_button}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          )}
+          <View>
+            <Text>{respondeText}</Text>
+            {respondeView}
+          </View>
         </View>
       </TouchableOpacity>
     </>
   )
 }
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: 100,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  left_part: {
-    width: '30%',
-    height: 100,
-    // borderWidth: 1,
-    justifyContent: 'center',
-  },
-  avt: {
-    height: 80,
-    width: 80,
-    borderRadius: 80,
-  },
-  right_part: {
-    height: 100,
-    width: '70%',
-    display: 'flex',
-    flexDirection: 'column',
-    // borderWidth: 1,
-  },
-  name: {
-    fontFamily: 'FACEBOLF',
-    fontWeight: 'bold',
-    fontSize: 20,
-    color: 'black',
-  },
-  name_container: {
-    flex: 2,
-    justifyContent: 'center',
-  },
-  button_container: {
-    display: 'flex',
-    flex: 3,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  first_button: {
-    width: '45%',
-    backgroundColor: '#1778F2',
-    borderRadius: 10,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  second_button: {
-    width: '45%',
-    backgroundColor: '#d4d2d2',
-    borderRadius: 10,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 20,
-  },
-  button_text: {
-    fontSize: 16,
-    color: 'white',
-    fontWeight: 'bold',
-  },
-})

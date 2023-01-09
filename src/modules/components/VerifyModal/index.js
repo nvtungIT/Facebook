@@ -7,12 +7,24 @@ import Feather from 'react-native-vector-icons/Feather'
 export default function VerifyModal(props) {
   const {
     isVisible,
+    isFirstButtonClicked,
+    isSecondButtonClicked,
     onVerifyPressed,
     onCancelPressed,
     name,
     firstTaskName,
+    secondTaskName,
     onModalHidden,
   } = props
+
+  var taskName
+  if (isFirstButtonClicked) {
+    taskName = firstTaskName
+  }
+  if (isSecondButtonClicked) {
+    taskName = secondTaskName
+  }
+
   return (
     <ReactNativeModal
       isVisible={isVisible}
@@ -31,7 +43,7 @@ export default function VerifyModal(props) {
     >
       <View style={styles.modal_container}>
         <View style={styles.text_container}>
-          <Text style={styles.title}>Xác nhận {firstTaskName}</Text>
+          <Text style={styles.title}>Xác nhận {taskName}</Text>
           <Text style={[styles.title, { fontWeight: 'bold' }]}>{name}</Text>
         </View>
         <View style={styles.button_container}>

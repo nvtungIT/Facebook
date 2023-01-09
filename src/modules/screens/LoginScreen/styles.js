@@ -1,8 +1,8 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native'
 const styles = StyleSheet.create({
   image: {
     width: '100%',
-    height: 193
+    height: 193,
   },
 
   under_border_small: {
@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: '#0e71e4',
     marginHorizontal: 3,
-
   },
   inputTextWrap: {
     marginHorizontal: 40,
@@ -23,13 +22,14 @@ const styles = StyleSheet.create({
   },
   inputText: {
     fontSize: 18,
-    marginLeft: 1
+    marginLeft: 1,
+    color: '#000000',
   },
   grayBackground: {
-    backgroundColor: '#f5f5f5'
+    backgroundColor: '#f5f5f5',
   },
   hide: {
-    opacity: 0
+    opacity: 0,
   },
 
   titleText: {
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingVertical: 6,
     paddingHorizontal: 2,
-    fontWeight: '700'
+    fontWeight: '700',
   },
 
   titleTextLogin: {
@@ -53,22 +53,22 @@ const styles = StyleSheet.create({
   },
   titleTextLoginWrap: {
     marginHorizontal: 40,
-    marginTop: 15
+    marginTop: 15,
   },
   titleTextLoginWrapUnderlay: {
     marginHorizontal: 41.5,
-    marginTop: 15
+    marginTop: 15,
   },
   titleTextForgetPassword: {
-    color: '#1267c9'
+    color: '#1267c9',
   },
   titleTextForgetPasswordWrap: {
     marginTop: 11,
     marginHorizontal: 120,
-    borderRadius: 7
+    borderRadius: 7,
   },
   titleCreateAcc: {
-    backgroundColor: '#069e3e'
+    backgroundColor: '#069e3e',
   },
   titleCreateAccIsPressed: {
     fontSize: 15.85,
@@ -94,14 +94,14 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: 'gray',
     textAlign: 'center',
-    paddingTop: 5
+    paddingTop: 5,
   },
 
   modalBackground: {
     flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   modalContainer: {
     width: '80%',
@@ -110,22 +110,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 30,
     borderRadius: 3,
-    position: 'relative'
+    position: 'relative',
   },
   modalTitleWrap: {
     color: 'black',
-    marginBottom: 30
-
+    marginBottom: 30,
   },
   modalTitle: {
     color: 'black',
     fontSize: 19,
   },
   modalContentWrap: {
-    marginBottom: 20
+    marginBottom: 20,
   },
   modalContent: {
-    fontSize: 15
+    fontSize: 15,
   },
 
   modalExitWrap: {
@@ -133,13 +132,13 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     padding: 10,
-    margin: 20
+    margin: 20,
   },
   modalExit: {
     fontSize: 17,
     fontWeight: '600',
-    color: '#126cd6'
-  }
+    color: '#126cd6',
+  },
 })
 
-export default styles;
+export default styles
