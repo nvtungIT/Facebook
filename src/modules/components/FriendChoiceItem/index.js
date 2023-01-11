@@ -98,7 +98,10 @@ export default function FriendChoiceItem(props) {
       ></VerifyModal>
       <TouchableOpacity style={styles.container}>
         <View style={styles.left_part}>
-          <Image style={[styles.avt, { marginLeft: 20 }]} source={props.avt} />
+          <Image
+            style={[styles.avt, { marginLeft: 20 }]}
+            source={{ uri: props.avt }}
+          />
         </View>
         <View style={styles.right_part}>
           <View style={styles.name_container}>

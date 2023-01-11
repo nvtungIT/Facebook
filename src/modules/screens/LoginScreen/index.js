@@ -17,6 +17,9 @@ import {
 
 import styles from './styles'
 
+import { PreferenceKeys } from 'general/constants/Global'
+import { setPreference } from 'libs/storage/PreferenceStorage'
+
 const ModalPopup = ({ visibile, modalTitle, modalContent, setVisible }) => {
   const toggleModal = () => {
     if (visibile) {
@@ -84,7 +87,7 @@ export default LoginScreen = ({ navigation }) => {
     setIsKeyBoardShow(false)
   })
 
-  const login = async (phoneNumber, password) => {
+  const login = async (phonenumber, password) => {
     try {
       const response = await fetch(
         `http://192.168.254.54:5000/it4788/auth/login`,
@@ -95,7 +98,7 @@ export default LoginScreen = ({ navigation }) => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            phoneNumber,
+            phonenumber,
             password,
           }),
         },
@@ -107,6 +110,12 @@ export default LoginScreen = ({ navigation }) => {
 
         if (data.code === '1000') {
           const token = await data.data.token
+          console.log('Login Token' + token)
+          try {
+            setPreference(PreferenceKeys.UserToken, token)
+          } catch (error) {
+            alert(error)
+          }
           navigation.navigate(ScreenNames.mainTab, { token: token })
           console.log('Đăng nhập thành công, token:  ', token)
         } else if (data.code === '9995' || data.code === '1004') {
