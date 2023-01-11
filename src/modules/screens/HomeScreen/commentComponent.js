@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   FlatList,
   Pressable,
@@ -10,14 +11,19 @@ import {
   TextInput,
   Dimensions,
 } from 'react-native';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import { getStatus } from './function/status';
 
 const SingleComment = ({ comment }) => {
+  const posterImg =
+    comment.poster.avatar != null
+      ? { uri: comment.poster.avatar }
+      : require('assets/images/default_avafb.jpg');
+  const commentStatus = getStatus(comment.created);
   return (
     <View style={styles.singlecomment}>
       <Image
-        source={{
-          uri: comment.poster.avatar,
-        }}
+        source={posterImg}
         style={{ width: 40, height: 40, borderRadius: 40 }}
       />
       <View style={styles.commentbox}>
@@ -25,19 +31,31 @@ const SingleComment = ({ comment }) => {
           <Text style={styles.commentbox.name}>{comment.poster.name}</Text>
           <Text>{comment.comment}</Text>
         </View>
-        <Text style={styles.commentbox.time}>Thời gian</Text>
+        <Text style={styles.commentbox.time}>{commentStatus}</Text>
       </View>
     </View>
   );
 };
 
-export const CommentInputComp = ({ avatarImg }) => {
+export const CommentInputComp = (params) => {
+  const { avatarImg, focus, onPressSend } = params;
+  const [comment, setComment] = useState(null);
+
   return (
     <View style={styles.inputcontainer}>
       <Image source={avatarImg} style={styles.avaUser} />
-      <TextInput style={styles.commentinput}>
-        type your thinking here...
-      </TextInput>
+      <TextInput
+        style={styles.commentinput}
+        autoFocus={focus}
+        placeholder={'type your thinking here...'}
+        onChangeText={(cmt) => setComment(cmt)}
+      ></TextInput>
+      <Pressable
+        style={styles.inputcontainer.sendIconStyle}
+        onPress={() => onPressSend(comment)}
+      >
+        <FontAwesomeIcon name="send" size={24} />
+      </Pressable>
     </View>
   );
 };
@@ -55,7 +73,6 @@ export default CommentsComponent = ({ comments }) => {
           keyExtractor={(comment) => comment.id}
         />
       </ScrollView>
-      {/* <CommentInputComp avaUser={avaUser} /> */}
     </SafeAreaView>
   );
 };
@@ -96,6 +113,12 @@ const styles = StyleSheet.create({
     borderRadius: 40,
   },
   inputcontainer: {
+    sendIconStyle: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingLeft: 10,
+      paddingRight: 10,
+    },
     flexDirection: 'row',
     backgroundColor: '#ffccff',
     padding: 8,

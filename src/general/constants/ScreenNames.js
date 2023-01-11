@@ -6,4 +6,5 @@ export default ScreenNames = {
   notificationScreen: 'NotificationScreen',
   videoScreen: 'VideoScreen',
   singlePostScreen: 'SinglePostScreen',
+  homeNavigator: 'HomeNavigator',
 };

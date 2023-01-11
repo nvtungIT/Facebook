@@ -11,6 +11,8 @@ import ScreenNames from 'general/constants/ScreenNames';
 import NotificationScreen from 'modules/screens/NotificationScreen';
 import VideoScreen from 'modules/screens/VideoScreen';
 import AppHeader from 'modules/components/AppHeader';
+import HomeNavigator from './HomeNavigator';
+import SinglePostScreen from 'modules/screens/HomeScreen/SinglePostScreen';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -29,8 +31,8 @@ export default MainTabNavigator = ({ navigation }) => {
               />
             ),
           }}
-          name={ScreenNames.homeScreen}
-          component={HomeScreen}
+          name={ScreenNames.homeNavigator}
+          component={HomeNavigator}
         />
         <Tab.Screen
           options={{

@@ -5,44 +5,49 @@ import {
   Text,
   FlatList,
   Pressable,
-  ScrollView,
+  RefreshControl,
+  NetInfo,
 } from 'react-native';
 
 import PostComponent from './postComponent';
 import ScreenNames from 'general/constants/ScreenNames';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
+import { get_list_posts } from './function/get_list_posts';
 import { useEffect } from 'react';
+
+const wait = (timeout) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
+};
 
 export default function HomeScreen({ navigation }) {
   console.log('HomeScreen is rendering !!!!');
 
   //fetch data here
-  const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYjQ3NzM1ZWNmMTE2MDk5Y2IzMzY3NCIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMDRUMTU6NTk6MDMuMzIyWiIsImlhdCI6MTY3Mjg0Nzk0MywiZXhwIjoxNjcyOTM0MzQzfQ.zm8a8wOQXNFqxbwNOWffUp7mVY7rQGprPObsXbh-Cdc';
 
-  const url =
-    'http://192.168.1.136:5000/it4788/post/get_list_posts?token=' +
-    token +
-    '&last_id=0&index=0&count=20';
-
-  const [posts, setPosts] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true); //state to render topLoading posts state
+  const [bottomLoading, setBottomLoading] = useState(false); //state to render bottomLoading posts state
+  const [loadingText, setLoadingText] = useState('isLoading');
+  const [refreshing, setRefreshing] = useState(false);
+  const [render, setRender] = useState([true]); //state to render flatlist
 
   useEffect(() => {
-    fetch(url, { method: 'POST' })
-      .then((res) => res.json())
-      .then((json) => {
-        setLoading(false);
-        setPosts(json.data.posts);
-      });
+    //hàm get_list_posts: gọi api login lấy token rồi gọi api get_list_posts với token có đc
+    get_list_posts({
+      setLoading: setLoading,
+      setPosts: setPosts,
+      type: 'get first time',
+    });
+    console.log('get list post first time');
   }, []);
 
-  // fetch(url, { method: 'POST' })
-  //   .then((res) => res.json())
-  //   .then((json) => {
-  //     // setLoading(true);
-  //     // setPosts(json.data.posts);
-  //   });
+  useEffect(
+    () =>
+      navigation.addListener('focus', () => {
+        setRender([...render]);
+      }),
+    [navigation]
+  );
 
   const exampleData = [
     {
@@ -67,82 +72,71 @@ export default function HomeScreen({ navigation }) {
       },
       postStatus: 'Vua xong',
     },
-    {
-      id: '2',
-      image: [
-        'https://haycafe.vn/wp-content/uploads/2022/03/avatar-facebook-doc.jpg',
-        'https://haycafe.vn/wp-content/uploads/2022/03/avatar-facebook-doc.jpg',
-      ],
-      video: '',
-      described:
-        '🥲🥲🥲🥲🥲🥲🥲🥲🥲Piedmont, or mountain, glaciers are found in many parts of the world. In North America they are distributed along the mountain ranges of the Pacific Coast from central California northward.🥲🥲🥲🥲🥲🥲🥲🥲🥲Piedmont, or mountain, glaciers are found in many parts of the world. In North America they are distributed along the mountain ranges of the Pacific Coast from central California northward.🥲🥲🥲🥲🥲🥲🥲🥲🥲Piedmont, or mountain, glaciers are found in many parts of the world. In North America they are distributed along the mountain ranges of the Pacific Coast from central California northward. ',
-      created: null,
-      modified: null,
-      like: 50,
-      comment: '20',
-      is_liked: '1',
-      is_blocked: '0',
-      can_comment: '1',
-      can_edit: '1',
-      state: null,
-      author: {
-        id: '1',
-        username: 'Dang',
-        avatar:
-          'https://haycafe.vn/wp-content/uploads/2022/03/avatar-facebook-doc.jpg',
-      },
-      postStatus: 'Vua xong',
-    },
-    {
-      id: '3',
-      image: [
-        'https://haycafe.vn/wp-content/uploads/2022/03/avatar-facebook-doc.jpg',
-        'https://haycafe.vn/wp-content/uploads/2022/03/avatar-facebook-doc.jpg',
-      ],
-      video: '',
-      described:
-        '🥲🥲🥲🥲🥲🥲🥲🥲🥲Piedmont, or mountain, glaciers are found in many parts of the world. In North America they are distributed along the mountain ranges of the Pacific Coast from central California northward.🥲🥲🥲🥲🥲🥲🥲🥲🥲Piedmont, or mountain, glaciers are found in many parts of the world. In North America they are distributed along the mountain ranges of the Pacific Coast from central California northward.🥲🥲🥲🥲🥲🥲🥲🥲🥲Piedmont, or mountain, glaciers are found in many parts of the world. In North America they are distributed along the mountain ranges of the Pacific Coast from central California northward. ',
-      created: null,
-      modified: null,
-      like: 50,
-      comment: '20',
-      is_liked: '1',
-      is_blocked: '0',
-      can_comment: '1',
-      can_edit: '1',
-      state: null,
-      author: {
-        id: '1',
-        username: 'Dang',
-        avatar:
-          'https://haycafe.vn/wp-content/uploads/2022/03/avatar-facebook-doc.jpg',
-      },
-      postStatus: 'Vua xong',
-    },
   ];
 
-  const onPressPost = ({ item }) => {
-    navigation.navigate(ScreenNames.singlePostScreen, { post: item });
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setLoading(true);
+    get_list_posts({
+      posts: posts,
+      setLoading: setLoading,
+      setPosts: setPosts,
+      type: 'get new posts',
+    }).then(() => {
+      setRefreshing(false);
+    });
+    console.log('get new posts');
+  }, [posts]);
+
+  const onPressPostArea = ({ item }) => {
+    navigation.navigate(ScreenNames.singlePostScreen, {
+      post: item,
+    });
   };
 
-  //fetch data here
-
   const renderItem = ({ item }) => (
-    <Pressable onPress={() => onPressPost({ item })}>
-      <PostComponent post={item} />
+    <Pressable onPress={() => onPressPostArea({ item })}>
+      <PostComponent post={item} navigate={navigation} />
     </Pressable>
   );
+
+  const handlePullUpLoadMore = () => {
+    if (posts.length > 0) {
+      setBottomLoading(true);
+      let length = posts.length;
+      let lastid = posts[length - 1].id;
+      get_list_posts({
+        posts: posts,
+        setBottomLoading: setBottomLoading,
+        setLoadingText: setLoadingText,
+        setPosts: setPosts,
+        last_id: lastid,
+        type: 'get old posts',
+      }).then(setRender([...render]));
+    }
+    console.log('get older post');
+  };
+
   return (
-    <View style={{ flex: 1, paddingBottom: 30 }}>
+    <View style={{ flex: 1 }}>
       <SafeAreaView>
         {loading ? (
           <Text>is Loading</Text>
         ) : (
-          <FlatList
-            data={posts}
-            renderItem={renderItem}
-            keyExtractor={(post) => post.id}
-          />
+          <View>
+            <FlatList
+              data={posts}
+              extraData={render}
+              renderItem={renderItem}
+              keyExtractor={(post) => post.id}
+              refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+              }
+              onEndReachedThreshold={0.5}
+              onEndReached={handlePullUpLoadMore}
+              ListFooterComponent={<Text>{loadingText}</Text>}
+            />
+          </View>
         )}
       </SafeAreaView>
     </View>

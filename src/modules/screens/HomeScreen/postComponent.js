@@ -17,73 +17,44 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import MoreOption from 'modules/views/MoreOption';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useEffect } from 'react';
+import { getStatus } from './function/status';
+import { like } from './function/like';
+import ScreenNames from 'general/constants/ScreenNames';
+import { get_comment } from './function/get_comment';
 
 const window = Dimensions.get('window');
 
-function postStatus(modifiedTime) {
-  let time = Math.floor(Date.now() / 1000) - modifiedTime; // đơn vị time: giây
-  if (time < 60) return 'Vừa xong';
-  else {
-    time = Math.floor(time / 60); // đơn vị time: phút
-    if (time < 60) return time + ' phút';
-    else {
-      time = Math.floor(time / 60); //đơn vị time: giờ
-      if (time < 24) return time + ' giờ';
-      else {
-        time = Math.floor(time / 24);
-        return time + ' ngày';
-      }
-    }
-  }
-}
-
-export default PostComponent = ({ post, type, goBack }) => {
-  const comments = [
-    {
-      id: '1',
-      comment: 'comment1',
-      created: '',
-      poster: {
-        id: '1',
-        name: 'dang',
-        avatar:
-          'https://haycafe.vn/wp-content/uploads/2022/03/avatar-facebook-doc.jpg',
-      },
-    },
-    {
-      id: '2',
-      comment:
-        'comment2 comment2 comment2 comment2 comment2 comment2 comment2 comment2 comment2 comment2 comment2 comment2 comment2 comment2',
-      created: '',
-      poster: {
-        id: '1',
-        name: 'dang',
-        avatar:
-          'https://fujifilm-x.com/wp-content/uploads/2021/01/gfx100s_sample_04_thum-1.jpg',
-      },
-    },
-    {
-      id: '3',
-      comment: 'comment3',
-      created: '',
-      poster: {
-        id: '1',
-        name: 'dang',
-        avatar:
-          'https://haycafe.vn/wp-content/uploads/2022/03/avatar-facebook-doc.jpg',
-      },
-    },
-  ];
+export default PostComponent = (params) => {
+  const { post, type, goBack, navigate, inputComment } = params;
 
   const showhideButton = post.described.length > 300 ? true : false;
   const [numOfLine, setNumOfLine] = useState(type == 'single' ? 0 : 4);
-  const [iconLikeName, setIconLikeName] = useState('like2');
-  const [iconLikeColor, setIconLikeColor] = useState('black');
-  const [numLikes, setNumLikes] = useState(post.like);
+  const [iconLikeName, setIconLikeName] = useState(
+    post.is_liked == '1' ? 'like1' : 'like2'
+  );
+  const [iconLikeColor, setIconLikeColor] = useState(
+    post.is_liked == '1' ? 'blue' : 'black'
+  );
+  const [numLikes, setNumLikes] = useState(Number(post.like));
+  const [loadingComment, setLoadingComment] = useState(true);
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    post.postStatus = postStatus(post.modified);
-  }, []);
+    setNumLikes(Number(post.like));
+    setIconLikeColor(post.is_liked == '1' ? 'blue' : 'black');
+    setIconLikeName(post.is_liked == '1' ? 'like1' : 'like2');
+  }, [post.like]);
+
+  useEffect(() => {
+    if (inputComment != undefined) {
+      console.log(inputComment);
+      setComments([...comments, inputComment]);
+    }
+  }, [inputComment]);
+
+  postStatus = getStatus(post.modified);
+
+  if (type == 'single') console.log('single post render');
 
   const avatarImg =
     post.author.avatar != null
@@ -102,37 +73,67 @@ export default PostComponent = ({ post, type, goBack }) => {
     setModalShow(true);
   };
 
-  const onComment = () => {};
+  const onPressComment = () => {
+    if (type !== 'single')
+      navigate.navigate(ScreenNames.singlePostScreen, {
+        post: post,
+        focus: true,
+      });
+  };
 
   const onPressLike = () => {
-    iconLikeColor == 'blue'
-      ? setNumLikes(numLikes - 1)
-      : setNumLikes(numLikes + 1);
-    setIconLikeName(iconLikeName == 'like1' ? 'like2' : 'like1');
-    setIconLikeColor(iconLikeColor == 'black' ? 'blue' : 'black');
+    if (post.is_liked == '1') {
+      post.like = String(Number(post.like) - 1);
+      post.is_liked = '0';
+      setNumLikes(numLikes - 1);
+      setIconLikeName('like2');
+      setIconLikeColor('black');
+    } else {
+      post.like = String(Number(post.like) + 1);
+      post.is_liked = '1';
+      setNumLikes(numLikes + 1);
+      setIconLikeName('like1');
+      setIconLikeColor('blue');
+    }
+    like(post.id);
   };
+
+  useEffect(() => {
+    if (type == 'single') {
+      console.log('get comment');
+      get_comment({
+        postId: post.id,
+        setComments: setComments,
+        setLoading: setLoadingComment,
+      });
+    }
+  }, []);
 
   return (
     <View style={styles.container}>
       <MoreOption setvisible={setModalShow} visible={modalShow} />
-      <View style={styles.topPart}>
-        {type == 'single' && (
-          <Pressable style={styles.topPart.goBackIcon} onPress={goBack}>
-            <Ionicons name="chevron-back" size={25} color="black" />
-          </Pressable>
-        )}
-        <View style={styles.topPart.posterInfo}>
-          <Image style={styles.avaImg} source={avatarImg} />
-          <View>
-            <Text style={styles.userNamePart}>{post.author.username}</Text>
-            <Text>{post.postStatus}</Text>
+      {type != 'single' && (
+        <View style={styles.topPart}>
+          {type == 'single' && (
+            <Pressable style={styles.topPart.goBackIcon} onPress={goBack}>
+              <Ionicons name="chevron-back" size={25} color="black" />
+            </Pressable>
+          )}
+          <View style={styles.topPart.posterInfo}>
+            <Image style={styles.topPart.avaImg} source={avatarImg} />
+            <View>
+              <Text style={styles.topPart.userNamePart}>
+                {post.author.username}
+              </Text>
+              <Text>{postStatus}</Text>
+            </View>
           </View>
-        </View>
 
-        <Pressable onPress={showModal} style={styles.topPart.moreicon}>
-          <FeatherIcon name="more-horizontal" size={20} color="black" />
-        </Pressable>
-      </View>
+          <Pressable onPress={showModal} style={styles.topPart.moreicon}>
+            <FeatherIcon name="more-horizontal" size={20} color="black" />
+          </Pressable>
+        </View>
+      )}
       <View style={styles.contentPart}>
         <Pressable onPress={changeState} style={styles.contentPart.textPart}>
           <TextComponent numLine={numOfLine} content={post.described} />
@@ -156,7 +157,11 @@ export default PostComponent = ({ post, type, goBack }) => {
             {numLikes > 0 && (
               <Text>
                 <AntDesignIcon name="like2" size={20} color="blue" />
-                {numLikes}
+                {post.is_liked == '1'
+                  ? numLikes - 1 > 0
+                    ? ' Bạn và ' + (numLikes - 1) + ' người khác'
+                    : ' Bạn'
+                  : numLikes}
               </Text>
             )}
           </View>
@@ -187,7 +192,7 @@ export default PostComponent = ({ post, type, goBack }) => {
           {post.can_comment == '1' && (
             <Pressable
               style={{ flex: 1, alignItems: 'center' }}
-              onPress={onComment}
+              onPress={onPressComment}
             >
               <Text>
                 <Octicons name="comment" size={15} color="black" />
@@ -197,7 +202,12 @@ export default PostComponent = ({ post, type, goBack }) => {
           )}
         </View>
       </View>
-      {type == 'single' && <CommentsComponent comments={comments} />}
+      {type == 'single' &&
+        (loadingComment ? (
+          <Text>is Loading</Text>
+        ) : (
+          <CommentsComponent comments={comments} />
+        ))}
     </View>
   );
 };
@@ -222,21 +232,21 @@ const styles = StyleSheet.create({
       alignItems: 'flex-end',
       paddingRight: 10,
     },
+    avaImg: {
+      width: 40,
+      height: 40,
+      borderRadius: 40,
+      margin: 8,
+    },
+    userNamePart: {
+      fontSize: 16,
+      fontWeight: 'bold',
+    },
     flexDirection: 'row',
     flex: 1,
     alignItems: 'center',
   },
-  userNamePart: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
 
-  avaImg: {
-    width: 40,
-    height: 40,
-    borderRadius: 40,
-    margin: 8,
-  },
   contentPart: {
     textPart: {
       paddingLeft: 8,
@@ -262,18 +272,15 @@ const styles = StyleSheet.create({
       padding: 5,
       marginLeft: 10,
       marginRight: 10,
-      borderTopColor: '#ececec',
-      borderWidth: 1,
-      borderColor: 'white',
     },
     part2: {
       flexDirection: 'row',
       flex: 1,
-      padding: 5,
-      paddingTop: 15,
+      padding: 10,
       marginLeft: 10,
       marginRight: 10,
       borderTopColor: '#ECECEC',
+      borderBottomColor: '#ececec',
       borderWidth: 1,
       borderColor: 'white',
     },
