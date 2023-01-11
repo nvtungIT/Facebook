@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Icon as Icon2 } from 'react-native-vector-icons/FontAwesome5';
+import FronAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 
 export default function VideoScreen(props) {
 
@@ -20,7 +20,7 @@ export default function VideoScreen(props) {
         <View style={styles.labelNav}>
           <Text style={styles.labelWatch}>Watch</Text>
           <View>
-            <Icon 
+            <Icon
             name='search'
             style={styles.iconSearch}
             />
@@ -28,14 +28,14 @@ export default function VideoScreen(props) {
         </View>
         <View style={styles.watchTag}>
           <View style={styles.listTag}>
-            <Icon
+            <FronAwesome5Icon
             name='video'
             style={styles.iconTag}
             />
             <Text style={styles.labelTag}>Trực tiếp</Text>
           </View>
           <View style={styles.listTag}>
-            <Icon 
+            <Icon
             name='cutlery'
             style={styles.iconTag}
             />

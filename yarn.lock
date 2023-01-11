@@ -6223,6 +6223,11 @@
   dependencies:
     "prop-types" "^15.8.1"
 
+"react-native-dropdown-picker@^5.4.3":
+  "integrity" "sha512-cwZzFcpyx/Stw3lZH2bvXxcsgwkR8c3rRZtOnlvyuN5pAplzA/9AiAxYlnJuspP9VvyU1XMePKOpgcHce6iyhA=="
+  "resolved" "https://registry.npmjs.org/react-native-dropdown-picker/-/react-native-dropdown-picker-5.4.3.tgz"
+  "version" "5.4.3"
+
 "react-native-gradle-plugin@^0.70.3":
   "integrity" "sha512-oOanj84fJEXUg9FoEAQomA8ISG+DVIrTZ3qF7m69VQUJyOGYyDZmPqKcjvRku4KXlEH6hWO9i4ACLzNBh8gC0A=="
   "resolved" "https://registry.npmjs.org/react-native-gradle-plugin/-/react-native-gradle-plugin-0.70.3.tgz"
@@ -6253,6 +6258,11 @@
   dependencies:
     "react-freeze" "^1.0.0"
     "warn-once" "^0.1.0"
+
+"react-native-select-dropdown@^3.1.0":
+  "integrity" "sha512-M3urU+Q3H5KbJfkvB6adatTm0s5vsIly+cq6StGzr6AoQMoXa//4KZ+kgKtQ06r3t1O0A6Vx51xDSZw813xilw=="
+  "resolved" "https://registry.npmjs.org/react-native-select-dropdown/-/react-native-select-dropdown-3.1.0.tgz"
+  "version" "3.1.0"
 
 "react-native-tab-view@>= 3.0.0":
   "integrity" "sha512-xjAQe657Gp/de2QHb7ptksTg8Jcb+j3fLAdcYryzfavt/pe+HtKLpkCtQsxyIJpRrAO7YPxFsymi2N4MnNfePA=="

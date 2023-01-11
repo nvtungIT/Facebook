@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { View, Text, TextInput, Button, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import DatePicker from "react-native-date-picker";
@@ -48,11 +48,12 @@ export default function SignupScreen({ navigation }){
                   'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                  name: lastName + firstName,
-                  birthday: date,
-                  phoneNumber: phone,
-                  email: email,
-                  password: password,
+                    firstName: firstName,
+                    lastName: lastName,
+                    birthday: date,
+                    phoneNumber: phone,
+                    email: email,
+                    password: password,
                 })
               }
             );
@@ -111,7 +112,7 @@ export default function SignupScreen({ navigation }){
                         <Text style={styles.errorMessage}>Vui lòng nhập tên của bạn.</Text>                        
                     }
                     {!errors.firstName && errors.lastName &&
-                        <Text style={styles.errorMessage}>Vui lòng nhập tên của bạn.</Text>                        
+                        <Text style={styles.errorMessage}>Vui lòng nhập họ của bạn.</Text>                        
                     }
                     {errors.firstName && errors.lastName &&
                         <Text style={styles.errorMessage}>Vui lòng nhập họ và tên của bạn.</Text>                        
