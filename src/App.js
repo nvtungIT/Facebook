@@ -5,6 +5,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import AppNavigator from 'modules/navigators/AppNavigator'
 import SignupScreen from 'modules/screens/SignupScreen'
 import AddPost from 'modules/views/CreatePost'
+import LoginScreen from 'modules/screens/LoginScreen'
+import ExistAccScreen from 'modules/screens/LoginScreen/LoginExistAcc/ExistAccScreen'
 
 function App() {
   return (
@@ -15,7 +17,6 @@ function App() {
         barStyle="dark-content"
       />
       <AppNavigator />
-      {/* <SignupScreen/> */}
     </SafeAreaProvider>
   )
 }

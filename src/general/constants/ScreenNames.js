@@ -1,4 +1,5 @@
 export default ScreenNames = {
+  //main screens
   mainTab: 'MainTab',
   homeScreen: 'HomeScreen',
   friendScreen: 'FriendScreen',
@@ -13,4 +14,18 @@ export default ScreenNames = {
   block: 'Chặn',
   notificationSetting: 'Cài đặt thông báo',
   nameSetting: 'Tên',
+  // views
+  allFriendView: 'Tất cả bạn bè',
+  suggestedFriendView: 'Gợi ý',
+  searchFriendView: 'SearchFriendView',
+
+  //login screens
+  loginScreen: 'LoginScreen',
+  existAccScreen: 'ExistAccScreen',
+  loginWithExistAccScreen: 'LoginWithExistAccScreen',
+
+  //Signup
+  // signupScreen: 'SignupScreen',
+
+  // friendScreen
 }

@@ -11,14 +11,17 @@ import {
 
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-export default function HomeScreen(props) {
+export default HomeScreen = (props) => {
   console.log('HomeScreen is rendering !!!!')
-
+  console.log(props)
   return (
-    <View style={{ flex: 1 }}>
-      <SafeAreaView>
-        <Text style={{ fontSize: 20, color: 'black' }}>HomeScreen</Text>
-      </SafeAreaView>
-    </View>
+    <SafeAreaView>
+      <StatusBar
+        animated={true}
+        backgroundColor="#ffffff"
+        barStyle="dark-content"
+      />
+      <Text style={{ fontSize: 20, color: 'black' }}>HomeScreen</Text>
+    </SafeAreaView>
   )
 }
