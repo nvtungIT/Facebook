@@ -58,7 +58,6 @@ export default function SignupScreen({ navigation }){
               }
             );
             const json = await response.json();
-            // console.log(json);
             return json.movies;
           } catch (error) {
             console.error(error);
@@ -158,7 +157,7 @@ export default function SignupScreen({ navigation }){
                                 onChangeText={
                                     (firstName) => {
                                         onChange(firstName);
-                                        setLastName(firstName)
+                                        setFirstName(firstName)
                                     }
                                 }
                                 value={value}
@@ -338,7 +337,7 @@ export default function SignupScreen({ navigation }){
                                 onChangeText={
                                     (password) => {
                                         onChange(password);
-                                        setLastName(password)
+                                        setPassword(password)
                                     }
                                 }
                                 value={value}
