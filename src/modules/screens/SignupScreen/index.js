@@ -34,7 +34,34 @@ export default function SignupScreen(props){
 
     const onSubmitPassword = (data) => {
         setField(field+1);
-       }
+    };
+
+    const handleRegister = async () => {
+        try {
+            const response = await fetch(
+              'http://192.168.1.32:5000/it4788/auth/signup',{
+                method: 'POST',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  name: lastName + firstName,
+                  birthday: date,
+                  phoneNumber: phone,
+                  email: email,
+                  password: password,
+                })
+              }
+            );
+            const json = await response.json();
+            // console.log(json);
+            return json.movies;
+          } catch (error) {
+            console.error(error);
+          }
+    }
+    
     return (
         <View style={styles.wrapper}>
             {field == 0 && 
