@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useState } from 'react';
 import {
   FlatList,
@@ -24,7 +25,7 @@ const SingleComment = ({ comment }) => {
     <View style={styles.singlecomment}>
       <Image
         source={posterImg}
-        style={{ width: 40, height: 40, borderRadius: 40 }}
+        style={{ width: 40, height: 40, borderRadius: 40, marginTop: 5 }}
       />
       <View style={styles.commentbox}>
         <View style={styles.commentbox.notIncludeTime}>
@@ -40,6 +41,7 @@ const SingleComment = ({ comment }) => {
 export const CommentInputComp = (params) => {
   const { avatarImg, focus, onPressSend } = params;
   const [comment, setComment] = useState(null);
+  const ref_commentInput = useRef();
 
   return (
     <View style={styles.inputcontainer}>
@@ -49,10 +51,16 @@ export const CommentInputComp = (params) => {
         autoFocus={focus}
         placeholder={'type your thinking here...'}
         onChangeText={(cmt) => setComment(cmt)}
+        ref={ref_commentInput}
       ></TextInput>
       <Pressable
         style={styles.inputcontainer.sendIconStyle}
-        onPress={() => onPressSend(comment)}
+        onPress={() => {
+          onPressSend(comment);
+          setComment(null);
+          ref_commentInput.current.blur();
+          ref_commentInput.current.clear();
+        }}
       >
         <FontAwesomeIcon name="send" size={24} />
       </Pressable>
@@ -83,18 +91,14 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width,
     paddingLeft: 5,
     paddingRight: 40,
-    // marginRight: 10,
   },
   commentbox: {
     notIncludeTime: {
-      borderRadius: 10,
-      borderWidth: 1,
-      borderColor: 'black',
-      padding: 5,
-      paddingTop: 0,
-      backgroundColor: 'grey',
-      // flex: 1,
-      // width: 300,
+      borderRadius: 15,
+      padding: 10,
+      paddingTop: 5,
+      paddingBottom: 5,
+      backgroundColor: '#f0f2f5',
     },
     time: {
       paddingLeft: 5,
@@ -129,6 +133,6 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     marginLeft: 10,
     height: 40,
-    backgroundColor: '#ffeeff',
+    backgroundColor: '#f0f2f5',
   },
 });

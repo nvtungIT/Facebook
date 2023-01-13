@@ -1,3 +1,3 @@
 export const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYjQ3NzM1ZWNmMTE2MDk5Y2IzMzY3NCIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMTFUMDg6MjI6NDMuMjUyWiIsImlhdCI6MTY3MzQyNTM2MywiZXhwIjoxNjczNTExNzYzfQ.-3c2xfoTXpRp-_Yc1WrdqaGBwddCd7P13hmrsDJkJqU';
-export const serverDomain = 'http://192.168.1.136:5000/it4788/';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzA0YzRiOTc4OTc1MDc4MDdiYjUxNCIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMTNUMTY6MjA6MjYuODQxWiIsImlhdCI6MTY3MzYyNjgyNiwiZXhwIjoxNjczNzEzMjI2fQ.eya7PD4_a7GAsH-1TWkDSOk_-sw0SHXKk_cBOuCXcGY';
+export const serverDomain = 'http://192.168.0.101:5000/it4788/';

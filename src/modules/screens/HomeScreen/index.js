@@ -6,7 +6,6 @@ import {
   FlatList,
   Pressable,
   RefreshControl,
-  NetInfo,
 } from 'react-native';
 
 import PostComponent from './postComponent';
@@ -14,6 +13,7 @@ import ScreenNames from 'general/constants/ScreenNames';
 import { useState, useCallback } from 'react';
 import { get_list_posts } from './function/get_list_posts';
 import { useEffect } from 'react';
+import { check_new_item } from './function/check_new_item';
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -26,7 +26,6 @@ export default function HomeScreen({ navigation }) {
 
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true); //state to render topLoading posts state
-  const [bottomLoading, setBottomLoading] = useState(false); //state to render bottomLoading posts state
   const [loadingText, setLoadingText] = useState('isLoading');
   const [refreshing, setRefreshing] = useState(false);
   const [render, setRender] = useState([true]); //state to render flatlist
@@ -77,15 +76,25 @@ export default function HomeScreen({ navigation }) {
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     setLoading(true);
-    get_list_posts({
-      posts: posts,
-      setLoading: setLoading,
-      setPosts: setPosts,
-      type: 'get new posts',
-    }).then(() => {
-      setRefreshing(false);
+    check_new_item(posts[0].id).then((rs) => {
+      console.log('newposts: ' + rs);
+      if (rs > 0) {
+        get_list_posts({
+          posts: posts,
+          setLoading: setLoading,
+          setPosts: setPosts,
+          newItems: rs,
+          type: 'get new posts',
+        }).then(() => {
+          setRefreshing(false);
+        });
+        console.log('get new posts on refresh');
+      } else {
+        setRefreshing(false);
+        setLoading(false);
+        console.log('dont get new posts on refresh');
+      }
     });
-    console.log('get new posts');
   }, [posts]);
 
   const onPressPostArea = ({ item }) => {
@@ -101,13 +110,12 @@ export default function HomeScreen({ navigation }) {
   );
 
   const handlePullUpLoadMore = () => {
+    setLoadingText('isLoading');
     if (posts.length > 0) {
-      setBottomLoading(true);
       let length = posts.length;
       let lastid = posts[length - 1].id;
       get_list_posts({
         posts: posts,
-        setBottomLoading: setBottomLoading,
         setLoadingText: setLoadingText,
         setPosts: setPosts,
         last_id: lastid,
@@ -135,6 +143,7 @@ export default function HomeScreen({ navigation }) {
               onEndReachedThreshold={0.5}
               onEndReached={handlePullUpLoadMore}
               ListFooterComponent={<Text>{loadingText}</Text>}
+              ListEmptyComponent={<Text>No post to show!</Text>}
             />
           </View>
         )}

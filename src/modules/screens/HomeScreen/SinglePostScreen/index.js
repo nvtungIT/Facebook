@@ -5,13 +5,17 @@ import {
   StyleSheet,
   ScrollView,
   Text,
+  View,
   RefreshControl,
+  Animated,
 } from 'react-native';
 import PostComponent from '../postComponent';
 import { CommentInputComp } from '../commentComponent';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { set_comment } from '../function/set_comment';
 import { get_comment } from '../function/get_comment';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { getStatus } from '../function/status';
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -36,9 +40,11 @@ export default function SinglePostScreen({ navigation, route }) {
     navigation.goBack();
   };
 
+  const postStatus = getStatus(post.modified);
+
   const onPressSend = (comment) => {
     console.log(comment);
-    if (comment != null) {
+    if (comment != null && comment != '') {
       let cmt = {
         id: Date.now(),
         comment: comment,
@@ -53,42 +59,41 @@ export default function SinglePostScreen({ navigation, route }) {
     }
   };
 
-  const infoComponent = () => (
-    <View style={styles.topPart}>
-      {type == 'single' && (
+  const InfoComponent = () => (
+    <View style={styles.cardShadow}>
+      <View style={styles.topPart}>
         <Pressable style={styles.topPart.goBackIcon} onPress={goBack}>
           <Ionicons name="chevron-back" size={25} color="black" />
         </Pressable>
-      )}
-      <View style={styles.topPart.posterInfo}>
-        <Image style={styles.topPart.avaImg} source={avatarImg} />
-        <View>
-          <Text style={styles.topPart.userNamePart}>
-            {post.author.username}
-          </Text>
-          <Text>{postStatus}</Text>
-        </View>
-      </View>
 
-      <Pressable onPress={showModal} style={styles.topPart.moreicon}>
+        <View style={styles.topPart.posterInfo}>
+          <Image style={styles.topPart.avaImg} source={avatarImg} />
+          <View>
+            <Text style={styles.topPart.userNamePart}>
+              {post.author.username}
+            </Text>
+            <Text>{postStatus}</Text>
+          </View>
+        </View>
+
+        {/* <Pressable onPress={showModal} style={styles.topPart.moreicon}>
         <FeatherIcon name="more-horizontal" size={20} color="black" />
-      </Pressable>
+      </Pressable> */}
+      </View>
     </View>
   );
 
+  let scrollOffsetY = useRef(new Animated.Value(0)).current;
+
   return (
     <SafeAreaView style={styles.container}>
-      {/* {infoComponent} */}
+      <InfoComponent />
       <ScrollView
         horizontal={false}
         contentContainerStyle={styles.scrollView}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
-        StickyHeaderComponent={infoComponent}
-        stickyHeaderHiddenOnScroll={false}
-        // stickyHeaderIndices={0}
-        // invertStickyHeaders={true}
       >
         <PostComponent
           post={post}
@@ -107,6 +112,10 @@ export default function SinglePostScreen({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
+  cardShadow: {
+    backgroundColor: 'red',
+    zIndex: 0,
+  },
   container: {
     flex: 1,
   },
@@ -135,8 +144,10 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
     },
     flexDirection: 'row',
-    flex: 1,
+    // flex: 1,
     alignItems: 'center',
+    backgroundColor: '#fff',
+    overflow: 'hidden',
   },
   scrollView: {
     backgroundColor: 'white',

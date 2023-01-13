@@ -52,7 +52,7 @@ export default PostComponent = (params) => {
     }
   }, [inputComment]);
 
-  postStatus = getStatus(post.modified);
+  const postStatus = getStatus(post.modified);
 
   if (type == 'single') console.log('single post render');
 
