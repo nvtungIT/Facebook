@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native'
 const styles = StyleSheet.create({
   container: {
     height: 1000,
-    backgroundColor: '#242527',
+    backgroundColor: '#fff',
   },
   imageSignUp: {
     height: 200,
@@ -24,12 +24,12 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
   },
   icon: {
-    color: '#8a8b8d',
+    color: 'black',
     fontSize: 20,
     paddingRight: 20,
   },
   formNavigateLabel: {
-    color: '#8a8b8d',
+    color: 'black',
     fontSize: 20,
   },
   form: {
@@ -37,12 +37,13 @@ const styles = StyleSheet.create({
     marginTop: 100,
   },
   formLabel: {
-    color: 'white',
+    color: 'black',
     fontSize: 20,
     textAlign: 'center',
   },
   formNote: {
     textAlign: 'center',
+    color: 'black',
   },
   inputGroup: {
     display: 'flex',
@@ -53,6 +54,7 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 3,
     borderBottomWidth: 1,
+    color: 'black',
     borderBottomColor: '#8a8b8d',
   },
   buttonView: {
