@@ -38,6 +38,12 @@ export default AppNavigator = (navigation) => {
             }}
           />
           <Stack.Screen
+            name={ScreenNames.signupScreen}
+            component={SignupScreen}
+            options={{ headerShown: false }}
+          />
+
+          <Stack.Screen
             name={ScreenNames.existAccScreen}
             component={ExistAccScreen}
           />
@@ -100,13 +106,6 @@ export default AppNavigator = (navigation) => {
           <Stack.Screen
             name={ScreenNames.nameSetting}
             component={NameSetting}
-          />
-        </Stack.Group>
-        <Stack.Group>
-          <Stack.Screen
-            name={ScreenNames.signupScreen}
-            component={SignupScreen}
-            options={{ headerShown: false }}
           />
         </Stack.Group>
       </Stack.Navigator>

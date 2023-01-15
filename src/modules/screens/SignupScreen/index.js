@@ -44,7 +44,7 @@ export default function SignupScreen({ navigation }) {
   const handleRegister = async () => {
     try {
       const response = await fetch(
-        'http://192.168.8.121:5000/it4788/auth/signup',
+        'http://192.168.1.9:5000/it4788/auth/signup',
         {
           method: 'POST',
           headers: {
@@ -369,7 +369,7 @@ export default function SignupScreen({ navigation }) {
               <Button
                 onPress={() => {
                   handleRegister()
-                  navigation.navigate(ScreenNames.mainTab)
+                  navigation.navigate(ScreenNames.loginScreen)
                 }}
                 title="Đăng ký"
               />

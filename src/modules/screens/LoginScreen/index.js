@@ -90,7 +90,7 @@ export default LoginScreen = ({ navigation }) => {
   const login = async (phonenumber, password) => {
     try {
       const response = await fetch(
-        `http://192.168.254.54:5000/it4788/auth/login`,
+        `http://192.168.1.9:5000/it4788/auth/login`,
         {
           method: 'POST',
           headers: {
@@ -306,7 +306,9 @@ export default LoginScreen = ({ navigation }) => {
           }}
           underlayColor="#bdbdbd"
           activeOpacity={0.9}
-          onPress={() => {}}
+          onPress={() => {
+            navigation.navigate(ScreenNames.signupScreen)
+          }}
           onShowUnderlay={() => {
             setIsCreateAccPressed(true)
           }}
