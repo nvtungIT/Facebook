@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import {
   View,
   Text,
+  TouchableOpacity,
 } from 'react-native'
 import styles from './styles'
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -14,7 +15,7 @@ export default function MenuScreen({ navigation: {navigate}}) {
   const [openSetting, setOpenSetting] = useState(false)
 
   const handleLogOut = () => {
-
+    navigate(ScreenNames.signUpScreen)
   }
   return (
     <View style={styles.wrapper}>
@@ -99,9 +100,9 @@ export default function MenuScreen({ navigation: {navigate}}) {
         />
       </View>
       {/* Đăng xuất */}
-      <View style={styles.logOut} onPress={handleLogOut}>
+      <TouchableOpacity style={styles.logOut} onPress={handleLogOut}>
         <Text style={styles.labelLogOut}>Đăng xuất</Text>
-      </View>
+      </TouchableOpacity>
     </View>
   )
 }
