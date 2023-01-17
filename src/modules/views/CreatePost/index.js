@@ -1,266 +1,306 @@
 import React, { useState } from 'react'
-import { StyleSheet, Modal, Text, Pressable, View, Image, TextInput } from 'react-native'
+import {
+  Modal,
+  Text,
+  Pressable,
+  View,
+  Image,
+  TextInput,
+  ScrollView,
+} from 'react-native'
+import styles from 'modules/views/CreatePost/styles'
 import FeatherIcon from 'react-native-vector-icons/Feather'
 import EntypoIcon from 'react-native-vector-icons/Entypo'
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import ImagePicker from 'react-native-image-crop-picker'
+import RNFS from 'react-native-fs'
+import ImageBox from 'modules/views/CreatePost/image-box'
+import Popup from 'modules/views/CreatePost/exit-popup'
+import Feeling from 'modules/views/CreatePost//feeling-selection'
+import icons from 'general/constants/icon'
+import domain from 'general/constants/domain'
+import { useEffect } from 'react'
 
-const AddPost = () => {
+const AddPost = ({ postData }) => {
   const [modalVisible, setModalVisible] = useState(true)
   const [popupVisible, setPopupVisible] = useState(false)
+  const [user, setUser] = useState({
+    name: '',
+    avatar: null,
+  })
   const [description, setDescription] = useState('')
-  const [imageSrc, setImageSrc] = useState([])
+  const [images, setImages] = useState([])
+  const [feelingModal, setFeelingModal] = useState(false)
+  const [status, setStatus] = useState('')
+  const [willBeDeletedImages, setWillBeDeletedImages] = useState([])
+  const isUploadingImages =
+    images.length > 0 && images[0]?.mimetype.includes('image')
 
-  console.log(imageSrc)
+  useEffect(() => {
+    const fetchData = () => {
+      const options = {
+        method: 'post',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          token:
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzVmMjUzZGU5NzlmMjBmMDBkYTAyNiIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMTdUMDA6NTc6MzkuMjg5WiIsImlhdCI6MTY3MzkxNzA1OSwiZXhwIjoxNjc0MDAzNDU5fQ.Hq0KKJtcBKnwL2D3v4uFZKgBSm1gjuLZy8tn3Vcm_6g',
+          id: postData?.id,
+        }),
+      }
+      fetch(domain + '/it4788/post/get_post', options)
+        .then((res) => res.json())
+        .then((data) => {
+          const info = data.data
+          setImages(() => {
+            if (!info?.image && !info?.video) return []
+            const fetchedImages = info?.image || [info?.video]
+            const mimetype = info?.image ? 'image' : 'video'
+            return fetchedImages.map((image) => {
+              return {
+                ...image,
+                path: image?.url,
+                mimetype,
+              }
+            })
+          })
+          setDescription(info?.described)
+          setUser({
+            name: info?.author?.name,
+            avatar: info?.author?.avatar,
+          })
+          setStatus(info?.state)
+        })
+        .catch((err) => console.log(err))
+    }
+    fetchData()
+  }, [])
+
+  const addIconsToDescription = (value) => {
+    let haveIconDescription = value
+    icons.forEach((item) => {
+      haveIconDescription = haveIconDescription.split(item.text).join(item.icon)
+    })
+    setDescription(haveIconDescription)
+  }
+  const modifyMetadata = async (data) => {
+    let newImages
+    const numberOfNewImages = data.length
+    if (data[0]?.mime.includes('video')) {
+      const buffer = await RNFS.readFile(data[0]?.path, 'base64')
+      const video = data[numberOfNewImages - 1]
+      newImages = [
+        {
+          fieldname: 'video',
+          originalname: video.path.split('/').slice(-1)[0],
+          encoding: 'base64',
+          mimetype: video.mime,
+          size: video.size,
+          buffer,
+          path: video.path,
+        },
+      ]
+    } else
+      newImages = data.map((image) => {
+        return {
+          fieldname: 'image',
+          originalname: image.path.split('/').slice(-1)[0],
+          encoding: 'base64',
+          mimetype: image.mime,
+          size: image.size,
+          buffer: image.data,
+          path: image.path,
+        }
+      })
+    return newImages
+  }
+  const getExactlyNumberOfImagesAsRequire = (currentImages, newImages) => {
+    const numberOfCurrentImages = currentImages.length
+    const numberOfNewImages = newImages.length
+    if (newImages[0]?.mimetype.includes('video')) {
+      return [newImages[numberOfNewImages - 1]]
+    }
+    if (numberOfNewImages >= 4) return newImages.slice(numberOfNewImages - 4)
+    if (numberOfCurrentImages + numberOfNewImages > 4) {
+      return [
+        ...currentImages.slice(numberOfCurrentImages + numberOfNewImages - 4),
+        ...newImages,
+      ]
+    }
+    return [...currentImages, ...newImages]
+  }
   const chooseFiles = async () => {
     ImagePicker.openPicker({
-      width: 300,
-      height: 400,
-    }).then(image => {
-      console.log(image)
-      setImageSrc(preState => {
-        const srcs = preState.filter(item => item)
-        return [...srcs, image.path]
-      })
+      multiple: true,
+      includeBase64: true,
+      mediaType: isUploadingImages ? 'photo' : 'any',
     })
+      .then(async (data) => {
+        const newImages = await modifyMetadata(data)
+        setImages((currentImages) =>
+          getExactlyNumberOfImagesAsRequire(currentImages, newImages),
+        )
+      })
+      .catch((err) => console.log(err))
   }
   const closeModal = () => {
     setPopupVisible(true)
   }
+  const chooseFeeling = () => {
+    setFeelingModal(true)
+  }
+  const addPost = () => {
+    const data = new FormData()
+    data.append('described', description)
+    data.append('status', status)
+    if (isUploadingImages)
+      data.append('image', JSON.stringify(images.filter((item) => !item?._id)))
+    else
+      data.append('video', JSON.stringify(images.filter((item) => !item?._id)))
+    data.append('userId', '63c20f6c7919100b88739fc1')
+    data.append(
+      'token',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzVmMjUzZGU5NzlmMjBmMDBkYTAyNiIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMTdUMDA6NTc6MzkuMjg5WiIsImlhdCI6MTY3MzkxNzA1OSwiZXhwIjoxNjc0MDAzNDU5fQ.Hq0KKJtcBKnwL2D3v4uFZKgBSm1gjuLZy8tn3Vcm_6g',
+    )
+    const options = {
+      method: 'post',
+      body: data,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+    fetch(domain + '/it4788/post/add_post', options)
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err))
+  }
+  const editPost = () => {
+    const data = new FormData()
+    data.append('described', description)
+    data.append('status', status)
+    data.append('image_del', JSON.stringify(willBeDeletedImages))
+    if (isUploadingImages)
+      data.append('image', JSON.stringify(images.filter((item) => !item?._id)))
+    else
+      data.append('video', JSON.stringify(images.filter((item) => !item?._id)))
+    data.append('userId', '63c20f6c7919100b88739fc1')
+    data.append('id', postData?.id)
+    data.append(
+      'token',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzVmMjUzZGU5NzlmMjBmMDBkYTAyNiIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMTdUMDA6NTc6MzkuMjg5WiIsImlhdCI6MTY3MzkxNzA1OSwiZXhwIjoxNjc0MDAzNDU5fQ.Hq0KKJtcBKnwL2D3v4uFZKgBSm1gjuLZy8tn3Vcm_6g',
+    )
+    const options = {
+      method: 'post',
+      body: data,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+    fetch(domain + '/it4788/post/edit_post', options)
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err))
+  }
+  const post = () => {
+    if (images.length === 0) return
+    if (!postData?.isEditing) addPost()
+    else editPost()
+  }
 
   return (
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-      >
-        <View style={styles.postCreater}>
+    <Modal animationType="slide" transparent={true} visible={modalVisible}>
+      <View style={styles.postCreater}>
+        <ScrollView style={styles.scrollView}>
           <View style={[styles.wrapper, styles.header]}>
             <Pressable onPress={closeModal}>
-              <FeatherIcon name='x' size={30} />
+              <FeatherIcon name="x" size={30} color="black" />
             </Pressable>
-            <Text style={styles.boldText}>Create Post</Text>
-            <Pressable disabled>
-              <Text style={(imageSrc.length === 0 && !description) ? [styles.boldText, styles.postBtn] : [styles.boldText, styles.activeBtn]}>Post</Text>
+            <Text style={styles.boldText}>
+              {postData?.isEditing ? 'Chỉnh sửa bài viết' : 'Tạo bài viết'}
+            </Text>
+            <Pressable onPress={post}>
+              <Text
+                style={
+                  images.length === 0 && !description
+                    ? [styles.boldText, styles.postBtn]
+                    : [styles.boldText, styles.activeBtn]
+                }
+              >
+                {postData?.isEditing ? 'Lưu' : 'Đăng'}
+              </Text>
             </Pressable>
           </View>
-
           <View style={styles.wrapper}>
             <View style={styles.userMenu}>
-              <Image style={styles.avatar} source={require('assets/images/male-avatar.jpg')} />
-              <Text style={[styles.boldText, styles.userName]}>Minh Nguyen</Text>
+              <Image
+                style={styles.avatar}
+                source={
+                  user?.avatar
+                    ? { uri: user?.avatar }
+                    : require('assets/images/male-avatar.jpg')
+                }
+              />
+              <Text style={[styles.boldText, styles.userName]}>
+                {user?.name || 'Facebook User'}
+              </Text>
+              <Text style={[styles.userName]}>
+                {status && `đang cảm thấy ${status}`}
+              </Text>
             </View>
             <TextInput
               style={styles.textInput}
+              multiline
               value={description}
-              onChangeText={setDescription}
-              placeholder={`What's on your mind?`}
+              onChangeText={addIconsToDescription}
+              placeholder={`Bạn đang nghĩ gì?`}
             />
-            {imageSrc.length > 0 && 
+            {images.length > 0 && (
               <View style={styles.imageWrapper}>
-                {[0, 1, 2, 3].map(image => {
-                  return <ImageBox key={image} uri={imageSrc[image]} setImageSrc={setImageSrc} chooseFiles={chooseFiles} />
-                })}
+                {[0, 1, 2, 3]
+                  .filter((id) => isUploadingImages || !id)
+                  .map((index) => {
+                    return (
+                      <ImageBox
+                        key={index}
+                        image={images[index]}
+                        setImages={setImages}
+                        setWillBeDeletedImages={setWillBeDeletedImages}
+                        chooseFiles={chooseFiles}
+                      />
+                    )
+                  })}
               </View>
-            }
+            )}
           </View>
-
-          <View style={styles.fileInput}>
-            <Pressable onPress={chooseFiles} style={{flexDirection: 'row'}}>
-              <EntypoIcon name='images' size={30} color='green' />
-              <Text style={styles.fileTitle}>Photo/video</Text>
-            </Pressable>
-          </View>
-          {popupVisible && <Popup setPopupVisible={setPopupVisible} />}
-        </View>
-      </Modal>
-  )
-}
-
-function ImageBox({uri, setImageSrc, chooseFiles}) {
-  const deleteImage = () => {
-    setImageSrc(preState => preState.filter(item => item !== uri))
-  }
-
-  return (
-    <View style={styles.imageBox}>
-      {uri ?
-        <View style={styles.imageContainer}>
-          <Pressable style={styles.deleteBtn} onPress={deleteImage}>
-            <FeatherIcon name='x' size={30} />
+        </ScrollView>
+        <View style={styles.fileInput}>
+          <Pressable onPress={chooseFiles} style={{ flexDirection: 'row' }}>
+            <EntypoIcon name="images" size={30} color="green" />
+            <Text style={styles.fileTitle}>Ảnh/video</Text>
           </Pressable>
-          <Image key={uri} source={{uri}} width={30} height={30} />
+          <Pressable
+            onPress={chooseFeeling}
+            style={{ flexDirection: 'row', marginTop: 10 }}
+          >
+            <MaterialIcon name="emoji-emotions" size={30} color="#f7b928" />
+            <Text style={styles.fileTitle}>Cảm xúc</Text>
+          </Pressable>
         </View>
-      :
-        <Pressable onPress={chooseFiles}>
-          <EntypoIcon name='plus' size={30} color='black' />
-        </Pressable>
-      }
-    </View>
-  )
-}
-
-function Popup({setPopupVisible}) {
-  const continueWritingPost = () => {
-    setPopupVisible(false)
-  }
-
-  return (
-    <View style={styles.popupWrapper}>
-      <View style={styles.popupContent}>
-        <Text style={styles.popupTitle}>Save this post as a draft?</Text>
-        <Text style={styles.popupPara}>If you discard now, you'll lose this post</Text>
-        <Pressable style={[styles.popupBtn]}>
-          <Text style={[styles.textPopup, {color: '#1677ff'}]}>Save Draft</Text>
-        </Pressable>
-        <Pressable style={[styles.popupBtn]}>
-          <Text style={[styles.textPopup, {color: 'red'}]}>Discard Post</Text>
-        </Pressable>
-        <Pressable style={[styles.popupBtn]} onPress={continueWritingPost}>
-          <Text style={[styles.textPopup, {color: '#006aff', fontWeight: '600'}]}>Keep Editing</Text>
-        </Pressable>
+        {popupVisible && (
+          <Popup
+            setPopupVisible={setPopupVisible}
+            setModalVisible={setModalVisible}
+            isEditing={true}
+          />
+        )}
+        {feelingModal && (
+          <Feeling setModalVisible={setFeelingModal} setStatus={setStatus} />
+        )}
       </View>
-    </View>
+    </Modal>
   )
 }
-
-const styles = StyleSheet.create({
-  imageWrapper: {
-    width: '100%',
-    height: '100%',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    justifyContent: 'space-around'
-  },
-  imageBox: {
-    width: 160,
-    height: 160,
-    borderColor: 'black',
-    borderWidth: 1,
-    marginBottom: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  imageContainer: {
-    position: 'relative'
-  },
-  deleteBtn: {
-    position: 'absolute',
-    top: -60,
-    right: -60
-  },
-  popupWrapper: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(1,1,1,0.25)',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  popupContent: {
-    width: 250,
-    backgroundColor: 'white',
-    borderRadius: 8,
-    alignItems: 'center'
-  },
-  popupTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginTop: 12,
-    paddingHorizontal: 20
-  },
-  popupPara: {
-    fontSize: 16,
-    fontWeight: '400',
-    paddingHorizontal: 20,
-    textAlign: 'center',
-    marginBottom: 12
-  },
-  popupBtn: {
-    width: '100%',
-    paddingVertical: 10,
-    borderTopColor: '#ddd',
-    borderTopWidth: 1,
-    borderBottomColor: '#ddd',
-    borderBottomWidth: 1,
-  },
-  textPopup: {
-    fontSize: 16,
-    fontWeight: '400',
-    textAlign: 'center'
-  },
-  postCreater: {
-    position: 'relative',
-    flex: 1,
-    backgroundColor: '#fff'
-    // 1677ff
-  },
-  wrapper: {
-    padding: 10,
-  },
-  header: {
-    flexDirection: 'row', 
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5'
-  },
-  boldText: {
-    fontSize: 20,
-    fontWeight: '700'
-  },
-  activeBtn: {
-    padding: 8,
-    borderRadius: 10,
-    color: 'white',
-    backgroundColor: '#1677ff'
-  },
-  postBtn: {
-    padding: 8,
-    backgroundColor: '#ddd',
-    borderRadius: 10
-  },
-  userMenu: {
-    flexDirection: 'row', 
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-  },
-  avatar: {
-    width: 50,
-    height: 50,
-    borderRadius: 100
-  },
-  userName: {
-    marginLeft: 10
-  },
-  textInput: {
-    marginTop: 10,
-    fontSize: 20,
-    fontWeight: '400',
-  },
-  fileInput: {
-    width: '100%',
-    position: 'absolute',
-    bottom: 0,
-    padding: 15,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: -2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 2,
-    backgroundColor: '#f1f1f1'
-  },
-  fileTitle: {
-    marginLeft: 10,
-    fontSize: 18,
-    fontWeight: '500'
-  }
-})
 
 export default AddPost
