@@ -14,8 +14,10 @@ import { CommentInputComp } from '../commentComponent';
 import { useState, useCallback, useRef } from 'react';
 import { set_comment } from '../function/set_comment';
 import { get_comment } from '../function/get_comment';
+import FeatherIcon from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { getStatus } from '../function/status';
+import MoreOption from 'modules/views/MoreOption';
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -25,6 +27,7 @@ export default function SinglePostScreen({ navigation, route }) {
   const [refreshing, setRefreshing] = useState(false);
   const { post, focus } = route.params;
   const [inputComment, setInputComment] = useState(undefined);
+  const [modalShow, setModalShow] = useState(false);
 
   const avatarImg =
     post.author.avatar != null
@@ -43,7 +46,7 @@ export default function SinglePostScreen({ navigation, route }) {
   const postStatus = getStatus(post.modified);
 
   const onPressSend = (comment) => {
-    console.log(comment);
+    console.log('comment input: ' + comment);
     if (comment != null && comment != '') {
       let cmt = {
         id: Date.now(),
@@ -56,6 +59,7 @@ export default function SinglePostScreen({ navigation, route }) {
       };
       setInputComment(cmt);
       set_comment({ comment: comment, postId: post.id });
+      post.comment = String(Number(post.comment) + 1);
     }
   };
 
@@ -76,9 +80,12 @@ export default function SinglePostScreen({ navigation, route }) {
           </View>
         </View>
 
-        {/* <Pressable onPress={showModal} style={styles.topPart.moreicon}>
-        <FeatherIcon name="more-horizontal" size={20} color="black" />
-      </Pressable> */}
+        <Pressable
+          onPress={() => setModalShow(true)}
+          style={styles.topPart.moreicon}
+        >
+          <FeatherIcon name="more-horizontal" size={20} color="black" />
+        </Pressable>
       </View>
     </View>
   );
@@ -87,6 +94,7 @@ export default function SinglePostScreen({ navigation, route }) {
 
   return (
     <SafeAreaView style={styles.container}>
+      <MoreOption setvisible={setModalShow} visible={modalShow} />
       <InfoComponent />
       <ScrollView
         horizontal={false}
@@ -102,11 +110,13 @@ export default function SinglePostScreen({ navigation, route }) {
           inputComment={inputComment}
         />
       </ScrollView>
-      <CommentInputComp
-        avatarImg={avatarImg}
-        focus={focus}
-        onPressSend={onPressSend}
-      />
+      {post.can_comment == '1' && (
+        <CommentInputComp
+          avatarImg={avatarImg}
+          focus={focus}
+          onPressSend={onPressSend}
+        />
+      )}
     </SafeAreaView>
   );
 }

@@ -31,7 +31,6 @@ export default function HomeScreen({ navigation }) {
   const [render, setRender] = useState([true]); //state to render flatlist
 
   useEffect(() => {
-    //hàm get_list_posts: gọi api login lấy token rồi gọi api get_list_posts với token có đc
     get_list_posts({
       setLoading: setLoading,
       setPosts: setPosts,

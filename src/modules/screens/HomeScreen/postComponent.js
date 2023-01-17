@@ -21,6 +21,7 @@ import { getStatus } from './function/status';
 import { like } from './function/like';
 import ScreenNames from 'general/constants/ScreenNames';
 import { get_comment } from './function/get_comment';
+import PostOneImage from 'modules/views/PostOneImage';
 
 const window = Dimensions.get('window');
 
@@ -38,12 +39,17 @@ export default PostComponent = (params) => {
   const [numLikes, setNumLikes] = useState(Number(post.like));
   const [loadingComment, setLoadingComment] = useState(true);
   const [comments, setComments] = useState([]);
+  const [numCmt, setNumCmt] = useState(Number(post.comment));
 
   useEffect(() => {
     setNumLikes(Number(post.like));
     setIconLikeColor(post.is_liked == '1' ? 'blue' : 'black');
     setIconLikeName(post.is_liked == '1' ? 'like1' : 'like2');
   }, [post.like]);
+
+  useEffect(() => {
+    setNumCmt(Number(post.comment));
+  }, [post.comment]);
 
   useEffect(() => {
     if (inputComment != undefined) {
@@ -69,6 +75,8 @@ export default PostComponent = (params) => {
   };
 
   const [modalShow, setModalShow] = useState(false);
+  const [singleImageShow, setSingleImageShow] = useState(false);
+
   const showModal = () => {
     setModalShow(true);
   };
@@ -109,9 +117,28 @@ export default PostComponent = (params) => {
     }
   }, []);
 
+  const onPressImg = () => {
+    if (post.image.length == 1) {
+      setSingleImageShow(true);
+    } else {
+      if (!(type == 'single'))
+        navigate.navigate(ScreenNames.singlePostScreen, {
+          post: post,
+        });
+    }
+  };
+
   return (
     <View style={styles.container}>
       <MoreOption setvisible={setModalShow} visible={modalShow} />
+      {post.image != null && (
+        <PostOneImage
+          setvisible={setSingleImageShow}
+          visible={singleImageShow}
+          post={post}
+        />
+      )}
+      {/* top part of post */}
       {type != 'single' && (
         <View style={styles.topPart}>
           {type == 'single' && (
@@ -134,6 +161,7 @@ export default PostComponent = (params) => {
           </Pressable>
         </View>
       )}
+      {/* content part */}
       <View style={styles.contentPart}>
         <Pressable onPress={changeState} style={styles.contentPart.textPart}>
           <TextComponent numLine={numOfLine} content={post.described} />
@@ -142,10 +170,13 @@ export default PostComponent = (params) => {
           )}
         </Pressable>
         {!post.video && post.image && (
-          <ImagesComponent type={type} image={post.image} />
+          <Pressable onPress={onPressImg}>
+            <ImagesComponent type={type} image={post.image} />
+          </Pressable>
         )}
         {post.video && !post.image && <VideoComponent vidUrl={post.video} />}
       </View>
+      {/* bottom part */}
       <View
         style={[
           styles.bottomPart,
@@ -165,43 +196,40 @@ export default PostComponent = (params) => {
               </Text>
             )}
           </View>
-          {!(type == 'single') && post.comment > 0 && (
+          {!(type == 'single') && numCmt > 0 && (
             <View style={{ flex: 1, alignItems: 'flex-end' }}>
-              <Text>{post.comment} bình luận</Text>
+              <Text>{numCmt} bình luận</Text>
             </View>
           )}
         </View>
 
-        <View style={[styles.bottomPart.part2]}>
+        <View style={styles.bottomPart.part2}>
           <Pressable
-            style={{ flex: 1, alignItems: 'center' }}
+            style={styles.bottomPart.likeNcommentButton}
             onPress={onPressLike}
           >
-            <Text>
-              <AntDesignIcon
-                name={iconLikeName}
-                size={15}
-                color={iconLikeColor}
-              />
-              <Text style={{ textAlign: 'right', color: iconLikeColor }}>
-                {' '}
-                Thích
-              </Text>
+            <AntDesignIcon
+              name={iconLikeName}
+              size={15}
+              color={iconLikeColor}
+            />
+            <Text style={{ textAlign: 'right', color: iconLikeColor }}>
+              {' '}
+              Thích
             </Text>
           </Pressable>
           {post.can_comment == '1' && (
             <Pressable
-              style={{ flex: 1, alignItems: 'center' }}
+              style={styles.bottomPart.likeNcommentButton}
               onPress={onPressComment}
             >
-              <Text>
-                <Octicons name="comment" size={15} color="black" />
-                <Text> Bình luận</Text>
-              </Text>
+              <Octicons name="comment" size={15} color="black" />
+              <Text> Bình luận</Text>
             </Pressable>
           )}
         </View>
       </View>
+      {/* list comments part */}
       {type == 'single' &&
         (loadingComment ? (
           <Text>is Loading</Text>
@@ -284,9 +312,11 @@ const styles = StyleSheet.create({
       borderWidth: 1,
       borderColor: 'white',
     },
-  },
-  logo: {
-    width: 66,
-    height: 58,
+    likeNcommentButton: {
+      flex: 1,
+      alignItems: 'center',
+      flexDirection: 'row',
+      justifyContent: 'center',
+    },
   },
 });

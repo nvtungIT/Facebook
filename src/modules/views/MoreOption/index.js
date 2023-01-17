@@ -8,9 +8,9 @@ import {
   ScrollView,
 } from 'react-native';
 import OptionComponent from './optionComponent';
+import MinusIcon from 'react-native-vector-icons/AntDesign';
 
 export default MoreOption = ({ visible, setvisible, isposter }) => {
-  // const [modalVisible, setModalVisible] = useState(visible);
   return (
     <View>
       <Modal animationType="slide" transparent={true} visible={visible}>
@@ -20,6 +20,9 @@ export default MoreOption = ({ visible, setvisible, isposter }) => {
             onPress={() => setvisible(false)}
           />
           <View style={styles.whiteArea}>
+            <View style={styles.blackIconBox}>
+              <MinusIcon name="minus" size={45} style={{ margin: -20 }} />
+            </View>
             <ScrollView style={styles.optionsArea}>
               <OptionComponent optionName={'option 1'} />
               <OptionComponent optionName={'option 2'} />
@@ -47,9 +50,13 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
   },
+  blackIconBox: {
+    alignItems: 'center',
+    marginTop: 10,
+  },
   optionsArea: {
     backgroundColor: '#ffffff',
-    marginTop: 25,
+    marginTop: 10,
     marginLeft: 10,
     marginRight: 10,
     marginBottom: 20,

@@ -124,8 +124,11 @@ const styles = StyleSheet.create({
       paddingRight: 10,
     },
     flexDirection: 'row',
-    backgroundColor: '#ffccff',
+    backgroundColor: 'white',
     padding: 8,
+    borderTopColor: '#f0f2f5',
+    borderColor: 'white',
+    borderWidth: 1,
   },
   commentinput: {
     flex: 1,

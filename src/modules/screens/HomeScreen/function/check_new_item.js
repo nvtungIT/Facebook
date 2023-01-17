@@ -6,6 +6,8 @@ export async function check_new_item(topId) {
   return await fetch(url, { method: 'POST' })
     .then((result) => result.json())
     .then((json) => {
-      return json.data.new_items;
+      if (json.code == '1000') {
+        return json.data.new_items;
+      } else return 0;
     });
 }
