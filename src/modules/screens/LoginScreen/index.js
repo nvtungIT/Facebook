@@ -87,10 +87,10 @@ export default LoginScreen = ({ navigation }) => {
     setIsKeyBoardShow(false)
   })
 
-  const login = async (phonenumber, password) => {
+  const login = async (phoneNumber, password) => {
     try {
       const response = await fetch(
-        `http://192.168.254.54:5000/it4788/auth/login`,
+        `http://192.168.0.100:5000/it4788/auth/login`,
         {
           method: 'POST',
           headers: {
@@ -98,7 +98,7 @@ export default LoginScreen = ({ navigation }) => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            phonenumber,
+            phoneNumber,
             password,
           }),
         },
@@ -125,6 +125,10 @@ export default LoginScreen = ({ navigation }) => {
         } else if (data.code === '1002') {
           setModalTitle('Thiếu thông tin')
           setModalContent('Thiếu thông tin tên người dùng hoặc mật khẩu')
+          setVisible(true)
+        } else {
+          setModalTitle('Thông tin không hợp lệ')
+          setModalContent('Thông tin tên người dùng hoặc mật khẩu không hợp lệ')
           setVisible(true)
         }
       } else {

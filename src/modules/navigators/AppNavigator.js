@@ -22,6 +22,8 @@ import ExistAccScreen from 'modules/screens/LoginScreen/LoginExistAcc/ExistAccSc
 import LoginWithExistAccScreen from 'modules/screens/LoginScreen/LoginExistAcc/LoginWithExistAccScreen'
 import LoginScreen from 'modules/screens/LoginScreen'
 import SearchFriendView from 'modules/views/SearchFriendView'
+import UpdatesFromFriendsNotification from 'modules/screens/MenuScreen/Setting/NotificationSetting/UpdatesFromFriendsNotification'
+import PushNotificationSetting from 'modules/screens/MenuScreen/Setting/NotificationSetting/PushNotificationSetting'
 const Stack = createNativeStackNavigator()
 
 export default AppNavigator = (navigation) => {
@@ -35,7 +37,7 @@ export default AppNavigator = (navigation) => {
             options={{ headerShown: false }}
           /> */}
 
-          <Stack.Screen
+          {/* <Stack.Screen
             name={ScreenNames.loginScreen}
             component={LoginScreen}
             options={{
@@ -55,7 +57,7 @@ export default AppNavigator = (navigation) => {
             name={ScreenNames.homeScreen}
             component={HomeScreen}
             options={{ headerShown: false }}
-          />
+          /> */}
         </Stack.Group>
 
         <Stack.Group>
@@ -81,6 +83,35 @@ export default AppNavigator = (navigation) => {
           <Stack.Screen
             name={ScreenNames.nameSetting}
             component={NameSetting}
+          />
+          <Stack.Screen
+            name={ScreenNames.updatesFromFriendsNotification}
+            component={UpdatesFromFriendsNotification}
+          />
+          {/* Sửa component */}
+          <Stack.Screen
+            name={ScreenNames.commentsNotification}
+            component={UpdatesFromFriendsNotification}
+          />
+          <Stack.Screen
+            name={ScreenNames.friendRequestsNotification}
+            component={UpdatesFromFriendsNotification}
+          />
+          <Stack.Screen
+            name={ScreenNames.peopleMayKnowNotification}
+            component={UpdatesFromFriendsNotification}
+          />
+          <Stack.Screen
+            name={ScreenNames.birthdaysNotification}
+            component={UpdatesFromFriendsNotification}
+          />
+          <Stack.Screen
+            name={ScreenNames.videoNotification}
+            component={UpdatesFromFriendsNotification}
+          />
+          <Stack.Screen
+            name={ScreenNames.pushNofitication}
+            component={PushNotificationSetting}
           />
         </Stack.Group>
         <Stack.Group></Stack.Group>
