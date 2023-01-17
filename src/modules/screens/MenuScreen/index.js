@@ -15,7 +15,7 @@ export default function MenuScreen({ navigation: {navigate}}) {
   const [openSetting, setOpenSetting] = useState(false)
 
   const handleLogOut = () => {
-    navigate(ScreenNames.signUpScreen)
+    navigate(ScreenNames.loginScreen)
   }
   return (
     <View style={styles.wrapper}>

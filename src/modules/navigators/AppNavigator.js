@@ -29,18 +29,20 @@ export default AppNavigator = (navigation) => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Group>
-          <Stack.Screen
+        <Stack.Screen
             name={ScreenNames.loginScreen}
             component={LoginScreen}
             options={{
               headerShown: false,
             }}
           />
-          <Stack.Screen
+        <Stack.Screen
             name={ScreenNames.signUpScreen}
             component={SignupScreen}
             options={{ headerShown: false }}
           />
+          
+         
           <Stack.Screen
             name={ScreenNames.existAccScreen}
             component={ExistAccScreen}
