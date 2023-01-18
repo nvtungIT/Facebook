@@ -13,11 +13,14 @@ import NotificationScreen from 'modules/screens/NotificationScreen'
 import VideoScreen from 'modules/screens/VideoScreen'
 import AppHeader from 'modules/components/AppHeader'
 import { AppColors } from 'general/constants/AppColor'
+import { TouchableOpacity } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
+
 const Tab = createMaterialTopTabNavigator()
 
 export default MainTabNavigator = ({ navigation: { navigate } }) => {
   return (
-    <SafeAreaProvider>
+    <>
       <AppHeader />
       <Tab.Navigator initialRouteName={ScreenNames.homeScreen}>
         <Tab.Screen
@@ -87,6 +90,6 @@ export default MainTabNavigator = ({ navigation: { navigate } }) => {
           component={MenuScreen}
         />
       </Tab.Navigator>
-    </SafeAreaProvider>
+    </>
   )
 }

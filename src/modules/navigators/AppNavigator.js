@@ -29,7 +29,7 @@ export default AppNavigator = (navigation) => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Group>
+        {/* <Stack.Group>
           <Stack.Screen
             name={ScreenNames.loginScreen}
             component={LoginScreen}
@@ -52,18 +52,19 @@ export default AppNavigator = (navigation) => {
             name={ScreenNames.loginWithExistAccScreen}
             component={LoginWithExistAccScreen}
           />
-          <Stack.Screen
-            name={ScreenNames.homeScreen}
-            component={HomeScreen}
-            options={{ headerShown: false }}
-          />
-        </Stack.Group>
+        </Stack.Group> */}
 
         <Stack.Group>
           <Stack.Screen
             name={ScreenNames.mainTab}
             component={MainTabNavigator}
             options={{ headerShown: false }}
+          />
+        </Stack.Group>
+        <Stack.Group>
+          <Stack.Screen
+            name={ScreenNames.friendScreen}
+            component={FriendScreen}
           />
         </Stack.Group>
 
