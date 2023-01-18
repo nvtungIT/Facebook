@@ -87,7 +87,7 @@ export default LoginScreen = ({ navigation }) => {
     setIsKeyBoardShow(false)
   })
 
-  const login = async (phonenumber, password) => {
+  const login = async (phoneNumber, password) => {
     try {
       const response = await fetch(
         `http://192.168.1.9:5000/it4788/auth/login`,
@@ -98,7 +98,7 @@ export default LoginScreen = ({ navigation }) => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            phonenumber,
+            phoneNumber,
             password,
           }),
         },
@@ -306,7 +306,9 @@ export default LoginScreen = ({ navigation }) => {
           }}
           underlayColor="#bdbdbd"
           activeOpacity={0.9}
-          onPress={() => {navigation.navigate(ScreenNames.signUpScreen)}}
+          onPress={() => {
+            navigation.navigate(ScreenNames.signUpScreen)
+          }}
           onShowUnderlay={() => {
             setIsCreateAccPressed(true)
           }}
