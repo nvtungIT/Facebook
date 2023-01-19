@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler'
 import React, { Component } from 'react'
 import { StatusBar } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'

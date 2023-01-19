@@ -2,8 +2,6 @@ import React from 'react'
 import Icon from 'react-native-vector-icons/Ionicons'
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { useIsFocused } from '@react-navigation/native'
 
 import HomeScreen from 'modules/screens/HomeScreen'
 import FriendScreen from 'modules/screens/FriendScreen'
@@ -18,7 +16,7 @@ import { NavigationContainer } from '@react-navigation/native'
 
 const Tab = createMaterialTopTabNavigator()
 
-export default MainTabNavigator = ({ navigation: { navigate } }) => {
+export default MainTabNavigator = () => {
   return (
     <>
       <AppHeader />
