@@ -87,11 +87,11 @@ export default LoginScreen = ({ navigation }) => {
     setIsKeyBoardShow(false)
   })
 
-  console.log('token: ', getPreference('UserToken'))
+  // console.log('token: ', getPreference('UserToken'))
   const login = async (phoneNumber, password) => {
     try {
       const response = await fetch(
-        `http://192.168.0.102:5000/it4788/auth/login`,
+        `http://192.168.1.9:5000/it4788/auth/login`,
         {
           method: 'POST',
           headers: {
@@ -117,8 +117,8 @@ export default LoginScreen = ({ navigation }) => {
           } catch (error) {
             alert(error)
           }
-          // setPhoneNumber('')
-          // setPassword('')
+          setPhoneNumber('')
+          setPassword('')
           navigation.navigate(ScreenNames.mainTab, { token: token })
           console.log('Đăng nhập thành công, token:  ', token)
         } else if (data.code === '9995' || data.code === '1004') {

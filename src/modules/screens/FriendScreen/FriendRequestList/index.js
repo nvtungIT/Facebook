@@ -54,47 +54,6 @@ export default function FriendRequestList() {
     }
   }
 
-  const setAcceptFriendRequest = async (token, user_id, is_accept) => {
-    try {
-      const response = await fetch(
-        `http://192.168.1.9:5000/it4788/friend/set_accepted_friend`,
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          credentials: 'include',
-          body: JSON.stringify({
-            token,
-            user_id,
-            is_accept,
-          }),
-        },
-      )
-
-      const data = await response.json()
-      if (data) {
-        console.log('set_requested_friend')
-        console.log(data)
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const onHandleAccept = async (user_id, is_accept) => {
-    try {
-      const token = await getPreference('UserToken')
-      if (token !== null) {
-        setAcceptFriendRequest(token, user_id, is_accept)
-        console.log('đã chấp nhận ')
-      }
-    } catch (e) {
-      // error reading value
-    }
-  }
-
   return (
     <View>
       <Text
@@ -126,9 +85,6 @@ export default function FriendRequestList() {
           secondTaskName="xóa lời mời kết bạn của"
           firstTaskResponse="Các bạn đã trở thành bạn bè"
           secondTaskResponse="Đã xóa"
-          onAccept={(user_id, is_accept) => {
-            onHandleAccept(user_id, is_accept)
-          }}
         />
       ))}
     </View>

@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomWidth: 1,
   },
   left_part: {
     width: '30%',

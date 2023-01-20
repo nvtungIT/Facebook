@@ -59,7 +59,7 @@ export default function FriendChoiceItem(props) {
   if (isFirstButtonClicked && isVerifyButtonClicked) {
     respondeText = props.firstTaskResponse
     respondeView = noButton
-    onVerifyPressed = onAccept()
+    onVerifyPressed = onAccept(props.id, 1)
   }
   // gửi lời mời kết bạn
   if (
