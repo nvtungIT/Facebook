@@ -22,3 +22,14 @@ export const setPreference = async (key, value) => {
     return false
   }
 }
+
+//Remove preference key 
+export const removePreference = async (key) => {
+  try {
+    await AsyncStorage.removeItem(key)
+    console.log('Remove Preferrent Key: ' + key)
+    return true
+  } catch (err) {
+    return false
+  }
+}
