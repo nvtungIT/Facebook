@@ -51,7 +51,7 @@ export default function SignupScreen({ navigation }) {
   const handleRegister = async () => {
     try {
       const response = await fetch(
-        'http://192.168.1.9:5000/it4788/auth/signup',
+        'http://192.168.1.13:5000/it4788/auth/signup',
         {
           method: 'POST',
           headers: {

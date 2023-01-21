@@ -22,6 +22,7 @@ import ExistAccScreen from 'modules/screens/LoginScreen/LoginExistAcc/ExistAccSc
 import LoginWithExistAccScreen from 'modules/screens/LoginScreen/LoginExistAcc/LoginWithExistAccScreen'
 import LoginScreen from 'modules/screens/LoginScreen'
 import SearchFriendView from 'modules/views/SearchFriendView'
+import ProfileView from 'modules/views/ProfileView'
 const Stack = createNativeStackNavigator()
 
 export default AppNavigator = (navigation) => {
@@ -29,20 +30,19 @@ export default AppNavigator = (navigation) => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Group>
-        <Stack.Screen
+          <Stack.Screen
             name={ScreenNames.loginScreen}
             component={LoginScreen}
             options={{
               headerShown: false,
             }}
           />
-        <Stack.Screen
+          <Stack.Screen
             name={ScreenNames.signUpScreen}
             component={SignupScreen}
             options={{ headerShown: false }}
           />
-          
-         
+
           <Stack.Screen
             name={ScreenNames.existAccScreen}
             component={ExistAccScreen}
@@ -84,7 +84,6 @@ export default AppNavigator = (navigation) => {
             component={NameSetting}
           />
         </Stack.Group>
-        <Stack.Group></Stack.Group>
 
         <Stack.Group
           screenOptions={{
@@ -102,11 +101,15 @@ export default AppNavigator = (navigation) => {
             component={AllFriendView}
             options={{ headerShown: false }}
           />
-
           <Stack.Screen
             name={ScreenNames.searchFriendView}
             component={SearchFriendView}
             options={{ headerShown: false }}
+          />
+
+          <Stack.Screen
+            name={ScreenNames.profileView}
+            component={ProfileView}
           />
         </Stack.Group>
       </Stack.Navigator>
