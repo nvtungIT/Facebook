@@ -4,29 +4,18 @@ import { FriendDataTest } from '../../../../assets/FriendDataTest'
 import FriendChoiceItem from 'modules/components/FriendChoiceItem'
 import { getPreference } from 'libs/storage/PreferenceStorage'
 import { PreferenceKeys } from 'general/constants/Global'
-export default function FriendRequestList() {
-  const [isLoading, setLoading] = useState(true)
-  const [data, setData] = useState([])
 
+export default function FriendRequestList() {
   useEffect(() => {
     getData()
   }, [])
 
-  const getData = async () => {
-    try {
-      const token = await getPreference('UserToken')
-      if (token !== null) {
-        getRequestedFriendList(token, 0, 10)
-      }
-    } catch (e) {
-      // error reading value
-    }
-  }
-
+  const [isLoading, setLoading] = useState(true)
+  const [data, setData] = useState([])
   const getRequestedFriendList = async (token, index, count) => {
     try {
       const response = await fetch(
-        `http://192.168.1.9:5000/it4788/friend/get_requested_friends`,
+        `http://192.168.1.13:5000/it4788/friend/get_requested_friends`,
         {
           method: 'POST',
           headers: {
@@ -54,6 +43,16 @@ export default function FriendRequestList() {
     }
   }
 
+  const getData = async () => {
+    try {
+      const token = await getPreference('UserToken')
+      if (token !== null) {
+        getRequestedFriendList(token, 0, 10)
+      }
+    } catch (e) {
+      // error reading value
+    }
+  }
   return (
     <View>
       <Text

@@ -43,9 +43,7 @@ const ModalPopup = ({ visibile, modalTitle, modalContent, setVisible }) => {
           </View>
           <View style={styles.modalContentWrap}>
             <Text style={styles.modalContent}>
-              {modalContent
-                ? modalContent
-                : 'Modal Content Default slkgjsldfgjs;ldgjlds;fgjfdklgjfdgj'}
+              {modalContent ? modalContent : 'Modal Content Default'}
             </Text>
           </View>
           <TouchableOpacity
@@ -91,7 +89,7 @@ export default LoginScreen = ({ navigation }) => {
   const login = async (phoneNumber, password) => {
     try {
       const response = await fetch(
-        `http://192.168.1.9:5000/it4788/auth/login`,
+        `http://192.168.1.13:5000/it4788/auth/login`,
         {
           method: 'POST',
           headers: {
@@ -99,8 +97,8 @@ export default LoginScreen = ({ navigation }) => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            phoneNumber,
-            password,
+            phoneNumber: '0947977023',
+            password: 'Tung_2001',
           }),
         },
       )
