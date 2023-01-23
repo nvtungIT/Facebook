@@ -1,3 +1,4 @@
+import { AppColors } from 'general/constants/AppColor'
 import { StyleSheet } from 'react-native'
 import { Dimensions } from 'react-native'
 const windowWidth = Dimensions.get('window').width
@@ -17,6 +18,30 @@ const styles = StyleSheet.create({
     borderRadius: windowWidth / 2,
     borderWidth: 5,
     borderColor: '#ffffff',
+  },
+  name: {
+    textAlign: 'center',
+    fontSize: 30,
+    color: '#000000',
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  camera_icon_container: {
+    backgroundColor: AppColors.grey,
+    width: 40,
+    height: 40,
+    borderRadius: 40,
+    marginLeft: windowWidth / 2 + windowWidth / 4 - 60,
+    marginTop: windowWidth / 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  line: {
+    borderColor: AppColors.lightGrey,
+    borderBottomWidth: 1,
+  },
+  detail_view: {
+    justifyContent: 'center',
   },
 })
 

@@ -15,7 +15,7 @@ export default function FriendRequestList() {
   const getRequestedFriendList = async (token, index, count) => {
     try {
       const response = await fetch(
-        `http://192.168.1.9:5000/it4788/friend/get_requested_friends`,
+        `http://192.168.1.13:5000/it4788/friend/get_requested_friends`,
         {
           method: 'POST',
           headers: {
