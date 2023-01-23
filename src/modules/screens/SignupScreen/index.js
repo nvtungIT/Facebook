@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react'
+<<<<<<< HEAD
 import {
   View,
   Text,
@@ -7,6 +8,9 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native'
+=======
+import { View, Text, TextInput, Button, Image } from 'react-native'
+>>>>>>> origin/feature_friendTab
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import DatePicker from 'react-native-date-picker'
 import { useForm, Controller } from 'react-hook-form'

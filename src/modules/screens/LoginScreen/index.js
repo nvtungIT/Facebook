@@ -308,7 +308,11 @@ export default LoginScreen = ({ navigation }) => {
           underlayColor="#bdbdbd"
           activeOpacity={0.9}
           onPress={() => {
+<<<<<<< HEAD
             navigation.navigate(ScreenNames.signUpScreen)
+=======
+            navigation.navigate(ScreenNames.signupScreen)
+>>>>>>> origin/feature_friendTab
           }}
           onShowUnderlay={() => {
             setIsCreateAccPressed(true)

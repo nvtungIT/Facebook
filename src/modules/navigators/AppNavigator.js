@@ -4,11 +4,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 import SignupScreen from 'modules/screens/SignupScreen'
-import HomeScreen from 'modules/screens/HomeScreen'
 import FriendScreen from 'modules/screens/FriendScreen'
 import MenuScreen from 'modules/screens/MenuScreen'
-import ScreenNames from 'general/constants/ScreenNames'
-import MainTabNavigator from './MainTabNavigator'
 import TermsPolocies from 'modules/screens/MenuScreen/TermsPolicies'
 import Setting from 'modules/screens/MenuScreen/Setting'
 import InforUser from 'modules/screens/MenuScreen/Setting/InforUser'
@@ -51,11 +48,6 @@ export default AppNavigator = (navigation) => {
           <Stack.Screen
             name={ScreenNames.loginWithExistAccScreen}
             component={LoginWithExistAccScreen}
-          />
-          <Stack.Screen
-            name={ScreenNames.homeScreen}
-            component={HomeScreen}
-            options={{ headerShown: false }}
           />
         </Stack.Group>
 
@@ -106,7 +98,6 @@ export default AppNavigator = (navigation) => {
             component={SearchFriendView}
             options={{ headerShown: false }}
           />
-
           <Stack.Screen
             name={ScreenNames.profileView}
             component={ProfileView}
