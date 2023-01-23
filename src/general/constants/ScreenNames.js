@@ -6,7 +6,22 @@ export default ScreenNames = {
   menuScreen: 'MenuScreen',
   notificationScreen: 'NotificationScreen',
   videoScreen: 'VideoScreen',
-  signUpScreen: 'SignUpScreen',
+  // views
+  allFriendView: 'Tất cả bạn bè',
+  suggestedFriendView: 'Gợi ý',
+  searchFriendView: 'SearchFriendView',
+  profileView: 'Trang cá nhân',
+
+  //login screens
+  loginScreen: 'LoginScreen',
+  existAccScreen: 'ExistAccScreen',
+  loginWithExistAccScreen: 'LoginWithExistAccScreen',
+
+  //Signup
+  signupScreen: 'SignupScreen',
+
+  // friendScreen
+
   termsPolicies: 'Điều khoản và chính sách',
   setting: 'Cài đặt & quyền riêng tư',
   inforUser: 'Thông tin cá nhân và tài khoản',
@@ -14,13 +29,4 @@ export default ScreenNames = {
   block: 'Chặn',
   notificationSetting: 'Cài đặt thông báo',
   nameSetting: 'Tên',
-  // views
-  allFriendView: 'Tất cả bạn bè',
-  suggestedFriendView: 'Gợi ý',
-  searchFriendView: 'SearchFriendView',
-  profileView: 'Trang cá nhân',
-  //login screens
-  loginScreen: 'LoginScreen',
-  existAccScreen: 'ExistAccScreen',
-  loginWithExistAccScreen: 'LoginWithExistAccScreen',
 }
