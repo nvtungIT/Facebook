@@ -2,7 +2,7 @@ import { Button, TouchableOpacity } from 'react-native'
 import { NavigationContainer, StackActions } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Icon from 'react-native-vector-icons/FontAwesome'
-
+import MainTabNavigator from './MainTabNavigator'
 import SignupScreen from 'modules/screens/SignupScreen'
 import FriendScreen from 'modules/screens/FriendScreen'
 import MenuScreen from 'modules/screens/MenuScreen'
@@ -20,6 +20,7 @@ import LoginWithExistAccScreen from 'modules/screens/LoginScreen/LoginExistAcc/L
 import LoginScreen from 'modules/screens/LoginScreen'
 import SearchFriendView from 'modules/views/SearchFriendView'
 import ProfileView from 'modules/views/ProfileView'
+import ScreenNames from 'general/constants/ScreenNames'
 const Stack = createNativeStackNavigator()
 
 export default AppNavigator = (navigation) => {
@@ -35,7 +36,7 @@ export default AppNavigator = (navigation) => {
             }}
           />
           <Stack.Screen
-            name={ScreenNames.signUpScreen}
+            name={ScreenNames.signupScreen}
             component={SignupScreen}
             options={{ headerShown: false }}
           />
