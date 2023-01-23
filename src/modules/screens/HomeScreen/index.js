@@ -6,6 +6,7 @@ import {
   FlatList,
   Pressable,
   RefreshControl,
+  Image,
 } from 'react-native';
 
 import PostComponent from './postComponent';
@@ -14,6 +15,8 @@ import { useState, useCallback } from 'react';
 import { get_list_posts } from './function/get_list_posts';
 import { useEffect } from 'react';
 import { check_new_item } from './function/check_new_item';
+import { getPreference } from 'libs/storage/PreferenceStorage';
+import AddPost from 'modules/views/CreatePost';
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -29,6 +32,10 @@ export default function HomeScreen({ navigation }) {
   const [loadingText, setLoadingText] = useState('isLoading');
   const [refreshing, setRefreshing] = useState(false);
   const [render, setRender] = useState([true]); //state to render flatlist
+  const [avatarUrl, setAvatarUrl] = useState('');
+  const [token, setToken] = useState('');
+  const [userId, setUserId] = useState('');
+  const [userName, setUserName] = useState('');
 
   useEffect(() => {
     get_list_posts({
@@ -45,6 +52,64 @@ export default function HomeScreen({ navigation }) {
         setRender([...render]);
       }),
     [navigation]
+  );
+
+  useEffect(() => {
+    async function getAvatar() {
+      let avatarUrl = await getPreference('UserAvatar');
+      console.log(avatarUrl);
+      setAvatarUrl(avatarUrl);
+    }
+    async function getToken() {
+      let token = await getPreference('UserToken');
+      setToken(token);
+    }
+    async function getUserId() {
+      let userId = await getPreference('UserId');
+      setUserId(userId);
+      console.log(userId);
+    }
+    async function getUserName() {
+      let userName = await getPreference('UserName');
+      console.log(userName);
+      setUserName(userName);
+    }
+    if (!avatarUrl) getAvatar();
+    if (!token) getToken();
+    if (!userId) getUserId();
+    if (!userName) getUserName();
+  }, []);
+
+  const avatarSrc =
+    avatarUrl != ''
+      ? { uri: avatarUrl }
+      : require('assets/images/default_avafb.jpg');
+
+  const [addPostVisible, setAddPostVisible] = useState(false);
+
+  const AddPostComponent = () => (
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: 'white',
+      }}
+    >
+      <Pressable>
+        <Image
+          source={avatarSrc}
+          style={{
+            width: 40,
+            height: 40,
+            borderRadius: 40,
+            margin: 8,
+          }}
+        />
+      </Pressable>
+      <Pressable onPress={() => setAddPostVisible(true)}>
+        <Text>Bạn đang nghĩ gì?</Text>
+      </Pressable>
+    </View>
   );
 
   const exampleData = [
@@ -131,6 +196,15 @@ export default function HomeScreen({ navigation }) {
           <Text>is Loading</Text>
         ) : (
           <View>
+            <AddPost
+              modalVisible={addPostVisible}
+              setModalVisible={setAddPostVisible}
+              token={token}
+              userId={userId}
+              avatar={avatarUrl}
+              userName={userName}
+              postData
+            />
             <FlatList
               data={posts}
               extraData={render}
@@ -141,6 +215,7 @@ export default function HomeScreen({ navigation }) {
               }
               onEndReachedThreshold={0.5}
               onEndReached={handlePullUpLoadMore}
+              ListHeaderComponent={<AddPostComponent />}
               ListFooterComponent={<Text>{loadingText}</Text>}
               ListEmptyComponent={<Text>No post to show!</Text>}
             />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import {
   Modal,
   Text,
@@ -7,34 +7,43 @@ import {
   Image,
   TextInput,
   ScrollView,
-} from 'react-native'
-import styles from 'modules/views/CreatePost/styles'
-import FeatherIcon from 'react-native-vector-icons/Feather'
-import EntypoIcon from 'react-native-vector-icons/Entypo'
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
-import ImagePicker from 'react-native-image-crop-picker'
-import RNFS from 'react-native-fs'
-import ImageBox from 'modules/views/CreatePost/image-box'
-import Popup from 'modules/views/CreatePost/exit-popup'
-import Feeling from 'modules/views/CreatePost//feeling-selection'
-import icons from 'general/constants/icon'
-import domain from 'general/constants/domain'
-import { useEffect } from 'react'
+} from 'react-native';
+import styles from 'modules/views/CreatePost/styles';
+import FeatherIcon from 'react-native-vector-icons/Feather';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import ImagePicker from 'react-native-image-crop-picker';
+import RNFS from 'react-native-fs';
+import ImageBox from 'modules/views/CreatePost/image-box';
+import Popup from 'modules/views/CreatePost/exit-popup';
+import Feeling from 'modules/views/CreatePost//feeling-selection';
+import icons from 'general/constants/icon';
+import domain from 'general/constants/domain';
+import { useEffect } from 'react';
 
-const AddPost = ({ postData }) => {
-  const [modalVisible, setModalVisible] = useState(true)
-  const [popupVisible, setPopupVisible] = useState(false)
+const AddPost = (params) => {
+  console.log('CreatePost render');
+  const {
+    postData,
+    modalVisible,
+    setModalVisible,
+    token,
+    avatar,
+    userName,
+    userId,
+  } = params;
+  const [popupVisible, setPopupVisible] = useState(false);
   const [user, setUser] = useState({
-    name: '',
-    avatar: null,
-  })
-  const [description, setDescription] = useState('')
-  const [images, setImages] = useState([])
-  const [feelingModal, setFeelingModal] = useState(false)
-  const [status, setStatus] = useState('')
-  const [willBeDeletedImages, setWillBeDeletedImages] = useState([])
+    name: userName,
+    avatar: avatar,
+  });
+  const [description, setDescription] = useState('');
+  const [images, setImages] = useState([]);
+  const [feelingModal, setFeelingModal] = useState(false);
+  const [status, setStatus] = useState(null);
+  const [willBeDeletedImages, setWillBeDeletedImages] = useState([]);
   const isUploadingImages =
-    images.length > 0 && images[0]?.mimetype.includes('image')
+    images.length > 0 && images[0]?.mimetype.includes('image');
 
   useEffect(() => {
     const fetchData = () => {
@@ -45,52 +54,53 @@ const AddPost = ({ postData }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          token:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzVmMjUzZGU5NzlmMjBmMDBkYTAyNiIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMTdUMDA6NTc6MzkuMjg5WiIsImlhdCI6MTY3MzkxNzA1OSwiZXhwIjoxNjc0MDAzNDU5fQ.Hq0KKJtcBKnwL2D3v4uFZKgBSm1gjuLZy8tn3Vcm_6g',
+          token: token,
           id: postData?.id,
         }),
-      }
+      };
       fetch(domain + '/it4788/post/get_post', options)
         .then((res) => res.json())
         .then((data) => {
-          const info = data.data
+          const info = data.data;
           setImages(() => {
-            if (!info?.image && !info?.video) return []
-            const fetchedImages = info?.image || [info?.video]
-            const mimetype = info?.image ? 'image' : 'video'
+            if (!info?.image && !info?.video) return [];
+            const fetchedImages = info?.image || [info?.video];
+            const mimetype = info?.image ? 'image' : 'video';
             return fetchedImages.map((image) => {
               return {
                 ...image,
                 path: image?.url,
                 mimetype,
-              }
-            })
-          })
-          setDescription(info?.described)
+              };
+            });
+          });
+          setDescription(info?.described);
           setUser({
             name: info?.author?.name,
             avatar: info?.author?.avatar,
-          })
-          setStatus(info?.state)
+          });
+          setStatus(info?.state);
         })
-        .catch((err) => console.log(err))
-    }
-    fetchData()
-  }, [])
+        .catch((err) => console.log(err));
+    };
+    fetchData();
+  }, []);
 
   const addIconsToDescription = (value) => {
-    let haveIconDescription = value
+    let haveIconDescription = value;
     icons.forEach((item) => {
-      haveIconDescription = haveIconDescription.split(item.text).join(item.icon)
-    })
-    setDescription(haveIconDescription)
-  }
+      haveIconDescription = haveIconDescription
+        .split(item.text)
+        .join(item.icon);
+    });
+    setDescription(haveIconDescription);
+  };
   const modifyMetadata = async (data) => {
-    let newImages
-    const numberOfNewImages = data.length
+    let newImages;
+    const numberOfNewImages = data.length;
     if (data[0]?.mime.includes('video')) {
-      const buffer = await RNFS.readFile(data[0]?.path, 'base64')
-      const video = data[numberOfNewImages - 1]
+      const buffer = await RNFS.readFile(data[0]?.path, 'base64');
+      const video = data[numberOfNewImages - 1];
       newImages = [
         {
           fieldname: 'video',
@@ -101,7 +111,7 @@ const AddPost = ({ postData }) => {
           buffer,
           path: video.path,
         },
-      ]
+      ];
     } else
       newImages = data.map((image) => {
         return {
@@ -112,25 +122,25 @@ const AddPost = ({ postData }) => {
           size: image.size,
           buffer: image.data,
           path: image.path,
-        }
-      })
-    return newImages
-  }
+        };
+      });
+    return newImages;
+  };
   const getExactlyNumberOfImagesAsRequire = (currentImages, newImages) => {
-    const numberOfCurrentImages = currentImages.length
-    const numberOfNewImages = newImages.length
+    const numberOfCurrentImages = currentImages.length;
+    const numberOfNewImages = newImages.length;
     if (newImages[0]?.mimetype.includes('video')) {
-      return [newImages[numberOfNewImages - 1]]
+      return [newImages[numberOfNewImages - 1]];
     }
-    if (numberOfNewImages >= 4) return newImages.slice(numberOfNewImages - 4)
+    if (numberOfNewImages >= 4) return newImages.slice(numberOfNewImages - 4);
     if (numberOfCurrentImages + numberOfNewImages > 4) {
       return [
         ...currentImages.slice(numberOfCurrentImages + numberOfNewImages - 4),
         ...newImages,
-      ]
+      ];
     }
-    return [...currentImages, ...newImages]
-  }
+    return [...currentImages, ...newImages];
+  };
   const chooseFiles = async () => {
     ImagePicker.openPicker({
       multiple: true,
@@ -138,76 +148,70 @@ const AddPost = ({ postData }) => {
       mediaType: isUploadingImages ? 'photo' : 'any',
     })
       .then(async (data) => {
-        const newImages = await modifyMetadata(data)
+        const newImages = await modifyMetadata(data);
         setImages((currentImages) =>
-          getExactlyNumberOfImagesAsRequire(currentImages, newImages),
-        )
+          getExactlyNumberOfImagesAsRequire(currentImages, newImages)
+        );
       })
-      .catch((err) => console.log(err))
-  }
+      .catch((err) => console.log(err));
+  };
   const closeModal = () => {
-    setPopupVisible(true)
-  }
+    setPopupVisible(true);
+  };
   const chooseFeeling = () => {
-    setFeelingModal(true)
-  }
+    setFeelingModal(true);
+  };
   const addPost = () => {
-    const data = new FormData()
-    data.append('described', description)
-    data.append('status', status)
+    const data = new FormData();
+    data.append('described', description);
+    data.append('status', status);
     if (isUploadingImages)
-      data.append('image', JSON.stringify(images.filter((item) => !item?._id)))
+      data.append('image', JSON.stringify(images.filter((item) => !item?._id)));
     else
-      data.append('video', JSON.stringify(images.filter((item) => !item?._id)))
-    data.append('userId', '63c20f6c7919100b88739fc1')
-    data.append(
-      'token',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzVmMjUzZGU5NzlmMjBmMDBkYTAyNiIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMTdUMDA6NTc6MzkuMjg5WiIsImlhdCI6MTY3MzkxNzA1OSwiZXhwIjoxNjc0MDAzNDU5fQ.Hq0KKJtcBKnwL2D3v4uFZKgBSm1gjuLZy8tn3Vcm_6g',
-    )
+      data.append('video', JSON.stringify(images.filter((item) => !item?._id)));
+    data.append('userId', userId);
+    data.append('token', token);
     const options = {
       method: 'post',
       body: data,
       headers: {
         'Content-Type': 'multipart/form-data',
       },
-    }
+    };
     fetch(domain + '/it4788/post/add_post', options)
       .then((res) => res.json())
       .then((data) => console.log(data))
-      .catch((err) => console.log(err))
-  }
+      .catch((err) => console.log(err));
+  };
   const editPost = () => {
-    const data = new FormData()
-    data.append('described', description)
-    data.append('status', status)
-    data.append('image_del', JSON.stringify(willBeDeletedImages))
+    const data = new FormData();
+    data.append('described', description);
+    data.append('status', status);
+    data.append('image_del', JSON.stringify(willBeDeletedImages));
     if (isUploadingImages)
-      data.append('image', JSON.stringify(images.filter((item) => !item?._id)))
+      data.append('image', JSON.stringify(images.filter((item) => !item?._id)));
     else
-      data.append('video', JSON.stringify(images.filter((item) => !item?._id)))
-    data.append('userId', '63c20f6c7919100b88739fc1')
-    data.append('id', postData?.id)
-    data.append(
-      'token',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYzVmMjUzZGU5NzlmMjBmMDBkYTAyNiIsImRhdGVMb2dpbiI6IjIwMjMtMDEtMTdUMDA6NTc6MzkuMjg5WiIsImlhdCI6MTY3MzkxNzA1OSwiZXhwIjoxNjc0MDAzNDU5fQ.Hq0KKJtcBKnwL2D3v4uFZKgBSm1gjuLZy8tn3Vcm_6g',
-    )
+      data.append('video', JSON.stringify(images.filter((item) => !item?._id)));
+    data.append('userId', userId);
+    data.append('id', postData?.id);
+    data.append('token', token);
     const options = {
       method: 'post',
       body: data,
       headers: {
         'Content-Type': 'multipart/form-data',
       },
-    }
+    };
     fetch(domain + '/it4788/post/edit_post', options)
       .then((res) => res.json())
       .then((data) => console.log(data))
-      .catch((err) => console.log(err))
-  }
+      .catch((err) => console.log(err));
+  };
   const post = () => {
-    if (images.length === 0) return
-    if (!postData?.isEditing) addPost()
-    else editPost()
-  }
+    if (images.length === 0) return;
+    if (!postData?.isEditing) addPost();
+    else editPost();
+  };
 
   return (
     <Modal animationType="slide" transparent={true} visible={modalVisible}>
@@ -237,13 +241,13 @@ const AddPost = ({ postData }) => {
               <Image
                 style={styles.avatar}
                 source={
-                  user?.avatar
-                    ? { uri: user?.avatar }
+                  avatar
+                    ? { uri: avatar }
                     : require('assets/images/male-avatar.jpg')
                 }
               />
               <Text style={[styles.boldText, styles.userName]}>
-                {user?.name || 'Facebook User'}
+                {userName ? userName : 'Facebook User'}
               </Text>
               <Text style={[styles.userName]}>
                 {status && `đang cảm thấy ${status}`}
@@ -269,7 +273,7 @@ const AddPost = ({ postData }) => {
                         setWillBeDeletedImages={setWillBeDeletedImages}
                         chooseFiles={chooseFiles}
                       />
-                    )
+                    );
                   })}
               </View>
             )}
@@ -300,7 +304,7 @@ const AddPost = ({ postData }) => {
         )}
       </View>
     </Modal>
-  )
-}
+  );
+};
 
-export default AddPost
+export default AddPost;

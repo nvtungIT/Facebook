@@ -111,10 +111,14 @@ export default LoginScreen = ({ navigation }) => {
         if (data.code === '1000') {
           const token = await data.data.token;
           const avatar = await data.data.avatar;
+          const userId = await data.data.id;
+          const username = await data.data.username;
           console.log('Login Token' + token);
           try {
             setPreference(PreferenceKeys.UserToken, token);
             setPreference(PreferenceKeys.UserAvatar, avatar);
+            setPreference(PreferenceKeys.UserId, userId);
+            setPreference(PreferenceKeys.UserName, username);
           } catch (error) {
             alert(error);
           }

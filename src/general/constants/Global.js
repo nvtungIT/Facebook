@@ -17,4 +17,6 @@ export const PreferenceKeys = {
   // LastTimeServerMS: 'LastTimeServerMS',
   UserToken: 'UserToken',
   UserAvatar: 'UserAvatar',
+  UserId: 'UserId',
+  UserName: 'UserName',
 };

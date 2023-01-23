@@ -1,31 +1,31 @@
-import React, { useState, useEffect } from 'react'
-import { View, Text, Button } from 'react-native'
-import { FriendDataTest } from '../../../../assets/FriendDataTest'
-import FriendChoiceItem from 'modules/components/FriendChoiceItem'
-import { getPreference } from 'libs/storage/PreferenceStorage'
-import { PreferenceKeys } from 'general/constants/Global'
+import React, { useState, useEffect } from 'react';
+import { View, Text, Button } from 'react-native';
+import { FriendDataTest } from '../../../../assets/FriendDataTest';
+import FriendChoiceItem from 'modules/components/FriendChoiceItem';
+import { getPreference } from 'libs/storage/PreferenceStorage';
+import { PreferenceKeys } from 'general/constants/Global';
 export default function FriendRequestList() {
-  const [isLoading, setLoading] = useState(true)
-  const [data, setData] = useState([])
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    getData()
-  }, [])
+    getData();
+  }, []);
   const getData = async () => {
     try {
-      const token = await getPreference('UserToken')
+      const token = await getPreference('UserToken');
       if (token !== null) {
-        getRequestedFriendList(token, 0, 10)
+        getRequestedFriendList(token, 0, 10);
       }
     } catch (e) {
       // error reading value
     }
-  }
+  };
 
   const getRequestedFriendList = async (token, index, count) => {
     try {
       const response = await fetch(
-        `http://192.168.1.9:5000/it4788/friend/get_requested_friends`,
+        `http://192.168.0.136:5000/it4788/friend/get_requested_friends`,
         {
           method: 'POST',
           headers: {
@@ -38,20 +38,20 @@ export default function FriendRequestList() {
             index,
             count,
           }),
-        },
-      )
+        }
+      );
 
-      const data = await response.json()
+      const data = await response.json();
       if (data) {
-        console.log('get_requested_friend')
-        console.log(data)
-        console.log(data.data.request)
-        setData(data.data.request)
+        console.log('get_requested_friend');
+        console.log(data);
+        console.log(data.data.request);
+        setData(data.data.request);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <View>
@@ -87,5 +87,5 @@ export default function FriendRequestList() {
         />
       ))}
     </View>
-  )
+  );
 }

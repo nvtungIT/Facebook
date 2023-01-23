@@ -56,12 +56,10 @@ export const CommentInputComp = (params) => {
     if (!avatarUrl) getAvatar();
   }, []);
 
-  console.log(avatarUrl);
   const avatarSrc =
     avatarUrl != ''
       ? { uri: avatarUrl }
       : require('assets/images/default_avafb.jpg');
-  console.log(avatarSrc);
 
   return (
     <View style={styles.inputcontainer}>

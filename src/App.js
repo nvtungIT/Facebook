@@ -17,7 +17,7 @@ function App() {
         barStyle="dark-content"
       />
       <AppNavigator />
-      <AddPost postData={{ isEditing: true, id: '63c5ffe8febc5c12a0b8a7f9' }} />
+      {/* <AddPost postData={{ isEditing: true, id: '63c5ffe8febc5c12a0b8a7f9' }} /> */}
       {/* <SignupScreen/> */}
     </SafeAreaProvider>
   );
