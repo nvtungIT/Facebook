@@ -37,7 +37,6 @@ export default PostComponent = (params) => {
     post.is_liked == '1' ? 'blue' : 'black'
   );
   const [numLikes, setNumLikes] = useState(Number(post.like));
-  const [loadingComment, setLoadingComment] = useState(true);
   const [comments, setComments] = useState([]);
   const [numCmt, setNumCmt] = useState(Number(post.comment));
 
@@ -50,13 +49,6 @@ export default PostComponent = (params) => {
   useEffect(() => {
     setNumCmt(Number(post.comment));
   }, [post.comment]);
-
-  useEffect(() => {
-    if (inputComment != undefined) {
-      console.log(inputComment);
-      setComments([...comments, inputComment]);
-    }
-  }, [inputComment]);
 
   const postStatus = getStatus(post.modified);
 
@@ -105,17 +97,6 @@ export default PostComponent = (params) => {
     }
     like(post.id);
   };
-
-  useEffect(() => {
-    if (type == 'single') {
-      console.log('get comment');
-      get_comment({
-        postId: post.id,
-        setComments: setComments,
-        setLoading: setLoadingComment,
-      });
-    }
-  }, []);
 
   const onPressImg = () => {
     if (post.image.length == 1) {
@@ -230,12 +211,9 @@ export default PostComponent = (params) => {
         </View>
       </View>
       {/* list comments part */}
-      {type == 'single' &&
-        (loadingComment ? (
-          <Text>is Loading</Text>
-        ) : (
-          <CommentsComponent comments={comments} />
-        ))}
+      {type == 'single' && (
+        <CommentsComponent postId={post.id} inputComment={inputComment} />
+      )}
     </View>
   );
 };

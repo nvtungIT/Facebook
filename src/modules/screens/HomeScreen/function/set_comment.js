@@ -1,6 +1,9 @@
-import { token, serverDomain } from './variables';
+import { getPreference } from 'libs/storage/PreferenceStorage';
+import { serverDomain } from './variables';
 
-export function set_comment(params) {
+export async function set_comment(params) {
+  const token = await getPreference('UserToken');
+
   const { comment, postId } = params;
   const url =
     serverDomain +

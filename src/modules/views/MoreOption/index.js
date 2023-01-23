@@ -12,27 +12,22 @@ import MinusIcon from 'react-native-vector-icons/AntDesign';
 
 export default MoreOption = ({ visible, setvisible, isposter }) => {
   return (
-    <View>
-      <Modal animationType="slide" transparent={true} visible={visible}>
-        <View style={styles.modalView}>
-          <Pressable
-            style={styles.darkArea}
-            onPress={() => setvisible(false)}
-          />
-          <View style={styles.whiteArea}>
-            <View style={styles.blackIconBox}>
-              <MinusIcon name="minus" size={45} style={{ margin: -20 }} />
-            </View>
-            <ScrollView style={styles.optionsArea}>
-              <OptionComponent optionName={'option 1'} />
-              <OptionComponent optionName={'option 2'} />
-              <OptionComponent optionName={'option 3'} />
-              <OptionComponent optionName={'option 4'} />
-            </ScrollView>
+    <Modal animationType="slide" transparent={true} visible={visible}>
+      <View style={styles.modalView}>
+        <Pressable style={styles.darkArea} onPress={() => setvisible(false)} />
+        <View style={styles.whiteArea}>
+          <View style={styles.blackIconBox}>
+            <MinusIcon name="minus" size={45} style={{ margin: -20 }} />
           </View>
+          <ScrollView style={styles.optionsArea}>
+            <OptionComponent optionName={'option 1'} />
+            <OptionComponent optionName={'option 2'} />
+            <OptionComponent optionName={'option 3'} />
+            <OptionComponent optionName={'option 4'} />
+          </ScrollView>
         </View>
-      </Modal>
-    </View>
+      </View>
+    </Modal>
   );
 };
 

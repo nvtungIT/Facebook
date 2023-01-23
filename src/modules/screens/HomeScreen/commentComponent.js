@@ -1,3 +1,5 @@
+import { getPreference } from 'libs/storage/PreferenceStorage';
+import { useEffect } from 'react';
 import { useRef } from 'react';
 import { useState } from 'react';
 import {
@@ -13,6 +15,7 @@ import {
   Dimensions,
 } from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import { get_comment } from './function/get_comment';
 import { getStatus } from './function/status';
 
 const SingleComment = ({ comment }) => {
@@ -39,13 +42,30 @@ const SingleComment = ({ comment }) => {
 };
 
 export const CommentInputComp = (params) => {
-  const { avatarImg, focus, onPressSend } = params;
+  const { focus, onPressSend } = params;
   const [comment, setComment] = useState(null);
+  const [avatarUrl, setAvatarUrl] = useState('');
+
   const ref_commentInput = useRef();
+
+  useEffect(() => {
+    async function getAvatar() {
+      let avatarUrl = await getPreference('UserAvatar');
+      setAvatarUrl(avatarUrl);
+    }
+    if (!avatarUrl) getAvatar();
+  }, []);
+
+  console.log(avatarUrl);
+  const avatarSrc =
+    avatarUrl != ''
+      ? { uri: avatarUrl }
+      : require('assets/images/default_avafb.jpg');
+  console.log(avatarSrc);
 
   return (
     <View style={styles.inputcontainer}>
-      <Image source={avatarImg} style={styles.avaUser} />
+      <Image source={avatarSrc} style={styles.avaUser} />
       <TextInput
         style={styles.commentinput}
         autoFocus={focus}
@@ -68,18 +88,41 @@ export const CommentInputComp = (params) => {
   );
 };
 
-export default CommentsComponent = ({ comments }) => {
+export default CommentsComponent = (params) => {
+  const { postId, inputComment } = params;
+  const [comments, setComments] = useState([]);
+  const [loadingComment, setLoadingComment] = useState(true);
+  useEffect(() => {
+    console.log('get comment');
+    get_comment({
+      postId: postId,
+      setComments: setComments,
+      setLoading: setLoadingComment,
+    });
+  }, []);
+
+  useEffect(() => {
+    if (inputComment != undefined) {
+      console.log(inputComment);
+      setComments([...comments, inputComment]);
+    }
+  }, [inputComment]);
+
   const renderItem = ({ item }) => {
     return <SingleComment comment={item} />;
   };
   return (
     <SafeAreaView>
       <ScrollView horizontal={true}>
-        <FlatList
-          data={comments}
-          renderItem={renderItem}
-          keyExtractor={(comment) => comment.id}
-        />
+        {loadingComment ? (
+          <Text>is Loading</Text>
+        ) : (
+          <FlatList
+            data={comments}
+            renderItem={renderItem}
+            keyExtractor={(comment) => comment.id}
+          />
+        )}
       </ScrollView>
     </SafeAreaView>
   );

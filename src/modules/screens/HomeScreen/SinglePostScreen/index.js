@@ -111,11 +111,7 @@ export default function SinglePostScreen({ navigation, route }) {
         />
       </ScrollView>
       {post.can_comment == '1' && (
-        <CommentInputComp
-          avatarImg={avatarImg}
-          focus={focus}
-          onPressSend={onPressSend}
-        />
+        <CommentInputComp focus={focus} onPressSend={onPressSend} />
       )}
     </SafeAreaView>
   );

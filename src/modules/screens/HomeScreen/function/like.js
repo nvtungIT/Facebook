@@ -1,6 +1,8 @@
-import { token, serverDomain } from './variables';
+import { getPreference } from 'libs/storage/PreferenceStorage';
+import { serverDomain } from './variables';
 
-export function like(id) {
+export async function like(id) {
+  const token = await getPreference('UserToken');
   const url = serverDomain + 'like/like?token=' + token + '&id=' + id;
   fetch(url, { method: 'POST' });
 }

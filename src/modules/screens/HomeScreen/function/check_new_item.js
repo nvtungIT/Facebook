@@ -1,4 +1,4 @@
-import { token, serverDomain } from './variables';
+import { serverDomain } from './variables';
 
 export async function check_new_item(topId) {
   const url =

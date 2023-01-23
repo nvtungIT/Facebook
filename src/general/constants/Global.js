@@ -16,4 +16,5 @@ export const PreferenceKeys = {
   // ExpireTimeMS: 'ExpireTimeMS',
   // LastTimeServerMS: 'LastTimeServerMS',
   UserToken: 'UserToken',
-}
+  UserAvatar: 'UserAvatar',
+};

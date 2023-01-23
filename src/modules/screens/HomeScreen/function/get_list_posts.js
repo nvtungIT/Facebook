@@ -1,4 +1,5 @@
-import { token, serverDomain } from './variables';
+import { getPreference } from 'libs/storage/PreferenceStorage';
+import { serverDomain } from './variables';
 
 export async function get_list_posts(params) {
   const {
@@ -10,6 +11,9 @@ export async function get_list_posts(params) {
     newItems,
     type,
   } = params;
+
+  const token = await getPreference('UserToken');
+
   let index = 0;
   let count = 20;
   if (type == 'get old posts') {
