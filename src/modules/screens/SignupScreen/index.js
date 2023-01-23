@@ -1,19 +1,21 @@
-import React, { Component, useEffect, useState, useRef } from "react";
-import { View, Text, TextInput, Button, Image} from 'react-native';
+import React, { useState, useRef } from "react";
+import { View, Text, TextInput, Button, Image, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import DatePicker from "react-native-date-picker";
 import { useForm, Controller } from "react-hook-form";
 import PhoneInput from "react-native-phone-number-input";
+import ScreenNames from "general/constants/ScreenNames";
 import styles from "./styles";
 
-export default function SignupScreen(props){
+
+export default function SignupScreen({ navigation }){
 	const [lastName, setLastName] = useState('');
 	const [firstName, setFirstName] = useState('');
     const [phone, setPhone] = useState('');
     const [date, setDate] = useState(new Date());
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    const [checkPhone, setCheckPhone] = useState(false);
+    const [checkPhone, setCheckPhone] = useState(true);
     const phoneInput = useRef(null);
 
     const [field, setField] = useState(0);
@@ -34,16 +36,43 @@ export default function SignupScreen(props){
 
     const onSubmitPassword = (data) => {
         setField(field+1);
-       }
+    };
+
+    const handleRegister = async () => {
+        try {
+            const response = await fetch(
+              'http://192.168.1.9:5000/it4788/auth/signup',{
+                method: 'POST',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    firstName: firstName,
+                    lastName: lastName,
+                    birthday: date,
+                    phoneNumber: phone,
+                    email: email,
+                    password: password,
+                })
+              }
+            );
+            const json = await response.json();
+            return json.movies;
+          } catch (error) {
+            console.error(error);
+          }
+    }
+    
     return (
         <View style={styles.wrapper}>
             {field == 0 && 
             <View style={styles.formGroup}>
                 <View style={styles.formNavigate}>
-                    <Icon 
+                    <TouchableOpacity onPress={() => navigation.goBack()}><Icon 
                     name="arrow-left" 
                     style={styles.icon}
-                    />
+                    /></TouchableOpacity>
                     <Text style={styles.formNavigateLabel}>Tạo tài khoản</Text>
                 </View>
                 <View>
@@ -59,12 +88,13 @@ export default function SignupScreen(props){
                         
                     <View style={styles.buttonView}>
                     <Button
-                    onPress={() => setField(field+1)}
+                    onPress={() => {setField(field+1); console.log('press')}}
                     title="Tiếp"/>
                     </View>
                 </View>
             </View>
             }
+            {/* Name */}
             {field == 1 && 
             <View style={styles.formGroup}>
                 <View style={styles.formNavigate}>
@@ -81,7 +111,7 @@ export default function SignupScreen(props){
                         <Text style={styles.errorMessage}>Vui lòng nhập tên của bạn.</Text>                        
                     }
                     {!errors.firstName && errors.lastName &&
-                        <Text style={styles.errorMessage}>Vui lòng nhập tên của bạn.</Text>                        
+                        <Text style={styles.errorMessage}>Vui lòng nhập họ của bạn.</Text>                        
                     }
                     {errors.firstName && errors.lastName &&
                         <Text style={styles.errorMessage}>Vui lòng nhập họ và tên của bạn.</Text>                        
@@ -101,6 +131,7 @@ export default function SignupScreen(props){
                                 style={styles.formInput}
                                 onBlur={onBlur}
                                 placeholder="Họ"
+                                placeholderTextColor="#8a8b8d"
                                 onChangeText={
                                     (lastName) => {
                                         onChange(lastName);
@@ -121,11 +152,12 @@ export default function SignupScreen(props){
                             <TextInput
                                 style={styles.formInput}
                                 placeholder="Tên"
+                                placeholderTextColor="#8a8b8d" 
                                 onBlur={onBlur}
                                 onChangeText={
                                     (firstName) => {
                                         onChange(firstName);
-                                        setLastName(firstName)
+                                        setFirstName(firstName)
                                     }
                                 }
                                 value={value}
@@ -143,6 +175,7 @@ export default function SignupScreen(props){
                 </View>
             </View>
             }
+            {/* Birthday */}
             {field == 2 && 
             <View style={styles.formGroup}>
                 <View style={styles.formNavigate}>
@@ -164,6 +197,7 @@ export default function SignupScreen(props){
                         onDateChange={setDate}
                         mode="date"
                         fadeToColor="none"
+                        theme="light"
                         />
                     </View>
                     <View style={styles.buttonView}>
@@ -174,6 +208,7 @@ export default function SignupScreen(props){
                 </View>
             </View>
             }
+            {/* Phone */}
             {field == 3 && 
             <View style={styles.formGroup}>
                 <View style={styles.formNavigate}>
@@ -211,6 +246,7 @@ export default function SignupScreen(props){
                 </View>
             </View>
             }
+            {/* Email */}
             {field == 4 && 
             <View style={styles.formGroup}>
                 <View style={styles.formNavigate}>
@@ -245,10 +281,11 @@ export default function SignupScreen(props){
                                 style={styles.formInput}
                                 onBlur={onBlur}
                                 placeholder="Email"
+                                placeholderTextColor="#8a8b8d"
                                 onChangeText={
                                     (email) => {
                                         onChange(email);
-                                        setLastName(email)
+                                        setEmail(email)
                                     }
                                 }
                                 value={value}
@@ -265,6 +302,7 @@ export default function SignupScreen(props){
                 </View>
             </View>
             }
+        {/* Mật khẩu */}
             {field == 5 && 
             <View style={styles.formGroup}>
                 <View style={styles.formNavigate}>
@@ -295,10 +333,11 @@ export default function SignupScreen(props){
                                 style={styles.formInput}
                                 onBlur={onBlur}
                                 placeholder="Mật khẩu"
+                                placeholderTextColor="#8a8b8d"
                                 onChangeText={
                                     (password) => {
                                         onChange(password);
-                                        setLastName(password)
+                                        setPassword(password)
                                     }
                                 }
                                 value={value}
@@ -331,6 +370,10 @@ export default function SignupScreen(props){
                     <Text style={styles.formNote}>Bằng cách nhấn vào Đăng ký, bạn đồng ý với ... </Text>
                     <View style={styles.buttonView}>
                     <Button
+                    onPress={() => {
+                        handleRegister();
+                        navigation.navigate(ScreenNames.mainTab);
+                    }}
                     title="Đăng ký"/>
                     </View>
                 </View>

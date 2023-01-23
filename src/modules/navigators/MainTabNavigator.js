@@ -3,6 +3,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { useIsFocused } from '@react-navigation/native';
 
 import HomeScreen from 'modules/screens/HomeScreen';
 import FriendScreen from 'modules/screens/FriendScreen';
@@ -11,23 +12,21 @@ import ScreenNames from 'general/constants/ScreenNames';
 import NotificationScreen from 'modules/screens/NotificationScreen';
 import VideoScreen from 'modules/screens/VideoScreen';
 import AppHeader from 'modules/components/AppHeader';
-import HomeNavigator from './HomeNavigator';
-import SinglePostScreen from 'modules/screens/HomeScreen/SinglePostScreen';
-
+import { AppColors } from 'general/constants/AppColor';
 const Tab = createMaterialTopTabNavigator();
 
-export default MainTabNavigator = ({ navigation }) => {
+export default MainTabNavigator = () => {
   return (
     <SafeAreaProvider>
       <AppHeader />
-      <Tab.Navigator>
+      <Tab.Navigator initialRouteName={ScreenNames.homeScreen}>
         <Tab.Screen
           options={{
             title: ({ color, focused }) => (
               <Icon
                 size={25}
                 name={focused ? 'home' : 'home-outline'}
-                color={focused ? '#1778F2' : '#272727'}
+                color={focused ? AppColors.primaryColor : '#272727'}
               />
             ),
           }}
@@ -38,6 +37,7 @@ export default MainTabNavigator = ({ navigation }) => {
           options={{
             title: ({ color, focused }) => (
               <Icon
+                style={{ transform: [{ rotateY: '180deg' }] }}
                 size={25}
                 name={focused ? 'people' : 'people-outline'}
                 color={focused ? '#1778F2' : '#272727'}
