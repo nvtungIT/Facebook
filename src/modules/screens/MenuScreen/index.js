@@ -4,13 +4,33 @@ import styles from './styles'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import DropDownPicker from 'react-native-dropdown-picker'
 import ScreenNames from 'general/constants/ScreenNames'
+import { getPreference, removePreference } from 'libs/storage/PreferenceStorage'
+import { localIPAddress, PreferenceKeys } from 'general/constants/Global'
 
 export default function MenuScreen({ navigation: { navigate } }) {
   const [openHelp, setOpenHelp] = useState(false)
   const [openSetting, setOpenSetting] = useState(false)
+  const token = getPreference(PreferenceKeys.UserToken)
 
-  const handleLogOut = () => {
-    navigate(ScreenNames.signUpScreen)
+  const handleLogOut = async () => {
+    try {
+      const api = localIPAddress + '/auth/logout/'
+      const response = await fetch(api, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        params: {
+          token: token,
+        },
+      })
+      removePreference(PreferenceKeys.UserToken)
+      // console.log("removeToken: ", getPreference(PreferenceKeys.UserToken))
+    } catch (error) {
+      alert(error)
+    }
+    navigate(ScreenNames.loginScreen)
   }
   return (
     <View style={styles.wrapper}>
@@ -19,9 +39,14 @@ export default function MenuScreen({ navigation: { navigate } }) {
           <Text style={styles.labelNav}>Menu</Text>
           <Icon name="search" style={styles.iconSearch} />
         </View>
-        <View style={styles.user}>
+        <TouchableOpacity
+          onPress={() => {
+            navigate(ScreenNames.profileView)
+          }}
+          style={styles.user}
+        >
           <Text style={styles.userName}>User</Text>
-        </View>
+        </TouchableOpacity>
       </View>
       {/* Trợ giúp & hỗ trợ */}
       <View style={openHelp && styles.dropdownHelpOpen}>

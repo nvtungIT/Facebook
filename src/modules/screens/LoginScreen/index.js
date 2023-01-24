@@ -17,8 +17,8 @@ import {
 
 import styles from './styles'
 
-import { PreferenceKeys } from 'general/constants/Global'
-import { setPreference } from 'libs/storage/PreferenceStorage'
+import { localIPAddress, PreferenceKeys } from 'general/constants/Global'
+import { getPreference, setPreference } from 'libs/storage/PreferenceStorage'
 
 const ModalPopup = ({ visibile, modalTitle, modalContent, setVisible }) => {
   const toggleModal = () => {
@@ -43,9 +43,7 @@ const ModalPopup = ({ visibile, modalTitle, modalContent, setVisible }) => {
           </View>
           <View style={styles.modalContentWrap}>
             <Text style={styles.modalContent}>
-              {modalContent
-                ? modalContent
-                : 'Modal Content Default slkgjsldfgjs;ldgjlds;fgjfdklgjfdgj'}
+              {modalContent ? modalContent : 'Modal Content Default'}
             </Text>
           </View>
           <TouchableOpacity
@@ -87,22 +85,22 @@ export default LoginScreen = ({ navigation }) => {
     setIsKeyBoardShow(false)
   })
 
-  const login = async (phonenumber, password) => {
+  // console.log('token: ', getPreference('UserToken'))
+  const login = async (phoneNumber, password) => {
     try {
-      const response = await fetch(
-        `http://192.168.1.9:5000/it4788/auth/login`,
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            phonenumber,
-            password,
-          }),
+      const api = localIPAddress + 'auth/login'
+
+      const response = await fetch(api, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-      )
+        body: JSON.stringify({
+          phoneNumber,
+          password,
+        }),
+      })
 
       const data = await response.json()
       if (data) {
@@ -116,6 +114,8 @@ export default LoginScreen = ({ navigation }) => {
           } catch (error) {
             alert(error)
           }
+          setPhoneNumber('')
+          setPassword('')
           navigation.navigate(ScreenNames.mainTab, { token: token })
           console.log('Đăng nhập thành công, token:  ', token)
         } else if (data.code === '9995' || data.code === '1004') {

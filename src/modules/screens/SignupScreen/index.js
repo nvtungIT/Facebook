@@ -1,5 +1,12 @@
 import React, { useState, useRef } from 'react'
-import { View, Text, TextInput, Button, Image } from 'react-native'
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  Image,
+  TouchableOpacity,
+} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import DatePicker from 'react-native-date-picker'
 import { useForm, Controller } from 'react-hook-form'
@@ -43,24 +50,23 @@ export default function SignupScreen({ navigation }) {
 
   const handleRegister = async () => {
     try {
-      const response = await fetch(
-        'http://192.168.1.9:5000/it4788/auth/signup',
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            firstName: firstName,
-            lastName: lastName,
-            birthday: date,
-            phoneNumber: phone,
-            email: email,
-            password: password,
-          }),
+      const api = localIPAddress + 'auth/signup'
+
+      const response = await fetch(api, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-      )
+        body: JSON.stringify({
+          firstName: firstName,
+          lastName: lastName,
+          birthday: date,
+          phoneNumber: phone,
+          email: email,
+          password: password,
+        }),
+      })
       const json = await response.json()
       return json.movies
     } catch (error) {
@@ -73,7 +79,9 @@ export default function SignupScreen({ navigation }) {
       {field == 0 && (
         <View style={styles.formGroup}>
           <View style={styles.formNavigate}>
-            <Icon name="arrow-left" style={styles.icon} />
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <Icon name="arrow-left" style={styles.icon} />
+            </TouchableOpacity>
             <Text style={styles.formNavigateLabel}>Tạo tài khoản</Text>
           </View>
           <View>
@@ -92,7 +100,13 @@ export default function SignupScreen({ navigation }) {
             </Text>
 
             <View style={styles.buttonView}>
-              <Button onPress={() => setField(field + 1)} title="Tiếp" />
+              <Button
+                onPress={() => {
+                  setField(field + 1)
+                  console.log('press')
+                }}
+                title="Tiếp"
+              />
             </View>
           </View>
         </View>

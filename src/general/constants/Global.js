@@ -17,3 +17,6 @@ export const PreferenceKeys = {
   // LastTimeServerMS: 'LastTimeServerMS',
   UserToken: 'UserToken',
 }
+
+// sửa ip ở đây nhé
+export const localIPAddress = 'http://192.168.1.9:5000/it4788/'

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import VerifyModal from '../../components/VerifyModal'
 import styles from './style'
 export default function FriendChoiceItem(props) {
+  const { onAccept } = props
   const [isFirstButtonClicked, setIsFirstButtonClicked] = useState(false)
   const [isSecondButtonClicked, setIsSecondButtonClicked] = useState(false)
   const [isVerifyModalVisible, setIsVerifyModalVisible] = useState(false)
@@ -52,10 +53,13 @@ export default function FriendChoiceItem(props) {
   let noButton = <View style={styles.button_container}></View>
 
   let respondeView = choiceButtons
+
+  function onVerifyPressed() {}
   // chấp nhận lời mời kết bạn
   if (isFirstButtonClicked && isVerifyButtonClicked) {
     respondeText = props.firstTaskResponse
     respondeView = noButton
+    onVerifyPressed = onAccept(props.id, 1)
   }
   // gửi lời mời kết bạn
   if (
@@ -90,6 +94,7 @@ export default function FriendChoiceItem(props) {
         onVerifyPressed={() => {
           setIsVerifyButtonClicked(true)
           setIsVerifyModalVisible(false)
+          onVerifyPressed
         }}
         onModalHidden={() => {
           setIsVerifyModalVisible(false)

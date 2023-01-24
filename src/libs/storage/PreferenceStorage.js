@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 export const getPreference = async (key = '', defaultValue = null) => {
   try {
     const value = await AsyncStorage.getItem(key)
-    console.log('Preferrent Key:' + key + ' Value:' + value)
+    console.log('Preferrent Key: ' + key + ' Value:' + value)
     return value
   } catch (e) {
     return defaultValue
@@ -14,11 +14,22 @@ export const getPreference = async (key = '', defaultValue = null) => {
 export const setPreference = async (key, value) => {
   try {
     await AsyncStorage.setItem(key, value)
-    console.log('Set Preferrent Key:' + key + ' Value:' + value)
+    console.log('Set Preferrent Key: ' + key + ' Value:' + value)
     return true
   } catch (error) {
     // Error saving data
     console.error(error)
+    return false
+  }
+}
+
+//Remove preference key 
+export const removePreference = async (key) => {
+  try {
+    await AsyncStorage.removeItem(key)
+    console.log('Remove Preferrent Key: ' + key)
+    return true
+  } catch (err) {
     return false
   }
 }
