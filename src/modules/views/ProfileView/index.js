@@ -13,6 +13,7 @@ import { Dimensions } from 'react-native'
 import { getPreference } from 'libs/storage/PreferenceStorage'
 import { AppColors } from 'general/constants/AppColor'
 import Entypo from 'react-native-vector-icons/Entypo'
+import { localIPAddress } from 'general/constants/Global'
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
@@ -26,9 +27,8 @@ export default function ProfileView() {
   const getUserInfo = async (token) => {
     try {
       const response = await fetch(
-        `http://192.168.1.9:5000/it4788/user/get_user_info/?token=${encodeURIComponent(
-          token,
-        )}`,
+        localIPAddress +
+          `user/get_user_info/?token=${encodeURIComponent(token)}`,
         {
           method: 'POST',
           headers: {

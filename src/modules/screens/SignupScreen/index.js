@@ -50,24 +50,23 @@ export default function SignupScreen({ navigation }) {
 
   const handleRegister = async () => {
     try {
-      const response = await fetch(
-        'http://192.168.1.9:5000/it4788/auth/signup',
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            firstName: firstName,
-            lastName: lastName,
-            birthday: date,
-            phoneNumber: phone,
-            email: email,
-            password: password,
-          }),
+      const api = localIPAddress + 'auth/signup'
+
+      const response = await fetch(api, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-      )
+        body: JSON.stringify({
+          firstName: firstName,
+          lastName: lastName,
+          birthday: date,
+          phoneNumber: phone,
+          email: email,
+          password: password,
+        }),
+      })
       const json = await response.json()
       return json.movies
     } catch (error) {

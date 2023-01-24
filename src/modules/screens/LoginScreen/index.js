@@ -17,7 +17,7 @@ import {
 
 import styles from './styles'
 
-import { PreferenceKeys } from 'general/constants/Global'
+import { localIPAddress, PreferenceKeys } from 'general/constants/Global'
 import { getPreference, setPreference } from 'libs/storage/PreferenceStorage'
 
 const ModalPopup = ({ visibile, modalTitle, modalContent, setVisible }) => {
@@ -88,20 +88,19 @@ export default LoginScreen = ({ navigation }) => {
   // console.log('token: ', getPreference('UserToken'))
   const login = async (phoneNumber, password) => {
     try {
-      const response = await fetch(
-        `http://192.168.1.9:5000/it4788/auth/login`,
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            phoneNumber,
-            password,
-          }),
+      const api = localIPAddress + 'auth/login'
+
+      const response = await fetch(api, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-      )
+        body: JSON.stringify({
+          phoneNumber,
+          password,
+        }),
+      })
 
       const data = await response.json()
       if (data) {

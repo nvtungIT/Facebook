@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import DropDownPicker from 'react-native-dropdown-picker'
 import ScreenNames from 'general/constants/ScreenNames'
 import { getPreference, removePreference } from 'libs/storage/PreferenceStorage'
-import { PreferenceKeys } from 'general/constants/Global'
+import { localIPAddress, PreferenceKeys } from 'general/constants/Global'
 
 export default function MenuScreen({ navigation: { navigate } }) {
   const [openHelp, setOpenHelp] = useState(false)
@@ -14,19 +14,17 @@ export default function MenuScreen({ navigation: { navigate } }) {
 
   const handleLogOut = async () => {
     try {
-      const response = await fetch(
-        `http://192.168.1.9:5000/it4788/auth/logout`,
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          params: {
-            token: token,
-          },
+      const api = localIPAddress + '/auth/logout/'
+      const response = await fetch(api, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-      )
+        params: {
+          token: token,
+        },
+      })
       removePreference(PreferenceKeys.UserToken)
       // console.log("removeToken: ", getPreference(PreferenceKeys.UserToken))
     } catch (error) {
