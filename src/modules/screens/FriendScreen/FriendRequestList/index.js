@@ -38,6 +38,7 @@ export default function FriendRequestList() {
       }
     } catch (error) {
       console.log(error)
+      // dòng trên gây ra lỗi [SyntaxError: JSON Parse error: Unexpected token: <] (chưa fix được)
     }
   }
 
