@@ -13,4 +13,6 @@ export default ScreenNames = {
   block: 'Chặn',
   notificationSetting: 'Cài đặt thông báo',
   nameSetting: 'Tên',
+  changePassword: 'Đổi mật khẩu',
+  addBlock: 'Thêm người chặn'
 }

@@ -15,6 +15,8 @@ import Security from 'modules/screens/MenuScreen/Setting/Security'
 import Block from 'modules/screens/MenuScreen/Setting/Block'
 import NotificationSetting from 'modules/screens/MenuScreen/Setting/NotificationSetting'
 import NameSetting from 'modules/screens/MenuScreen/Setting/InforUser/NameSetting'
+import ChangePassword from 'modules/screens/MenuScreen/Setting/Security/ChangePassword'
+import AddBlock from 'modules/screens/MenuScreen/Setting/Block/AddBlock'
 
 const Stack = createNativeStackNavigator()
 
@@ -41,10 +43,12 @@ export default AppNavigator = () => {
           <Stack.Screen
             name={ScreenNames.inforUser}
             component={InforUser}
+            options={{title: ''}}
           />
           <Stack.Screen
             name={ScreenNames.security}
             component={Security}
+            options={{title: ''}}
           />
           <Stack.Screen
             name={ScreenNames.block}
@@ -57,6 +61,15 @@ export default AppNavigator = () => {
           <Stack.Screen
             name={ScreenNames.nameSetting}
             component={NameSetting}
+          />
+          <Stack.Screen
+            name={ScreenNames.changePassword}
+            component={ChangePassword}
+          />
+          <Stack.Screen
+            name={ScreenNames.addBlock}
+            component={AddBlock}
+            options={{headerShown: false}}
           />
       </Stack.Group>
       <Stack.Group>

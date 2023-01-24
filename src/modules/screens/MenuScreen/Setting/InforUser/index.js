@@ -12,6 +12,7 @@ export default function InforUser() {
 
   return (
     <View style={styles.wrapper}>
+      <Text style={styles.title}>Thông tin cá nhân và tài khoản</Text>
       <Link to={{screen: ScreenNames.nameSetting}}>
         <View style={styles.itemGroup}>
           <View>
