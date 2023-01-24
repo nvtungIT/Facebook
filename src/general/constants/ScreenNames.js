@@ -22,6 +22,7 @@ export default ScreenNames = {
 
   // friendScreen
 
+  //menu
   termsPolicies: 'Điều khoản và chính sách',
   setting: 'Cài đặt & quyền riêng tư',
   inforUser: 'Thông tin cá nhân và tài khoản',

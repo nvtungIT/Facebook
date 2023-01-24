@@ -50,8 +50,9 @@ export default function SignupScreen({ navigation }) {
 
   const handleRegister = async () => {
     try {
+      // console.log(1);
       const response = await fetch(
-        'http://192.168.1.13:5000/it4788/auth/signup',
+        'http://192.168.26.25:5000/it4788/auth/signup',
         {
           method: 'POST',
           headers: {
@@ -69,6 +70,7 @@ export default function SignupScreen({ navigation }) {
         },
       )
       const json = await response.json()
+      console.log(json);
       return json.movies
     } catch (error) {
       console.error(error)
@@ -384,7 +386,7 @@ export default function SignupScreen({ navigation }) {
               <Button
                 onPress={() => {
                   handleRegister()
-                  navigation.navigate(ScreenNames.loginScreen)
+                  // navigation.navigate(ScreenNames.loginScreen)
                 }}
                 title="Đăng ký"
               />

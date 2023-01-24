@@ -308,7 +308,7 @@ export default LoginScreen = ({ navigation }) => {
           underlayColor="#bdbdbd"
           activeOpacity={0.9}
           onPress={() => {
-            navigation.navigate(ScreenNames.signUpScreen)
+            navigation.navigate(ScreenNames.signupScreen)
           }}
           onShowUnderlay={() => {
             setIsCreateAccPressed(true)

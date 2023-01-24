@@ -48,11 +48,6 @@ export default AppNavigator = (navigation) => {
           />
 
           <Stack.Screen
-            name={ScreenNames.inforUser}
-            component={InforUser}
-            options={{title: ''}}
-          />
-          <Stack.Screen
             name={ScreenNames.loginWithExistAccScreen}
             component={LoginWithExistAccScreen}
           />
@@ -60,16 +55,12 @@ export default AppNavigator = (navigation) => {
 
         <Stack.Group>
           <Stack.Screen
-            name={ScreenNames.security}
-            component={Security}
-            options={{title: ''}}
-          />
-          <Stack.Screen
             name={ScreenNames.mainTab}
             component={MainTabNavigator}
             options={{ headerShown: false }}
           />
         </Stack.Group>
+
         <Stack.Group
           screenOptions={{
             presentation: 'modal',
@@ -82,7 +73,11 @@ export default AppNavigator = (navigation) => {
           />
           <Stack.Screen name={ScreenNames.setting} component={Setting} />
           <Stack.Screen name={ScreenNames.inforUser} component={InforUser} />
-          <Stack.Screen name={ScreenNames.security} component={Security} />
+          <Stack.Screen
+            name={ScreenNames.security}
+            component={Security}
+            options={{title: ''}}
+          />
           <Stack.Screen name={ScreenNames.block} component={Block} />
           <Stack.Screen
             name={ScreenNames.notificationSetting}
