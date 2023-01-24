@@ -26,7 +26,7 @@ export default function ProfileView() {
   const getUserInfo = async (token) => {
     try {
       const response = await fetch(
-        `http://192.168.1.13:5000/it4788/user/get_user_info/?token=${encodeURIComponent(
+        `http://192.168.1.9:5000/it4788/user/get_user_info/?token=${encodeURIComponent(
           token,
         )}`,
         {
