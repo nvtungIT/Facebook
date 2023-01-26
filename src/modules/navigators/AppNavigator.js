@@ -106,5 +106,5 @@ export default AppNavigator = (navigation) => {
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
-  )
-}
+  );
+};

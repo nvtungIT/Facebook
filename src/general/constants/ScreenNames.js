@@ -6,6 +6,9 @@ export default ScreenNames = {
   menuScreen: 'MenuScreen',
   notificationScreen: 'NotificationScreen',
   videoScreen: 'VideoScreen',
+  singlePostScreen: 'SinglePostScreen',
+  homeNavigator: 'HomeNavigator',
+
   // views
   allFriendView: 'Tất cả bạn bè',
   suggestedFriendView: 'Gợi ý',

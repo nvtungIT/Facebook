@@ -16,6 +16,9 @@ export const PreferenceKeys = {
   // ExpireTimeMS: 'ExpireTimeMS',
   // LastTimeServerMS: 'LastTimeServerMS',
   UserToken: 'UserToken',
+  UserAvatar: 'UserAvatar',
+  UserId: 'UserId',
+  UserName: 'UserName',
 }
 
 // sửa ip ở đây nhé

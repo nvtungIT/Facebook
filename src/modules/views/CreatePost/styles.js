@@ -1,0 +1,152 @@
+import { StyleSheet } from 'react-native'
+
+export default styles = StyleSheet.create({
+  imageWrapper: {
+    width: '100%',
+    height: '100%',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  imageBox: {
+    borderColor: 'black',
+    borderWidth: 1,
+    marginBottom: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  imageContainer: {
+    position: 'relative',
+  },
+  deleteBtn: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    backgroundColor: 'white',
+    zIndex: 3,
+  },
+  popupWrapper: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(1,1,1,0.25)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  popupContent: {
+    width: 250,
+    backgroundColor: 'white',
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  popupTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginTop: 12,
+    paddingHorizontal: 20,
+  },
+  popupPara: {
+    fontSize: 16,
+    fontWeight: '400',
+    paddingHorizontal: 20,
+    textAlign: 'center',
+    marginBottom: 12,
+    marginTop: 8,
+  },
+  popupBtn: {
+    width: '100%',
+    paddingVertical: 10,
+    borderTopColor: '#ddd',
+    borderTopWidth: 1,
+    borderBottomColor: '#ddd',
+    borderBottomWidth: 1,
+  },
+  textPopup: {
+    fontSize: 16,
+    fontWeight: '400',
+    textAlign: 'center',
+  },
+  postCreater: {
+    position: 'relative',
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  scrollView: {
+    marginBottom: 100,
+  },
+  wrapper: {
+    padding: 10,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+  },
+  boldText: {
+    fontSize: 20,
+    fontWeight: '700',
+  },
+  activeBtn: {
+    padding: 8,
+    borderRadius: 10,
+    color: 'white',
+    backgroundColor: '#1677ff',
+  },
+  postBtn: {
+    padding: 8,
+    backgroundColor: '#ddd',
+    borderRadius: 10,
+  },
+  userMenu: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 100,
+  },
+  userName: {
+    marginLeft: 8,
+    fontSize: 18,
+  },
+  textInput: {
+    marginTop: 10,
+    fontSize: 20,
+    fontWeight: '400',
+  },
+  fileInput: {
+    flex: 1,
+    width: '100%',
+    position: 'absolute',
+    bottom: 0,
+    padding: 15,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: -2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 2,
+    backgroundColor: '#f1f1f1',
+  },
+  fileTitle: {
+    marginLeft: 10,
+    fontSize: 18,
+    fontWeight: '500',
+  },
+  iconWrapper: {
+    width: '50%',
+    padding: 16,
+    borderColor: '#ddd',
+    borderWidth: 1,
+  },
+})
