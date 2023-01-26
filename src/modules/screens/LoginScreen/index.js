@@ -1,7 +1,7 @@
-import { useScrollToTop } from '@react-navigation/native';
-import ScreenNames from 'general/constants/ScreenNames';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useScrollToTop } from '@react-navigation/native'
+import ScreenNames from 'general/constants/ScreenNames'
+import { useEffect } from 'react'
+import { useState } from 'react'
 import {
   View,
   SafeAreaView,
@@ -13,30 +13,25 @@ import {
   TouchableHighlight,
   Modal,
   Pressable,
-} from 'react-native';
+} from 'react-native'
 
-import styles from './styles';
+import styles from './styles'
 
-<<<<<<< HEAD
 import { localIPAddress, PreferenceKeys } from 'general/constants/Global'
 import { getPreference, setPreference } from 'libs/storage/PreferenceStorage'
-=======
-import { PreferenceKeys } from 'general/constants/Global';
-import { setPreference } from 'libs/storage/PreferenceStorage';
->>>>>>> origin/dang
 
 const ModalPopup = ({ visibile, modalTitle, modalContent, setVisible }) => {
   const toggleModal = () => {
     if (visibile) {
-      setVisible(true);
+      setVisible(true)
     } else {
-      setVisible(false);
+      setVisible(false)
     }
-  };
+  }
 
   useEffect(() => {
-    toggleModal();
-  }, [visibile]);
+    toggleModal()
+  }, [visibile])
   return (
     <Modal transparent visible={visibile}>
       <View style={styles.modalBackground}>
@@ -54,7 +49,7 @@ const ModalPopup = ({ visibile, modalTitle, modalContent, setVisible }) => {
           <TouchableOpacity
             style={styles.modalExitWrap}
             onPress={() => {
-              setVisible(false);
+              setVisible(false)
             }}
           >
             <Text style={styles.modalExit}>OK</Text>
@@ -62,33 +57,33 @@ const ModalPopup = ({ visibile, modalTitle, modalContent, setVisible }) => {
         </View>
       </View>
     </Modal>
-  );
-};
+  )
+}
 
 export default LoginScreen = ({ navigation }) => {
-  const [underPhone, setUnderPhone] = useState(false);
-  const [underPassword, setUnderPassword] = useState(false);
-  const [pressInPhone, setPressInPhone] = useState(false);
-  const [pressInPassword, setPressInPassword] = useState(false);
-  const [isKeyBoardShow, setIsKeyBoardShow] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const [underPhone, setUnderPhone] = useState(false)
+  const [underPassword, setUnderPassword] = useState(false)
+  const [pressInPhone, setPressInPhone] = useState(false)
+  const [pressInPassword, setPressInPassword] = useState(false)
+  const [isKeyBoardShow, setIsKeyBoardShow] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [password, setPassword] = useState('');
-  const [isLoginBtnPressed, setIsLoginBtnPressed] = useState(false);
-  const [isCreateAccPressed, setIsCreateAccPressed] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [password, setPassword] = useState('')
+  const [isLoginBtnPressed, setIsLoginBtnPressed] = useState(false)
+  const [isCreateAccPressed, setIsCreateAccPressed] = useState(false)
 
-  const [modalTitle, setModalTitle] = useState('modal title default');
-  const [modalContent, setModalContent] = useState('modal content default');
-  const [visible, setVisible] = useState();
+  const [modalTitle, setModalTitle] = useState('modal title default')
+  const [modalContent, setModalContent] = useState('modal content default')
+  const [visible, setVisible] = useState()
 
   Keyboard.addListener('keyboardDidShow', () => {
-    setIsKeyBoardShow(true);
-  });
+    setIsKeyBoardShow(true)
+  })
 
   Keyboard.addListener('keyboardDidHide', () => {
-    setIsKeyBoardShow(false);
-  });
+    setIsKeyBoardShow(false)
+  })
 
   // console.log('token: ', getPreference('UserToken'))
   const login = async (phoneNumber, password) => {
@@ -107,48 +102,48 @@ export default LoginScreen = ({ navigation }) => {
         }),
       })
 
-      const data = await response.json();
+      const data = await response.json()
       if (data) {
-        console.log(data);
+        console.log(data)
 
         if (data.code === '1000') {
-          const token = await data.data.token;
-          const avatar = await data.data.avatar;
-          const userId = await data.data.id;
-          const username = await data.data.username;
-          console.log('Login Token' + token);
+          const token = await data.data.token
+          const avatar = await data.data.avatar
+          const userId = await data.data.id
+          const username = await data.data.username
+          console.log('Login Token' + token)
           try {
-            setPreference(PreferenceKeys.UserToken, token);
-            setPreference(PreferenceKeys.UserAvatar, avatar);
-            setPreference(PreferenceKeys.UserId, userId);
-            setPreference(PreferenceKeys.UserName, username);
+            setPreference(PreferenceKeys.UserToken, token)
+            setPreference(PreferenceKeys.UserAvatar, avatar)
+            setPreference(PreferenceKeys.UserId, userId)
+            setPreference(PreferenceKeys.UserName, username)
           } catch (error) {
-            alert(error);
+            alert(error)
           }
           setPhoneNumber('')
           setPassword('')
           navigation.navigate(ScreenNames.mainTab, { token: token })
           console.log('Đăng nhập thành công, token:  ', token)
         } else if (data.code === '9995' || data.code === '1004') {
-          setModalTitle('Sai thông tin đăng nhập');
-          setModalContent('Tên người dùng hoặc mật khẩu không hợp lệ');
-          setVisible(true);
+          setModalTitle('Sai thông tin đăng nhập')
+          setModalContent('Tên người dùng hoặc mật khẩu không hợp lệ')
+          setVisible(true)
         } else if (data.code === '1002') {
-          setModalTitle('Thiếu thông tin');
-          setModalContent('Thiếu thông tin tên người dùng hoặc mật khẩu');
-          setVisible(true);
+          setModalTitle('Thiếu thông tin')
+          setModalContent('Thiếu thông tin tên người dùng hoặc mật khẩu')
+          setVisible(true)
         }
       } else {
-        setModalTitle('Đăng nhập không thành công');
+        setModalTitle('Đăng nhập không thành công')
         setModalContent(
-          'Rất tiếc, không thể đăng nhập. Vui lòng kiểm tra kết nối Internet.'
-        );
-        setVisible(true);
+          'Rất tiếc, không thể đăng nhập. Vui lòng kiểm tra kết nối Internet.',
+        )
+        setVisible(true)
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   return (
     <SafeAreaView
@@ -187,18 +182,18 @@ export default LoginScreen = ({ navigation }) => {
             style={styles.inputText}
             value={phoneNumber}
             onChangeText={(newPhone) => {
-              setPhoneNumber(newPhone);
+              setPhoneNumber(newPhone)
             }}
             // keyboardType='phone-pad'
             onFocus={() => {
-              setUnderPhone(true);
-              setUnderPassword(false);
+              setUnderPhone(true)
+              setUnderPassword(false)
             }}
             onPressIn={() => {
-              setPressInPhone(true);
+              setPressInPhone(true)
             }}
             onPressOut={() => {
-              setPressInPhone(false);
+              setPressInPhone(false)
             }}
           />
           <View style={styles.under_border_small}></View>
@@ -220,24 +215,24 @@ export default LoginScreen = ({ navigation }) => {
             style={[styles.inputText]}
             value={password}
             onChangeText={(newPassword) => {
-              setPassword(newPassword);
+              setPassword(newPassword)
             }}
             onFocus={() => {
-              setUnderPhone(false);
-              setUnderPassword(true);
+              setUnderPhone(false)
+              setUnderPassword(true)
             }}
             secureTextEntry={!showPassword}
             onPressIn={() => {
-              setPressInPassword(true);
+              setPressInPassword(true)
             }}
             onPressOut={() => {
-              setPressInPassword(false);
+              setPressInPassword(false)
             }}
           />
           <TouchableOpacity
             style={styles.iconShowPasswordWrap}
             onPress={() => {
-              setShowPassword(!showPassword);
+              setShowPassword(!showPassword)
             }}
           >
             <Text style={styles.iconShowPassword}>
@@ -258,14 +253,14 @@ export default LoginScreen = ({ navigation }) => {
           underlayColor="#999999"
           activeOpacity={0.9}
           onPress={() => {
-            console.log('Login: ', phoneNumber, password);
-            login(phoneNumber, password);
+            console.log('Login: ', phoneNumber, password)
+            login(phoneNumber, password)
           }}
           onShowUnderlay={() => {
-            setIsLoginBtnPressed(true);
+            setIsLoginBtnPressed(true)
           }}
           onHideUnderlay={() => {
-            setIsLoginBtnPressed(false);
+            setIsLoginBtnPressed(false)
           }}
         >
           <Text
@@ -321,10 +316,10 @@ export default LoginScreen = ({ navigation }) => {
             navigation.navigate(ScreenNames.signupScreen)
           }}
           onShowUnderlay={() => {
-            setIsCreateAccPressed(true);
+            setIsCreateAccPressed(true)
           }}
           onHideUnderlay={() => {
-            setIsCreateAccPressed(false);
+            setIsCreateAccPressed(false)
           }}
         >
           <Text
@@ -342,5 +337,5 @@ export default LoginScreen = ({ navigation }) => {
                 <Text>password: {password}</Text> */}
       </View>
     </SafeAreaView>
-  );
-};
+  )
+}
