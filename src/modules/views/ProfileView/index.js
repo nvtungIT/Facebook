@@ -16,6 +16,7 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import { localIPAddress } from 'general/constants/Global'
 import { FriendDataTest } from 'assets/FriendDataTest'
 import FriendBoxItem from 'modules/components/FriendBoxItem'
+import { FlatList } from 'react-native-gesture-handler'
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
@@ -62,6 +63,7 @@ export default function ProfileView() {
       console.log(e)
     }
   }
+
   return (
     <View>
       <ScrollView>
@@ -119,9 +121,21 @@ export default function ProfileView() {
         <View style={styles.friend_view}>
           <Text style={styles.detail_text}>Bạn bè</Text>
           <Text style={styles.small_text}> 439 người bạn</Text>
-          <View style={{}}>
+          <View
+            style={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+            }}
+          >
             {FriendDataTest.map((item) => (
-              <FriendBoxItem key={item.id}></FriendBoxItem>
+              <FriendBoxItem
+                key={item.id}
+                avt={item.avtUrl}
+                name={item.name}
+              ></FriendBoxItem>
             ))}
           </View>
         </View>
