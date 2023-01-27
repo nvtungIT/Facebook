@@ -1,7 +1,6 @@
 import { Button, TouchableOpacity } from 'react-native'
 import { NavigationContainer, StackActions } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Icon from 'react-native-vector-icons/FontAwesome'
 import MainTabNavigator from './MainTabNavigator'
 import SignupScreen from 'modules/screens/SignupScreen'
 import FriendScreen from 'modules/screens/FriendScreen'
@@ -21,6 +20,8 @@ import LoginScreen from 'modules/screens/LoginScreen'
 import SearchFriendView from 'modules/views/SearchFriendView'
 import ProfileView from 'modules/views/ProfileView'
 import ScreenNames from 'general/constants/ScreenNames'
+import ChangePassword from 'modules/screens/MenuScreen/Setting/Security/ChangePassword'
+import AddBlock from 'modules/screens/MenuScreen/Setting/Block/AddBlock'
 const Stack = createNativeStackNavigator()
 
 export default AppNavigator = (navigation) => {
@@ -66,8 +67,24 @@ export default AppNavigator = (navigation) => {
           />
           <Stack.Screen name={ScreenNames.setting} component={Setting} />
           <Stack.Screen name={ScreenNames.inforUser} component={InforUser} />
-          <Stack.Screen name={ScreenNames.security} component={Security} />
-          <Stack.Screen name={ScreenNames.block} component={Block} />
+          <Stack.Screen 
+            name={ScreenNames.security} 
+            component={Security}
+            options={{title : ""}}
+          />
+          <Stack.Screen 
+            name={ScreenNames.block} 
+            component={Block} 
+          />
+          <Stack.Screen 
+            name={ScreenNames.addBlock} 
+            component={AddBlock} 
+            options={{ headerShown: false }}  
+          />
+          <Stack.Screen 
+            name={ScreenNames.changePassword} 
+            component={ChangePassword}
+          />
           <Stack.Screen
             name={ScreenNames.notificationSetting}
             component={NotificationSetting}

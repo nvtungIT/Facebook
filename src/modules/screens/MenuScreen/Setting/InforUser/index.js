@@ -11,6 +11,7 @@ import styles from './styles'
 
 export default function InforUser() {
 
+  const user = getPreference()
 
   return (
     <View style={styles.wrapper}>
