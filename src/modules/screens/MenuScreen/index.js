@@ -15,7 +15,7 @@ export default function MenuScreen({ navigation: { navigate } }) {
   const handleLogOut = async () => {
     try {
       const response = await fetch(
-        `http://192.168.1.13:5000/it4788/auth/logout`,
+        `http://192.168.1.9:5000/it4788/auth/logout`,
         {
           method: 'POST',
           headers: {
