@@ -1,5 +1,5 @@
 {
-  "name": "facebook",
+  "name": "Facebook",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -7,11 +7,9 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint .",
-    "server": "npm run server --prefix ../Facebook-api"
+    "lint": "eslint ."
   },
   "dependencies": {
-    "@ant-design/icons": "^4.8.0",
     "@expo/vector-icons": "^13.0.0",
     "@freakycoder/react-native-bounceable": "^1.0.3",
     "@react-native-async-storage/async-storage": "^1.17.11",
@@ -20,21 +18,23 @@
     "@react-navigation/stack": "^6.3.11",
     "react": "18.1.0",
     "react-hook-form": "^7.39.1",
+    "react-native": "0.70.4",
+    "react-native-date-picker": "^4.2.6",
     "react-native-dropdown-picker": "^5.4.3",
     "react-native-dynamic-search-bar": "^2.0.2",
+    "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.9.0",
-    "react-native-modal": "^13.0.1",
-    "react-native": "0.70.4",
-    "react-native-date-picker": "^4.2.5",
+    "react-native-image-crop-picker": "^0.39.0",
     "react-native-image-zoom-viewer": "^3.0.1",
-    "react-native-image-crop-picker": "^0.38.0",
+    "react-native-modal": "^13.0.1",
     "react-native-pager-view": "^6.0.1",
     "react-native-phone-number-input": "^2.1.0",
     "react-native-safe-area-context": "^4.4.1",
     "react-native-screens": "^3.18.2",
     "react-native-spinkit": "^1.5.1",
     "react-native-tab-view": "^3.3.0",
-    "react-native-vector-icons": "^9.2.0"
+    "react-native-vector-icons": "^9.2.0",
+    "react-native-video": "^6.0.0-alpha.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -46,8 +46,6 @@
     "eslint": "^7.32.0",
     "jest": "^26.6.3",
     "metro-react-native-babel-preset": "0.72.3",
-    "react-native-fs": "^2.20.0",
-    "react-native-video": "^5.2.1",
     "react-test-renderer": "18.1.0"
   },
   "jest": {
