@@ -14,6 +14,8 @@ import { getPreference } from 'libs/storage/PreferenceStorage'
 import { AppColors } from 'general/constants/AppColor'
 import Entypo from 'react-native-vector-icons/Entypo'
 import { localIPAddress } from 'general/constants/Global'
+import { FriendDataTest } from 'assets/FriendDataTest'
+import FriendBoxItem from 'modules/components/FriendBoxItem'
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
@@ -114,8 +116,15 @@ export default function ProfileView() {
           </View>
         </View>
 
-        <Text></Text>
-        <Text></Text>
+        <View style={styles.friend_view}>
+          <Text style={styles.detail_text}>Bạn bè</Text>
+          <Text style={styles.small_text}> 439 người bạn</Text>
+          <View style={{}}>
+            {FriendDataTest.map((item) => (
+              <FriendBoxItem key={item.id}></FriendBoxItem>
+            ))}
+          </View>
+        </View>
       </ScrollView>
     </View>
   )
