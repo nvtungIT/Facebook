@@ -3,7 +3,7 @@ import { View, Text, Button } from 'react-native'
 import { FriendDataTest } from '../../../../assets/FriendDataTest'
 import FriendChoiceItem from 'modules/components/FriendChoiceItem'
 import { getPreference } from 'libs/storage/PreferenceStorage'
-import { localIPAddress, PreferenceKeys } from 'general/constants/Global'
+import { serverDomain, PreferenceKeys } from 'general/constants/Global'
 
 export default function FriendRequestList() {
   useEffect(() => {
@@ -14,7 +14,7 @@ export default function FriendRequestList() {
   const [data, setData] = useState([])
   const getRequestedFriendList = async (token, index, count) => {
     try {
-      const api = localIPAddress + '/friends/get_requested_friend'
+      const api = serverDomain + '/friends/get_requested_friend'
       const response = await fetch(api, {
         method: 'POST',
         headers: {

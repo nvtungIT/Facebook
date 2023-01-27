@@ -17,7 +17,7 @@ import {
 
 import styles from './styles'
 
-import { localIPAddress, PreferenceKeys } from 'general/constants/Global'
+import { serverDomain, PreferenceKeys } from 'general/constants/Global'
 import { getPreference, setPreference } from 'libs/storage/PreferenceStorage'
 
 const ModalPopup = ({ visibile, modalTitle, modalContent, setVisible }) => {
@@ -88,7 +88,7 @@ export default LoginScreen = ({ navigation }) => {
   // console.log('token: ', getPreference('UserToken'))
   const login = async (phoneNumber, password) => {
     try {
-      const api = localIPAddress + 'auth/login'
+      const api = serverDomain + 'auth/login'
 
       const response = await fetch(api, {
         method: 'POST',
@@ -97,8 +97,8 @@ export default LoginScreen = ({ navigation }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          phoneNumber,
-          password,
+          phoneNumber: '0947977023',
+          password: 'Tung_2001',
         }),
       })
 

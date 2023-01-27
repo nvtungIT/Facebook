@@ -1,6 +1,5 @@
-import { getPreference } from 'libs/storage/PreferenceStorage';
-import { serverDomain } from './variables';
-
+import { getPreference } from 'libs/storage/PreferenceStorage'
+import { serverDomain } from 'general/constants/Global'
 export async function get_list_posts(params) {
   const {
     posts,
@@ -10,17 +9,17 @@ export async function get_list_posts(params) {
     last_id,
     newItems,
     type,
-  } = params;
+  } = params
 
-  const token = await getPreference('UserToken');
+  const token = await getPreference('UserToken')
 
-  let index = 0;
-  let count = 20;
+  let index = 0
+  let count = 20
   if (type == 'get old posts') {
-    index = 1;
+    index = 1
   }
   if (type == 'get new posts') {
-    if (newItems < 20) count = newItems;
+    if (newItems < 20) count = newItems
   }
   const url =
     serverDomain +
@@ -31,15 +30,15 @@ export async function get_list_posts(params) {
     '&index=' +
     index +
     '&count=' +
-    count;
+    count
   fetch(url, { method: 'POST' })
     .then((res) => res.json())
     .then((json) => {
       if (json.code == '1000') {
         if (type == 'get old posts') {
-          let oldPosts = [...posts, ...json.data.posts];
-          setPosts(oldPosts);
-          setLoadingText('isLoading');
+          let oldPosts = [...posts, ...json.data.posts]
+          setPosts(oldPosts)
+          setLoadingText('isLoading')
         } else if (type == 'get new posts') {
           // đoạn này sử dụng nếu muốn nối newposts vào danh sách post trước đó
           // tham số newItems từ check_new_items truyền vào luôn > 0
@@ -48,20 +47,20 @@ export async function get_list_posts(params) {
           // trừ khi newItems > 20, khi đó chỉ trả về post mới
 
           if (newItems < 20) {
-            let newPosts = [...posts];
-            newPosts = [...json.data.posts, ...newPosts];
-            setPosts(newPosts);
+            let newPosts = [...posts]
+            newPosts = [...json.data.posts, ...newPosts]
+            setPosts(newPosts)
           } else {
-            setPosts(json.data.posts);
+            setPosts(json.data.posts)
           }
-          setLoading(false);
+          setLoading(false)
         } else if (type == 'get first time') {
-          setPosts(json.data.posts);
-          setLoading(false);
+          setPosts(json.data.posts)
+          setLoading(false)
         }
       } else if (json.code == '9994') {
-        setLoadingText('End of list data');
-        console.log('End of list data');
-      } else if (json.code == '9998') console.log('token invalid');
-    });
+        setLoadingText('End of list data')
+        console.log('End of list data')
+      } else if (json.code == '9998') console.log('token invalid')
+    })
 }

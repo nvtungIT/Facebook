@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
   },
   imageSignUp: {
     height: 200,
-    width: 400,
+    width: '100%',
     marginTop: 100,
   },
   form: {
@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     marginTop: 30,
+    justifyContent: 'center',
   },
   formInput: {
     flex: 1,

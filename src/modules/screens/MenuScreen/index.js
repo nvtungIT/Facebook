@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import DropDownPicker from 'react-native-dropdown-picker'
 import ScreenNames from 'general/constants/ScreenNames'
 import { getPreference, removePreference } from 'libs/storage/PreferenceStorage'
-import { localIPAddress, PreferenceKeys } from 'general/constants/Global'
+import { serverDomain, PreferenceKeys } from 'general/constants/Global'
 
 export default function MenuScreen({ navigation: { navigate } }) {
   const [openHelp, setOpenHelp] = useState(false)
@@ -14,7 +14,7 @@ export default function MenuScreen({ navigation: { navigate } }) {
 
   const handleLogOut = async () => {
     try {
-      const api = localIPAddress + '/auth/logout/'
+      const api = serverDomain + '/auth/logout/'
       const response = await fetch(api, {
         method: 'POST',
         headers: {

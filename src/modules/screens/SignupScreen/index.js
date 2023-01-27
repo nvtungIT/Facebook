@@ -13,7 +13,7 @@ import { useForm, Controller } from 'react-hook-form'
 import PhoneInput from 'react-native-phone-number-input'
 import ScreenNames from 'general/constants/ScreenNames'
 import styles from './styles'
-
+import { serverDomain } from 'general/constants/Global'
 export default function SignupScreen({ navigation }) {
   const [lastName, setLastName] = useState('')
   const [firstName, setFirstName] = useState('')
@@ -50,7 +50,7 @@ export default function SignupScreen({ navigation }) {
 
   const handleRegister = async () => {
     try {
-      const api = localIPAddress + 'auth/signup'
+      const api = serverDomain + 'auth/signup'
 
       const response = await fetch(api, {
         method: 'POST',
