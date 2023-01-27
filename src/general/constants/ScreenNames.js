@@ -34,7 +34,7 @@ export default ScreenNames = {
   commentsNotification: 'Bình luận',
   updatesFromFriendsNotification: 'Cập nhật từ bạn bè',
   friendRequestsNotification: 'Lời mời kết bạn',
-  peopleMayKnowNotification: 'Người bạn có thể biết',
+  peopleMayKnowNotification: 'Những người bạn có thể biết',
   birthdaysNotification: 'Sinh nhật',
   videoNotification: 'Video',
   pushNofitication: 'Đẩy'

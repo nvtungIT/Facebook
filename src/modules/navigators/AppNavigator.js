@@ -24,6 +24,11 @@ import LoginScreen from 'modules/screens/LoginScreen'
 import SearchFriendView from 'modules/views/SearchFriendView'
 import UpdatesFromFriendsNotification from 'modules/screens/MenuScreen/Setting/NotificationSetting/UpdatesFromFriendsNotification'
 import PushNotificationSetting from 'modules/screens/MenuScreen/Setting/NotificationSetting/PushNotificationSetting'
+import CommentsNotification from 'modules/screens/MenuScreen/Setting/NotificationSetting/CommentsSetting'
+import FriendRequestsNotification from 'modules/screens/MenuScreen/Setting/NotificationSetting/FriendRequestsSetting'
+import PeopleMayKnowNotification from 'modules/screens/MenuScreen/Setting/NotificationSetting/PeopleMayKnowSetting'
+import BirthdaysNotification from 'modules/screens/MenuScreen/Setting/NotificationSetting/BirthdaysSetting'
+import VideoNotification from 'modules/screens/MenuScreen/Setting/NotificationSetting/VideosSetting'
 const Stack = createNativeStackNavigator()
 
 export default AppNavigator = (navigation) => {
@@ -91,23 +96,23 @@ export default AppNavigator = (navigation) => {
           {/* Sửa component */}
           <Stack.Screen
             name={ScreenNames.commentsNotification}
-            component={UpdatesFromFriendsNotification}
+            component={CommentsNotification}
           />
           <Stack.Screen
             name={ScreenNames.friendRequestsNotification}
-            component={UpdatesFromFriendsNotification}
+            component={FriendRequestsNotification}
           />
           <Stack.Screen
             name={ScreenNames.peopleMayKnowNotification}
-            component={UpdatesFromFriendsNotification}
+            component={PeopleMayKnowNotification}
           />
           <Stack.Screen
             name={ScreenNames.birthdaysNotification}
-            component={UpdatesFromFriendsNotification}
+            component={BirthdaysNotification}
           />
           <Stack.Screen
             name={ScreenNames.videoNotification}
-            component={UpdatesFromFriendsNotification}
+            component={VideoNotification}
           />
           <Stack.Screen
             name={ScreenNames.pushNofitication}

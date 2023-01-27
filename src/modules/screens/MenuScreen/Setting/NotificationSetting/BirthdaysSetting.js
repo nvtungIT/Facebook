@@ -3,23 +3,25 @@ import { Image, SafeAreaView, StyleSheet, Switch, Text, View } from "react-nativ
 import Entypo from 'react-native-vector-icons/Entypo';
 // import styles from "../styles";
 
-export default function UpdatesFromFriendsNotification() {
+export default function BirthdaysNotification() {
   const [isEnabled, setIsEnabled] = useState(true);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const toggleSwitch = (callbackName) => callbackName(previousState => !previousState);
   const [onPushNotification, setOnPushNotification] = useState(true);
+  const [onNextBirthday, setOnNextBirthday] = useState(true);
+  const [onLateBirthday, setOnLateBirthday] = useState(true);
+
   const toggleSwitchOnPush = () => {
     if (onPushNotification) {
-      console.log('Set off push notification with updates from friends')
+      console.log('Set off push notification with updates from birthdays of friends')
     } else {
-      console.log('Set on push notification with updates from friends')
+      console.log('Set on push notification with updates from birthdays of friends')
     }
     setOnPushNotification(previousState => !previousState);
   }
   
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.normalText}>Đây là các thông báo về hoạt động của bạn bè bạn,
-        chẳng hạn như khi họ cập nhật trạng thái hoặc chia sẻ ảnh. 
+      <Text style={styles.normalText}>Đây là các thông báo về sinh nhật của bạn bè bạn.
         Sau đây là ví dụ.</Text>
       <View style={[styles.rowElement, styles.status]}>
         <View style={styles.imageWrap}>
@@ -30,7 +32,7 @@ export default function UpdatesFromFriendsNotification() {
         </View>
         <Text
           style={[styles.normalText, styles.statusText]}
-        ><Text style={{fontWeight: '700'}}>Josephine Williams</Text> đã cập nhật trạng thái của cô ấy.</Text>
+        >Hôm nay là sinh nhật của <Text style={{fontWeight: '700'}}>Josephine Williams</Text>. Hãy chúc cô ấy những điều tốt đẹp.</Text>
       </View>
       <Text style={styles.separate}></Text>
       <View style={styles.rowElement}>
@@ -39,7 +41,7 @@ export default function UpdatesFromFriendsNotification() {
           <Switch
             trackColor={{ false: '#bdbebf', true: '#aacbff' }}
             thumbColor={isEnabled ? '#1d6ff0' : '#f4f3f4'}
-            onValueChange={toggleSwitch}
+            onValueChange={() => toggleSwitch(setIsEnabled)}
             value={isEnabled}
             style={styles.switchElement}
           />
@@ -69,8 +71,37 @@ export default function UpdatesFromFriendsNotification() {
             </View>
             
           </View>
-        </View>)}
-      <Text style={styles.separate}></Text>
+          <Text style={styles.separate}></Text>
+          <Text style={styles.titleText}>Nhận thông báo về</Text>
+          <View style={[styles.rowElement, styles.iconWrap]}>
+            <Text style={styles.rowElementText}>Sinh nhật sắp tới</Text>
+            <View>
+              <Switch
+                trackColor={{ false: '#bdbebf', true: '#aacbff' }}
+                thumbColor={onNextBirthday ? '#1d6ff0' : '#f4f3f4'}
+                onValueChange={() => toggleSwitch(setOnNextBirthday)}
+                value={onNextBirthday}
+                style={styles.switchElement}
+              />
+            </View>
+            
+          </View>
+          <View style={[styles.rowElement, styles.iconWrap, styles.spaceOfRow]}>
+            <Text style={styles.rowElementText}>Sinh nhật muộn</Text>
+            <View>
+              <Switch
+                trackColor={{ false: '#bdbebf', true: '#aacbff' }}
+                thumbColor={onLateBirthday ? '#1d6ff0' : '#f4f3f4'}
+                onValueChange={() => toggleSwitch(setOnLateBirthday)}
+                value={onLateBirthday}
+                style={styles.switchElement}
+              />
+            </View>
+            
+          </View>
+        </View>
+      )}
+      
     </SafeAreaView>
   )
 }
@@ -143,4 +174,7 @@ const styles = StyleSheet.create({
     color: '#666666',
     paddingRight: 10
   },
+  spaceOfRow: {
+    marginTop: 20
+  }
 })

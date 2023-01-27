@@ -3,24 +3,23 @@ import { Image, SafeAreaView, StyleSheet, Switch, Text, View } from "react-nativ
 import Entypo from 'react-native-vector-icons/Entypo';
 // import styles from "../styles";
 
-export default function UpdatesFromFriendsNotification() {
+export default function PeopleMayKnowNotification() {
   const [isEnabled, setIsEnabled] = useState(true);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const [onPushNotification, setOnPushNotification] = useState(true);
   const toggleSwitchOnPush = () => {
     if (onPushNotification) {
-      console.log('Set off push notification with updates from friends')
+      console.log('Set off push notification with people may know')
     } else {
-      console.log('Set on push notification with updates from friends')
+      console.log('Set on push notification with people may know')
     }
     setOnPushNotification(previousState => !previousState);
   }
   
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.normalText}>Đây là các thông báo về hoạt động của bạn bè bạn,
-        chẳng hạn như khi họ cập nhật trạng thái hoặc chia sẻ ảnh. 
-        Sau đây là ví dụ.</Text>
+      <Text style={styles.normalText}>Đây là thông báo về gợi ý Những người bạn có 
+        thể biết. Sau đây là ví dụ.</Text>
       <View style={[styles.rowElement, styles.status]}>
         <View style={styles.imageWrap}>
           <Image
@@ -30,7 +29,7 @@ export default function UpdatesFromFriendsNotification() {
         </View>
         <Text
           style={[styles.normalText, styles.statusText]}
-        ><Text style={{fontWeight: '700'}}>Josephine Williams</Text> đã cập nhật trạng thái của cô ấy.</Text>
+        >Bạn có một gợi ý kết bạn mới: <Text style={{fontWeight: '700'}}>Josephine Williams</Text></Text>
       </View>
       <Text style={styles.separate}></Text>
       <View style={styles.rowElement}>
@@ -117,7 +116,7 @@ const styles = StyleSheet.create({
   statusText: {
     flex: 8,
     paddingHorizontal: 10,
-    paddingRight: 20
+    paddingRight: 35
   },
   rowElement: {
     flexDirection: 'row',
