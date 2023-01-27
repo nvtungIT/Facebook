@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import ScreenNames from 'general/constants/ScreenNames';
-import SinglePostScreen from '../screens/HomeScreen/SinglePostScreen';
+import SinglePostScreen from 'modules/screens/HomeScreen/SinglePostScreen';
 import HomeScreen from 'modules/screens/HomeScreen';
 
 const Tab = createNativeStackNavigator();
