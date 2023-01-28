@@ -8,60 +8,62 @@ import {
   View,
   RefreshControl,
   Animated,
-} from 'react-native';
-import PostComponent from '../postComponent';
-import { CommentInputComp } from '../commentComponent';
-import { useState, useCallback, useRef } from 'react';
-import { set_comment } from '../function/set_comment';
-import { get_comment } from '../function/get_comment';
-import FeatherIcon from 'react-native-vector-icons/Feather';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { getStatus } from '../function/status';
-import MoreOption from 'modules/views/MoreOption';
+} from 'react-native'
+import PostComponent from '../postComponent'
+import { CommentInputComp } from '../commentComponent'
+import { useState, useCallback, useRef } from 'react'
+import { set_comment } from '../function/set_comment'
+import { get_comment } from '../function/get_comment'
+import FeatherIcon from 'react-native-vector-icons/Feather'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import { getStatus } from '../function/status'
+import MoreOption from 'modules/views/MoreOption'
 
 const wait = (timeout) => {
-  return new Promise((resolve) => setTimeout(resolve, timeout));
-};
+  return new Promise((resolve) => setTimeout(resolve, timeout))
+}
 
 export default function SinglePostScreen({ navigation, route }) {
-  const [refreshing, setRefreshing] = useState(false);
-  const { post, focus } = route.params;
-  const [inputComment, setInputComment] = useState(undefined);
-  const [modalShow, setModalShow] = useState(false);
+  const [refreshing, setRefreshing] = useState(false)
+  const { post, focus } = route.params
+  const [inputComment, setInputComment] = useState(undefined)
+  const [modalShow, setModalShow] = useState(false)
 
   const avatarImg =
     post.author.avatar != null
       ? { uri: post.author.avatar }
-      : require('assets/images/default_avafb.jpg');
+      : require('assets/images/default_avafb.jpg')
 
   const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    wait(2000).then(() => setRefreshing(false));
-  }, []);
+    setRefreshing(true)
+    wait(2000).then(() => setRefreshing(false))
+  }, [])
 
   const goBack = () => {
-    navigation.goBack();
-  };
+    navigation.goBack()
+  }
 
-  const postStatus = getStatus(post.modified);
+  const postStatus = getStatus(post.modified)
 
   const onPressSend = (comment) => {
-    console.log('comment input: ' + comment);
+    console.log('comment input: ' + comment)
     if (comment != null && comment != '') {
       let cmt = {
         id: Date.now(),
         comment: comment,
         created: Date.now() / 1000,
         poster: {
-          name: post.author.username,
-          avatar: post.author.avatar,
+          // name: post.author.username,
+          name: 'Tung',
+          // avatar: post.author.avatar,
+          avatar: require('../../../../assets/images/default_avafb.jpg'),
         },
-      };
-      setInputComment(cmt);
-      set_comment({ comment: comment, postId: post.id });
-      post.comment = String(Number(post.comment) + 1);
+      }
+      setInputComment(cmt)
+      set_comment({ comment: comment, postId: post.id })
+      post.comment = String(Number(post.comment) + 1)
     }
-  };
+  }
 
   const InfoComponent = () => (
     <View style={styles.cardShadow}>
@@ -88,9 +90,9 @@ export default function SinglePostScreen({ navigation, route }) {
         </Pressable>
       </View>
     </View>
-  );
+  )
 
-  let scrollOffsetY = useRef(new Animated.Value(0)).current;
+  let scrollOffsetY = useRef(new Animated.Value(0)).current
 
   return (
     <SafeAreaView style={styles.container}>
@@ -114,7 +116,7 @@ export default function SinglePostScreen({ navigation, route }) {
         <CommentInputComp focus={focus} onPressSend={onPressSend} />
       )}
     </SafeAreaView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -158,4 +160,4 @@ const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: 'white',
   },
-});
+})

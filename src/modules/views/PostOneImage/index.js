@@ -1,6 +1,6 @@
-import { like } from 'modules/screens/HomeScreen/function/like';
-import { getStatus } from 'modules/screens/HomeScreen/function/status';
-import { useState, useEffect } from 'react';
+import { like } from 'modules/screens/HomeScreen/function/like'
+import { getStatus } from 'modules/screens/HomeScreen/function/status'
+import { useState, useEffect } from 'react'
 import {
   Modal,
   StyleSheet,
@@ -8,59 +8,61 @@ import {
   Text,
   Pressable,
   Dimensions,
-} from 'react-native';
-import AntDesignIcon from 'react-native-vector-icons/AntDesign';
-import Octicons from 'react-native-vector-icons/Octicons';
-import ImageViewer from 'react-native-image-zoom-viewer';
-import CommentModal from './CommentModal';
+} from 'react-native'
+import AntDesignIcon from 'react-native-vector-icons/AntDesign'
+import Octicons from 'react-native-vector-icons/Octicons'
+import ImageViewer from 'react-native-image-zoom-viewer'
+import CommentModal from './CommentModal'
 
 export default PostOneImage = (params) => {
-  const { visible, setvisible, post, isposter } = params;
-  const [visibleNested, setVisibleNested] = useState(false);
-  const image = [{ url: post.image[0].url }];
+  const { visible, setvisible, post, isposter } = params
+  const [visibleNested, setVisibleNested] = useState(false)
+  const image = [{ url: post.image[0].url }]
   const [iconLikeName, setIconLikeName] = useState(
-    post.is_liked == '1' ? 'like1' : 'like2'
-  );
+    post.is_liked == '1' ? 'like1' : 'like2',
+  )
   const [iconLikeColor, setIconLikeColor] = useState(
-    post.is_liked == '1' ? 'blue' : 'white'
-  );
-  const [numLikes, setNumLikes] = useState(Number(post.like));
-  const postStatus = getStatus(post.modified);
-  const [numberLines, setNumberLines] = useState(1);
-  const showhideButton = post.described.length > 80 ? true : false;
-  const [showDescribed, setShowDescribed] = useState(true);
+    post.is_liked == '1' ? 'blue' : 'white',
+  )
+  const [numLikes, setNumLikes] = useState(Number(post.like))
+  const postStatus = getStatus(post.modified)
+  const [numberLines, setNumberLines] = useState(1)
+  // const showhideButton = post.described.length > 80 ? true : false;
+  const showhideButton = true
+
+  const [showDescribed, setShowDescribed] = useState(true)
 
   useEffect(() => {
-    setNumLikes(Number(post.like));
-    setIconLikeColor(post.is_liked == '1' ? 'blue' : 'white');
-    setIconLikeName(post.is_liked == '1' ? 'like1' : 'like2');
-  }, [post.like]);
+    setNumLikes(Number(post.like))
+    setIconLikeColor(post.is_liked == '1' ? 'blue' : 'white')
+    setIconLikeName(post.is_liked == '1' ? 'like1' : 'like2')
+  }, [post.like])
 
   const onPressLike = () => {
     if (post.is_liked == '1') {
-      post.like = String(Number(post.like) - 1);
-      post.is_liked = '0';
-      setNumLikes(numLikes - 1);
-      setIconLikeName('like2');
-      setIconLikeColor('white');
+      post.like = String(Number(post.like) - 1)
+      post.is_liked = '0'
+      setNumLikes(numLikes - 1)
+      setIconLikeName('like2')
+      setIconLikeColor('white')
     } else {
-      post.like = String(Number(post.like) + 1);
-      post.is_liked = '1';
-      setNumLikes(numLikes + 1);
-      setIconLikeName('like1');
-      setIconLikeColor('blue');
+      post.like = String(Number(post.like) + 1)
+      post.is_liked = '1'
+      setNumLikes(numLikes + 1)
+      setIconLikeName('like1')
+      setIconLikeColor('blue')
     }
-    like(post.id);
-  };
+    like(post.id)
+  }
 
   const changeNumberLines = () => {
-    if (numberLines == 1) setNumberLines(0);
-    else setNumberLines(1);
-  };
+    if (numberLines == 1) setNumberLines(0)
+    else setNumberLines(1)
+  }
 
   const handlePressComment = () => {
-    setVisibleNested(true);
-  };
+    setVisibleNested(true)
+  }
 
   const FooterComp = () =>
     showDescribed && (
@@ -126,7 +128,7 @@ export default PostOneImage = (params) => {
           </Pressable>
         </View>
       </Pressable>
-    );
+    )
 
   const HeaderComp = () =>
     showDescribed && (
@@ -147,12 +149,12 @@ export default PostOneImage = (params) => {
           color="white"
         />
       </View>
-    );
+    )
 
   const handleClickImg = () => {
-    if (showDescribed == true) setShowDescribed(false);
-    else setShowDescribed(true);
-  };
+    if (showDescribed == true) setShowDescribed(false)
+    else setShowDescribed(true)
+  }
 
   return (
     <Modal animationType="slide" visible={visible}>
@@ -171,8 +173,8 @@ export default PostOneImage = (params) => {
         backgroundColor={'#333333'}
       />
     </Modal>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   likeNcommentButton: {
@@ -203,4 +205,4 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     // flex: 1,
   },
-});
+})
