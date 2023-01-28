@@ -3,7 +3,10 @@ import { useForm, Controller } from 'react-hook-form'
 import { useState } from "react";
 import styles from "./styles";
 
-function ChangePassword() {
+import { getPreference, setPreference } from 'libs/storage/PreferenceStorage'
+import { localIPAddress, PreferenceKeys } from 'general/constants/Global'
+
+function ChangePassword({ navigation }) {
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [repeatPassword, setRepeatPassword] = useState('');
@@ -15,9 +18,32 @@ function ChangePassword() {
         formState: { errors },
     } = useForm()
 
-    const handleUpdate = (data) => {
-        errors.currentPassword == true;
-        console.log(data);
+    const handleUpdate = async () => {
+        try {
+            const userId = await getPreference('UserId');
+            const token = await getPreference('UserToken');
+
+            const api = localIPAddress + `auth/change_password?token=${encodeURIComponent(token)}`
+      
+            const response = await fetch(api, {
+              method: 'POST',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                password: currentPassword,
+                new_password: newPassword,
+                userId: userId,
+              }),
+            })
+            const json = await response.json()
+            navigation.goBack()
+            return json.movies
+          } catch (error) {
+            console.error(error)
+          }
+
     }
 
 

@@ -17,7 +17,7 @@ import {
 
 import styles from './styles'
 
-import { PreferenceKeys } from 'general/constants/Global'
+import { localIPAddress, PreferenceKeys } from 'general/constants/Global'
 import { getPreference, setPreference } from 'libs/storage/PreferenceStorage'
 
 const ModalPopup = ({ visibile, modalTitle, modalContent, setVisible }) => {
@@ -88,29 +88,32 @@ export default LoginScreen = ({ navigation }) => {
   // console.log('token: ', getPreference('UserToken'))
   const login = async (phoneNumber, password) => {
     try {
-      const response = await fetch(
-        `http://192.168.116.25:5000/it4788/auth/login`,
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            phoneNumber,
-            password,
-          }),
+      const api = localIPAddress + 'auth/login'
+
+      const response = await fetch(api, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-      )
+        body: JSON.stringify({
+          phoneNumber,
+          password,
+        }),
+      })
 
       const data = await response.json()
       if (data) {
         console.log(data)
 
         if (data.code === '1000') {
+          const userId = await data.data.id
+          const userName = await data.data.username
           const token = await data.data.token
-          console.log('Login Token' + token)
+
           try {
+            setPreference(PreferenceKeys.UserId, userId)
+            setPreference(PreferenceKeys.UserName, userName)
             setPreference(PreferenceKeys.UserToken, token)
           } catch (error) {
             alert(error)
@@ -118,7 +121,7 @@ export default LoginScreen = ({ navigation }) => {
           setPhoneNumber('')
           setPassword('')
           navigation.navigate(ScreenNames.mainTab, { token: token })
-          console.log('Đăng nhập thành công, token:  ', token)
+
         } else if (data.code === '9995' || data.code === '1004') {
           setModalTitle('Sai thông tin đăng nhập')
           setModalContent('Tên người dùng hoặc mật khẩu không hợp lệ')

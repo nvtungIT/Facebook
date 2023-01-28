@@ -66,6 +66,19 @@ const styles = StyleSheet.create({
         fontSize: 20,
         paddingRight: 20
     },
+    itemResultSearch: {
+
+    },
+    nameItem: {
+        color: 'black'
+    },
+    textBlock: {
+        color: 'black'
+    },
+    textNoteResult: {
+        color: 'black'
+    },
+
 })
 
 export default styles

@@ -13,6 +13,7 @@ import { Dimensions } from 'react-native'
 import { getPreference } from 'libs/storage/PreferenceStorage'
 import { AppColors } from 'general/constants/AppColor'
 import Entypo from 'react-native-vector-icons/Entypo'
+import { localIPAddress } from 'general/constants/Global'
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
@@ -26,9 +27,8 @@ export default function ProfileView() {
   const getUserInfo = async (token) => {
     try {
       const response = await fetch(
-        `http://192.168.1.9:5000/it4788/user/get_user_info/?token=${encodeURIComponent(
-          token,
-        )}`,
+        localIPAddress +
+          `user/get_user_info/?token=${encodeURIComponent(token)}`,
         {
           method: 'POST',
           headers: {
@@ -64,6 +64,9 @@ export default function ProfileView() {
     <View>
       <ScrollView>
         <View style={styles.cover_image_container}>
+          <TouchableOpacity style={styles.camera_icon_container_cover}>
+            <Icon name="camera" size={20} color={AppColors.black} />
+          </TouchableOpacity>
           <Image
             style={styles.cover_image}
             source={{
@@ -83,53 +86,12 @@ export default function ProfileView() {
         <View></View>
 
         <Text style={styles.name}>{userData.username}</Text>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            marginHorizontal: 20,
-            justifyContent: 'space-between',
-          }}
-        >
-          <TouchableOpacity
-            style={{
-              width: '83%',
-              height: 40,
-              backgroundColor: AppColors.lightGrey,
-              borderRadius: 10,
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginBottom: 20,
-              direction: 'flex',
-              flexDirection: 'row',
-            }}
-          >
+        <View style={styles.more_button_container}>
+          <TouchableOpacity style={styles.edit_profile_button}>
             <Icon name="pencil" size={14} color={AppColors.black} />
-            <Text
-              style={{
-                color: AppColors.black,
-                fontWeight: 'bold',
-                textAlign: 'center',
-                fontSize: 14,
-                marginLeft: 5,
-              }}
-            >
-              Chỉnh sửa trang cá nhân
-            </Text>
+            <Text style={styles.edit_button_text}>Chỉnh sửa trang cá nhân</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              width: '15%',
-              height: 40,
-              backgroundColor: AppColors.lightGrey,
-              borderRadius: 10,
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginBottom: 20,
-              direction: 'flex',
-              flexDirection: 'row',
-            }}
-          >
+          <TouchableOpacity style={styles.more_button}>
             <Entypo
               name="dots-three-horizontal"
               size={14}
@@ -140,25 +102,8 @@ export default function ProfileView() {
 
         <View style={styles.line}></View>
         <View style={styles.detail_view}>
-          <Text
-            style={{
-              marginLeft: 20,
-              color: AppColors.black,
-              fontSize: 22,
-              fontWeight: 'bold',
-              marginTop: 20,
-            }}
-          >
-            Chi tiết
-          </Text>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              marginLeft: 20,
-              marginVertical: 10,
-            }}
-          >
+          <Text style={styles.detail_text}>Chi tiết</Text>
+          <View style={styles.detail_container}>
             <Icon name="home" size={25} />
             <Text style={{ fontSize: 18, marginLeft: 10 }}>
               Sống tại{' '}
