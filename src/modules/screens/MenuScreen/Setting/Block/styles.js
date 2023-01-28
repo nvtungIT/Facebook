@@ -3,7 +3,8 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     wrapper: {
         backgroundColor: "#fff",
-        padding: 20
+        padding: 20,
+        flex: 1
     },
     textLabel:{
         color:'black',
@@ -67,16 +68,73 @@ const styles = StyleSheet.create({
         paddingRight: 20
     },
     itemResultSearch: {
-
+        padding: 10,
+        // paddingBottom: 5,
+        // paddingTop: 5,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between"
     },
     nameItem: {
         color: 'black'
     },
     textBlock: {
-        color: 'black'
+        color: '#2374e1'
     },
     textNoteResult: {
-        color: 'black'
+        color: '#888',
+        padding: 10
+    },
+
+    modalBackground: {
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalContainer: {
+        width: '80%',
+        height: 500,
+        backgroundColor: 'white',
+        paddingHorizontal: 20,
+        paddingVertical: 30,
+        borderRadius: 3,
+        position: 'relative',
+    },
+    modalTitleWrap: {
+        color: 'black',
+        marginBottom: 10,
+    },
+    modalTitle: {
+        color: 'black',
+        fontSize: 19,
+    },
+    modalContentWrap: {
+        marginBottom: 10,
+    },
+    modalContent: {
+        fontSize: 15,
+        padding: 4
+    },
+    groupButtonModal: {
+        display: "flex",
+        flexDirection: 'row',
+        justifyContent: "space-between",
+        paddingTop: 10
+    },
+    buttonModalExit: {
+    },
+    buttonModalBlock: {
+    },
+    textButtonModalExit: {
+        fontSize: 15,
+        fontWeight: '600',
+        color: 'black',
+    },
+    textButtonModalBlock: {
+        fontSize: 15,
+        fontWeight: '600',
+        color: '#126cd6',
     },
 
 })

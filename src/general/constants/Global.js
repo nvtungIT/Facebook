@@ -22,4 +22,4 @@ export const PreferenceKeys = {
 }
 
 // sửa ip ở đây nhé
-export const localIPAddress = 'http://192.168.250.25:5000/it4788/'
+export const localIPAddress = 'http://192.168.235.25:5000/it4788/'

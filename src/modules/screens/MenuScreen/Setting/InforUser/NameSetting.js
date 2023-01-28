@@ -12,6 +12,7 @@ import {
   TouchableOpacity
 } from 'react-native'
 import styles from './styles'
+import ScreenNames from 'general/constants/ScreenNames'
 
 export default function NameSetting({navigation}) {
     const [firstName, setFirstName] = useState('')
@@ -56,7 +57,7 @@ export default function NameSetting({navigation}) {
         fetchData();
     }, [])
 
-    const handleUpdate = async () => {
+    const handleUpdate = async (data) => {
         try {
             const userId = await getPreference('UserId');
             const token = await getPreference('UserToken');
@@ -72,13 +73,13 @@ export default function NameSetting({navigation}) {
                 userId: userId,
                 firstName: firstName,
                 lastName: lastName,
-                middleName: middleName,
+                middleName: middleName ? middleName : "",
               }),
             })
             const json = await response.json()
             setPreference(PreferenceKeys.UserName, json.data.name)
-            navigation.goBack()
-            // console.log(json);
+            navigation.navigate(ScreenNames.inforUser)
+            console.log(json);
             return json.movies
           } catch (error) {
             console.error(error)
@@ -137,7 +138,7 @@ export default function NameSetting({navigation}) {
                             onChange(middleName)
                             setMiddleName(middleName)
                             }}
-                            value={value}
+                            value={middleName}
                         />
                         )}
                         name="middleName"

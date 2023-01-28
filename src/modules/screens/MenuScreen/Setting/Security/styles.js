@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
    wrapper: {
+      flex: 1,
       backgroundColor: '#fff'
    },
    label: {
@@ -51,6 +52,7 @@ const styles = StyleSheet.create({
       backgroundColor: "#fff",
       paddingTop: 15,
       padding: 10,
+      flex: 1
    },
    inputItem: {
       

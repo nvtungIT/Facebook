@@ -15,6 +15,7 @@ function ChangePassword({ navigation }) {
     const {
         control,
         handleSubmit,
+        setError,
         formState: { errors },
     } = useForm()
 
@@ -38,7 +39,11 @@ function ChangePassword({ navigation }) {
               }),
             })
             const json = await response.json()
-            navigation.goBack()
+            if(json.code == 1004) {
+                setError("currentPassword", { type: 'custom', message: 'Mật khẩu không đúng' })
+            } else {
+                navigation.goBack()
+            }
             return json.movies
           } catch (error) {
             console.error(error)
@@ -73,7 +78,8 @@ function ChangePassword({ navigation }) {
                 />
             </View>
             {errors.currentPassword &&
-                <Text style={styles.errorMessage}>Vui lòng nhập mật khẩu hiện tại của bạn.</Text>                        
+                <Text style={styles.errorMessage}>{errors.currentPassword.message ? errors.currentPassword.message : "Vui lòng nhập mật khẩu hiện tại của bạn."}</Text>                        
+
             }
             <View style={styles.inputItem}>
                 <Controller
