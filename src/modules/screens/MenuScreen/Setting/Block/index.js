@@ -15,6 +15,7 @@ import styles from './styles'
 
 export default function Block( { navigation }) {
   const [listBlock, setListBlock] = useState();
+  const [changeListBlock, setChangeListBlock] = useState(false);
 
   const [userUnBlock, setUserUnBlock] = useState();
   const [visible, setVisible] = useState(false)
@@ -51,7 +52,7 @@ export default function Block( { navigation }) {
         }
     }
     fetchData();
-  }, [])
+  }, [changeListBlock])
   const handleUnBlock = async (user) => {
     try {
       const userId = await getPreference('UserId');
@@ -71,6 +72,7 @@ export default function Block( { navigation }) {
         }),
       })
       const json = await response.json()
+      setChangeListBlock((prev) => !prev)
       return json.movies
     } catch (error) {
       console.error(error)
@@ -176,7 +178,7 @@ export default function Block( { navigation }) {
       </Link>
       {listBlock ? 
       listBlock.map((user, index) => (
-        <ItemBlock user={user} />
+        <ItemBlock user={user} key={index}/>
       ))
       :
       <Text>
