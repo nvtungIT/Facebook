@@ -77,10 +77,10 @@ export default function NameSetting({navigation}) {
               }),
             })
             const json = await response.json()
-            removePreference(PreferenceKeys.UserName)
+            
             setPreference(PreferenceKeys.UserName, json.data.name)
             navigation.navigate(ScreenNames.inforUser)
-            console.log(json);
+            // console.log(json);
             return json.movies
           } catch (error) {
             console.error(error)

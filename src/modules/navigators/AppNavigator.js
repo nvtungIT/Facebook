@@ -72,7 +72,7 @@ export default AppNavigator = (navigation) => {
             component={TermsPolocies}
           />
           <Stack.Screen name={ScreenNames.setting} component={Setting} />
-          <Stack.Screen name={ScreenNames.inforUser} component={InforUser} />
+          <Stack.Screen name={ScreenNames.inforUser} component={InforUser} options={{title : ""}}/>
           <Stack.Screen 
             name={ScreenNames.security} 
             component={Security}

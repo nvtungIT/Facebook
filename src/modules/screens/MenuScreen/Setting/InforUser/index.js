@@ -12,7 +12,8 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 
 export default function InforUser() {
-  const [userName, setUserName] = useState('')
+  const [userName, setUserName] = useState('');
+
   useEffect(() => {
     async function fetchData() {
       const userName = await getPreference('UserName');

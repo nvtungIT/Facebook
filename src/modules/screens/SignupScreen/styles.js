@@ -64,6 +64,9 @@ const styles = StyleSheet.create({
     color: 'red',
     textAlign: 'center',
   },
+  link: {
+    color: '#3284ef'
+  }
 })
 
 export default styles
