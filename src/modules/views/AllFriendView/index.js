@@ -13,6 +13,29 @@ import { useState } from 'react'
 import ViewHeader from 'modules/components/ViewHeader'
 export default function AllFriendView({ navigation }) {
   const [isSortFriendModal, setIsSortFriendModal] = useState(false)
+  const getUserFriend = async (token) => {
+    try {
+      const response = await fetch(
+        serverDomain + `user/get_user_info/?token=${encodeURIComponent(token)}`,
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+        },
+      )
+
+      const dataReceived = await response.json()
+      if (dataReceived) {
+        console.log(dataReceived)
+        setData(dataReceived.data)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <SafeAreaView>

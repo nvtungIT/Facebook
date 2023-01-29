@@ -4,7 +4,6 @@ import { FriendDataTest } from '../../../../assets/FriendDataTest'
 import FriendChoiceItem from 'modules/components/FriendChoiceItem'
 import { getPreference } from 'libs/storage/PreferenceStorage'
 import { serverDomain, PreferenceKeys } from 'general/constants/Global'
-
 export default function FriendRequestList() {
   useEffect(() => {
     getData()
@@ -14,20 +13,22 @@ export default function FriendRequestList() {
   const [data, setData] = useState([])
   const getRequestedFriendList = async (token, index, count) => {
     try {
-      const api = serverDomain + '/friends/get_requested_friend'
-      const response = await fetch(api, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        serverDomain + 'friend/get_requested_friends',
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify({
+            token,
+            index,
+            count,
+          }),
         },
-        credentials: 'include',
-        body: JSON.stringify({
-          token,
-          index,
-          count,
-        }),
-      })
+      )
 
       const data = await response.json()
       if (data) {
@@ -38,7 +39,6 @@ export default function FriendRequestList() {
       }
     } catch (error) {
       console.log(error)
-      // dòng trên gây ra lỗi [SyntaxError: JSON Parse error: Unexpected token: <] (chưa fix được)
     }
   }
 
@@ -66,14 +66,16 @@ export default function FriendRequestList() {
       >
         Lời mời kết bạn
       </Text>
-      {/* <Button
+      <Button
         onPress={() => {
           getData()
         }}
         title="Friend List"
-      ></Button> */}
+      ></Button>
       {data.map((item) => (
         <FriendChoiceItem
+          isRequested={true}
+          user_id={item.id}
           first_button="Chấp nhận"
           second_button="Xoá"
           key={item.id}
