@@ -75,7 +75,7 @@ export default function ProfileView() {
           ></Image>
 
           <View style={styles.avt_container}>
-            <Image style={styles.avt} source={{ uri: userData.link }}></Image>
+            <Image style={styles.avt} source={{ uri: userData.avatar }}></Image>
           </View>
           <TouchableOpacity style={styles.camera_icon_container}>
             <Icon name="camera" size={20} color={AppColors.black} />

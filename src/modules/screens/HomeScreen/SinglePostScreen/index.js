@@ -53,10 +53,8 @@ export default function SinglePostScreen({ navigation, route }) {
         comment: comment,
         created: Date.now() / 1000,
         poster: {
-          // name: post.author.username,
-          name: 'Tung',
-          // avatar: post.author.avatar,
-          avatar: require('../../../../assets/images/default_avafb.jpg'),
+          name: post.author.username,
+          avatar: post.author.avatar,
         },
       }
       setInputComment(cmt)

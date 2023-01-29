@@ -56,10 +56,10 @@ export default PostComponent = (params) => {
   if (type == 'single') console.log('single post render')
 
   const avatarImg =
-    // post.author.avatar != null
-    //   ? { uri: post.author.avatar }
-    //   : require('assets/images/default_avafb.jpg');
-    require('assets/images/default_avafb.jpg')
+    post.author.avatar != null
+      ? { uri: post.author.avatar }
+      : require('assets/images/default_avafb.jpg')
+  require('assets/images/default_avafb.jpg')
 
   const changeState = () => {
     if (!(type == 'single')) {
@@ -133,7 +133,7 @@ export default PostComponent = (params) => {
             <Image style={styles.topPart.avaImg} source={avatarImg} />
             <View>
               <Text style={styles.topPart.userNamePart}>
-                {/* {post.author.username} */}
+                {post.author.username}
               </Text>
               <Text>{postStatus}</Text>
             </View>
