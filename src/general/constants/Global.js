@@ -15,5 +15,11 @@ export const PreferenceKeys = {
   // FirstRun: 'FirstRun',
   // ExpireTimeMS: 'ExpireTimeMS',
   // LastTimeServerMS: 'LastTimeServerMS',
+  UserId: 'UserId',
   UserToken: 'UserToken',
+  UserName: 'UserName',
+
 }
+
+// sửa ip ở đây nhé
+export const localIPAddress = 'http://192.168.8.121:5000/it4788/'

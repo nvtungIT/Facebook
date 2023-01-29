@@ -73,12 +73,24 @@ export default AppNavigator = (navigation) => {
           />
           <Stack.Screen name={ScreenNames.setting} component={Setting} />
           <Stack.Screen name={ScreenNames.inforUser} component={InforUser} />
-          <Stack.Screen
-            name={ScreenNames.security}
+          <Stack.Screen 
+            name={ScreenNames.security} 
             component={Security}
-            options={{title: ''}}
+            options={{title : ""}}
           />
-          <Stack.Screen name={ScreenNames.block} component={Block} />
+          <Stack.Screen 
+            name={ScreenNames.block} 
+            component={Block} 
+          />
+          <Stack.Screen 
+            name={ScreenNames.addBlock} 
+            component={AddBlock} 
+            options={{ headerShown: false }}  
+          />
+          <Stack.Screen 
+            name={ScreenNames.changePassword} 
+            component={ChangePassword}
+          />
           <Stack.Screen
             name={ScreenNames.notificationSetting}
             component={NotificationSetting}
@@ -86,15 +98,6 @@ export default AppNavigator = (navigation) => {
           <Stack.Screen
             name={ScreenNames.nameSetting}
             component={NameSetting}
-          />
-          <Stack.Screen
-            name={ScreenNames.changePassword}
-            component={ChangePassword}
-          />
-          <Stack.Screen
-            name={ScreenNames.addBlock}
-            component={AddBlock}
-            options={{headerShown: false}}
           />
       </Stack.Group>
       <Stack.Group>

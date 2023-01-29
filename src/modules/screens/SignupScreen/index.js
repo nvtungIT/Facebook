@@ -12,6 +12,8 @@ import DatePicker from 'react-native-date-picker'
 import { useForm, Controller } from 'react-hook-form'
 import PhoneInput from 'react-native-phone-number-input'
 import ScreenNames from 'general/constants/ScreenNames'
+import { localIPAddress } from 'general/constants/Global'
+
 import styles from './styles'
 
 export default function SignupScreen({ navigation }) {
@@ -50,25 +52,23 @@ export default function SignupScreen({ navigation }) {
 
   const handleRegister = async () => {
     try {
-      // console.log(1);
-      const response = await fetch(
-        'http://192.168.26.25:5000/it4788/auth/signup',
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            firstName: firstName,
-            lastName: lastName,
-            birthday: date,
-            phoneNumber: phone,
-            email: email,
-            password: password,
-          }),
+      const api = localIPAddress + 'auth/signup'
+
+      const response = await fetch(api, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-      )
+        body: JSON.stringify({
+          firstName: firstName,
+          lastName: lastName,
+          birthday: date,
+          phoneNumber: phone,
+          email: email,
+          password: password,
+        }),
+      })
       const json = await response.json()
       console.log(json);
       return json.movies

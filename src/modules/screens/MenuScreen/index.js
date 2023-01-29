@@ -1,32 +1,38 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import styles from './styles'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import DropDownPicker from 'react-native-dropdown-picker'
 import ScreenNames from 'general/constants/ScreenNames'
 import { getPreference, removePreference } from 'libs/storage/PreferenceStorage'
-import { PreferenceKeys } from 'general/constants/Global'
+import { localIPAddress, PreferenceKeys } from 'general/constants/Global'
 
 export default function MenuScreen({ navigation: { navigate } }) {
   const [openHelp, setOpenHelp] = useState(false)
   const [openSetting, setOpenSetting] = useState(false)
+  const [userName, setUserName] = useState()
   const token = getPreference(PreferenceKeys.UserToken)
 
+  useEffect(() => {
+    async function fetchData() {
+      const userName = await getPreference(PreferenceKeys.UserName)
+      setUserName(userName)
+    }
+    fetchData();
+}, [])
   const handleLogOut = async () => {
     try {
-      const response = await fetch(
-        `http://192.168.1.13:5000/it4788/auth/logout`,
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          params: {
-            token: token,
-          },
+      const api = localIPAddress + '/auth/logout/'
+      const response = await fetch(api, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-      )
+        params: {
+          token: token,
+        },
+      })
       removePreference(PreferenceKeys.UserToken)
       // console.log("removeToken: ", getPreference(PreferenceKeys.UserToken))
     } catch (error) {
@@ -45,9 +51,10 @@ export default function MenuScreen({ navigation: { navigate } }) {
           onPress={() => {
             navigate(ScreenNames.profileView)
           }}
-          style={styles.user}
+          style={styles.linkUser}
         >
-          <Text style={styles.userName}>User</Text>
+          <Text style={styles.userName}>{userName}</Text>
+          <Text style={styles.textNoteUser}>Xem trang cá nhân của bạn</Text>
         </TouchableOpacity>
       </View>
       {/* Trợ giúp & hỗ trợ */}

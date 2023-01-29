@@ -4,36 +4,31 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native'
-import { Link } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/FontAwesome'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
-import ScreenNames from 'general/constants/ScreenNames';
 import styles from './styles'
+import ScreenNames from 'general/constants/ScreenNames'
 
-export default function Security({navigation}) {
-
+export default function Security({ navigation: { navigate } }) {
   return (
     <View style={styles.wrapper}>
-      <Text style={styles.title}>Mật khẩu và bảo mật </Text>
-      <View style={styles.group}> 
-        <Text style={styles.labelGroup}>Đăng nhập</Text>
-        <TouchableOpacity onPress={() => navigation.navigate(ScreenNames.changePassword)}>
-          <View style={styles.item}>
-            <Ionicons
-            name='key-outline'
-            style={styles.iconKey}
-            />
-            <View style={styles.textGroup}>
-              <Text style={styles.labelItem}>Đổi mật khẩu</Text>
-              <Text style={styles.noteItem}>Bạn nên sử dụng mật khẩu mạnh mà mình
-              chưa sử dụng ở đâu khác</Text>
-            </View>
-            <Icon 
-            name='angle-right'
-            style={styles.iconRight}
-            />
+      <Text style = {styles.label}>Mật khẩu và bảo mật</Text>
+      <View style = {styles.item}>
+        <Text style = {styles.labelItem}>Đăng nhập</Text>
+        <TouchableOpacity style = {styles.linkItem} onPress = {() => navigate(ScreenNames.changePassword)}>
+          <Ionicons
+          name='key-outline'
+          style={styles.iconKey}
+          />
+          <View style={styles.itemText}>
+            <Text style={styles.textLabel}>Đổi mật khẩu</Text>
+            <Text style={styles.textNote}>Bạn nên sử dụng mật khẩu mạnh mà mình chưa sử dụng ở đâu khác</Text>
           </View>
+          <Icon 
+          name='angle-right'
+          style={styles.iconNext}
+          />
         </TouchableOpacity>
       </View>
     </View>
