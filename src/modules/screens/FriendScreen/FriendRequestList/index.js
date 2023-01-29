@@ -66,12 +66,12 @@ export default function FriendRequestList() {
       >
         Lời mời kết bạn
       </Text>
-      <Button
+      {/* <Button
         onPress={() => {
           getData()
         }}
         title="Friend List"
-      ></Button>
+      ></Button> */}
       {data.map((item) => (
         <FriendChoiceItem
           isRequested={true}

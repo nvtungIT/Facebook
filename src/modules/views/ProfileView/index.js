@@ -22,7 +22,8 @@ export default function ProfileView() {
     getData()
   }, [])
 
-  const [userData, setData] = useState({})
+  const [userData, setUserData] = useState({})
+  const [friendData, setFriendData] = useState({})
 
   const getUserInfo = async (token) => {
     try {
@@ -41,7 +42,40 @@ export default function ProfileView() {
       const dataReceived = await response.json()
       if (dataReceived) {
         console.log(dataReceived)
-        setData(dataReceived.data)
+        setUserData(dataReceived.data)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getUserFriends = async () => {
+    try {
+      const token = await getPreference('UserToken')
+      const response = await fetch(
+        serverDomain +
+          'friend/get_user_friends/?token=' +
+          token +
+          '&user_id=' +
+          '&index=' +
+          0 +
+          '&count=' +
+          100,
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+        },
+      )
+
+      const dataReceived = await response.json()
+      if (dataReceived) {
+        console.log('Danh sách bạn bè')
+        console.log(dataReceived.data.friends)
+        setFriendData(dataReceived.data.friends)
       }
     } catch (error) {
       console.log(error)
@@ -54,6 +88,7 @@ export default function ProfileView() {
 
       if (token !== null) {
         getUserInfo(token)
+        getUserFriends(token)
       } else console.log('Không có thông tin')
     } catch (e) {
       console.log(e)
