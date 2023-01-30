@@ -104,6 +104,11 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginVertical: 10,
   },
+  small_text: {
+    // color: AppColors.grey,
+    marginLeft: 15,
+    marginTop: 5,
+  },
 })
 
 export default styles

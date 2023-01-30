@@ -94,6 +94,7 @@ export default function ProfileView() {
       console.log(e)
     }
   }
+
   return (
     <View>
       <ScrollView>
@@ -148,8 +149,27 @@ export default function ProfileView() {
           </View>
         </View>
 
-        <Text></Text>
-        <Text></Text>
+        <View style={styles.friend_view}>
+          <Text style={styles.detail_text}>Bạn bè</Text>
+          <Text style={styles.small_text}> 439 người bạn</Text>
+          <View
+            style={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+            }}
+          >
+            {FriendDataTest.map((item) => (
+              <FriendBoxItem
+                key={item.id}
+                avt={item.avtUrl}
+                name={item.name}
+              ></FriendBoxItem>
+            ))}
+          </View>
+        </View>
       </ScrollView>
     </View>
   )
