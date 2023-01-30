@@ -71,7 +71,10 @@ export default function SinglePostScreen(params) {
 
   const postStatus = getStatus(post.modified);
 
-  const onPressSend = (comment) => {
+  const onPressSend = async (comment) => {
+    const username = await getPreference('UserName');
+    const avatar = await getPreference('UserAvatar');
+
     console.log('comment input: ' + comment);
     if (comment != null && comment != '') {
       let cmt = {
@@ -79,8 +82,8 @@ export default function SinglePostScreen(params) {
         comment: comment,
         created: Date.now() / 1000,
         poster: {
-          name: post.author.username,
-          avatar: post.author.avatar,
+          name: username,
+          avatar: avatar,
         },
       };
       setInputComment(cmt);

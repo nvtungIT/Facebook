@@ -55,8 +55,6 @@ export default PostComponent = (params) => {
   let posterStatus = post.state;
   const [isposter, setIsposter] = useState(false);
 
-  console.log('status', post.state);
-
   useEffect(() => {
     const checkIsPoster = async () => {
       let userid = await getPreference('UserId');
