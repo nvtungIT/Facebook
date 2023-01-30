@@ -87,10 +87,10 @@ export default LoginScreen = ({ navigation }) => {
     setIsKeyBoardShow(false);
   });
 
-  const login = async (phonenumber, password) => {
+  const login = async (phoneNumber, password) => {
     try {
       const response = await fetch(
-        `http://192.168.0.136:5000/it4788/auth/login`,
+        `http://192.168.1.136:5000/it4788/auth/login`,
         {
           method: 'POST',
           headers: {
@@ -98,8 +98,8 @@ export default LoginScreen = ({ navigation }) => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            phonenumber,
-            password,
+            phoneNumber: '0335594597',
+            password: '123456s!',
           }),
         }
       );
@@ -116,7 +116,9 @@ export default LoginScreen = ({ navigation }) => {
           console.log('Login Token' + token);
           try {
             setPreference(PreferenceKeys.UserToken, token);
-            setPreference(PreferenceKeys.UserAvatar, avatar);
+            if (avatar != null)
+              setPreference(PreferenceKeys.UserAvatar, avatar);
+            else setPreference(PreferenceKeys.UserAvatar, '');
             setPreference(PreferenceKeys.UserId, userId);
             setPreference(PreferenceKeys.UserName, username);
           } catch (error) {

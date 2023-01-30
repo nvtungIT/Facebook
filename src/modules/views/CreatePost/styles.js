@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native';
 
 export default styles = StyleSheet.create({
   imageWrapper: {
@@ -37,10 +37,14 @@ export default styles = StyleSheet.create({
     justifyContent: 'center',
   },
   popupContent: {
-    width: 250,
+    width: 200,
     backgroundColor: 'white',
     borderRadius: 8,
     alignItems: 'center',
+  },
+  imageLoading: {
+    width: 100,
+    height: 100,
   },
   popupTitle: {
     fontSize: 18,
@@ -149,4 +153,4 @@ export default styles = StyleSheet.create({
     borderColor: '#ddd',
     borderWidth: 1,
   },
-})
+});

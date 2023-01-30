@@ -1,24 +1,27 @@
-import React from 'react'
-import { Pressable, View, Image } from 'react-native'
-import styles from 'modules/views/CreatePost/styles'
-import FeatherIcon from 'react-native-vector-icons/Feather'
-import EntypoIcon from 'react-native-vector-icons/Entypo'
-import Video from 'react-native-video'
+import React from 'react';
+import { Pressable, View, Image } from 'react-native';
+import styles from 'modules/views/CreatePost/styles';
+import FeatherIcon from 'react-native-vector-icons/Feather';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
+import Video from 'react-native-video';
 
-function ImageBox({ image, setImages, setWillBeDeletedImages, chooseFiles }) {
-  const isUploadingVideo = image?.mimetype.includes('video')
+function ImageBox(params) {
+  const { image, setImages, setWillBeDeletedImages, chooseFiles, videoUpload } =
+    params;
+  // const isUploadingVideo = image?.mimetype.includes('video');
+  const isUploadingVideo = videoUpload;
   const edgeSize = {
     width: isUploadingVideo ? 320 : 160,
     height: isUploadingVideo ? 320 : 160,
-  }
+  };
 
   const deleteImage = () => {
     if (image?.id)
-      setWillBeDeletedImages((preState) => [...preState, image?.id])
+      setWillBeDeletedImages((preState) => [...preState, image?.id]);
     setImages((preState) =>
-      preState.filter((item) => item?.path !== image?.path),
-    )
-  }
+      preState.filter((item) => item?.path !== image?.path)
+    );
+  };
 
   return (
     <View style={{ ...styles.imageBox, ...edgeSize }}>
@@ -34,6 +37,7 @@ function ImageBox({ image, setImages, setWillBeDeletedImages, chooseFiles }) {
               resizeMode="cover"
               source={{ uri: image?.path }}
               style={{ width: 260, height: 260 }}
+              controls={true}
             />
           ) : (
             <Image
@@ -49,7 +53,7 @@ function ImageBox({ image, setImages, setWillBeDeletedImages, chooseFiles }) {
         </Pressable>
       )}
     </View>
-  )
+  );
 }
 
-export default ImageBox
+export default ImageBox;

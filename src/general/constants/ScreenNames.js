@@ -1,13 +1,16 @@
 export default ScreenNames = {
   //main screens
   mainTab: 'MainTab',
-  homeScreen: 'HomeScreen',
+  homeNavigator: 'HomeNavigator',
   friendScreen: 'FriendScreen',
   menuScreen: 'MenuScreen',
   notificationScreen: 'NotificationScreen',
   videoScreen: 'VideoScreen',
+
+  //home navigator
+  homeScreen: 'HomeScreen',
   singlePostScreen: 'SinglePostScreen',
-  homeNavigator: 'HomeNavigator',
+  addPostScreen: 'AddPostScreen',
 
   signUpScreen: 'SignUpScreen',
   termsPolicies: 'Điều khoản và chính sách',
@@ -31,4 +34,4 @@ export default ScreenNames = {
   // signupScreen: 'SignupScreen',
 
   // friendScreen
-}
+};

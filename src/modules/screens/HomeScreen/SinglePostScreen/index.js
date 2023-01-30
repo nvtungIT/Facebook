@@ -9,7 +9,7 @@ import {
   RefreshControl,
   Animated,
 } from 'react-native';
-import PostComponent from '../postComponent';
+import PostComponent from '../PostComponent';
 import { CommentInputComp } from '../commentComponent';
 import { useState, useCallback, useRef } from 'react';
 import { set_comment } from '../function/set_comment';
@@ -18,16 +18,32 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { getStatus } from '../function/status';
 import MoreOption from 'modules/views/MoreOption';
+import { get_post } from '../function/get_post';
+import { useEffect } from 'react';
+import { getPreference } from 'libs/storage/PreferenceStorage';
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
 };
 
-export default function SinglePostScreen({ navigation, route }) {
+export default function SinglePostScreen(params) {
+  console.log('single post rendering');
+  const { navigation, route } = params;
   const [refreshing, setRefreshing] = useState(false);
-  const { post, focus } = route.params;
+  const { postPassing, focus, setPostPassing } = route.params;
   const [inputComment, setInputComment] = useState(undefined);
   const [modalShow, setModalShow] = useState(false);
+  const [commentFocus, setCommentFocus] = useState(focus);
+  const [post, setPost] = useState(postPassing);
+  const [isposter, setIsposter] = useState(false);
+
+  useEffect(() => {
+    const checkIsPoster = async () => {
+      let userid = await getPreference('UserId');
+      if (userid == post.author.id) setIsposter(true);
+    };
+    checkIsPoster();
+  }, []);
 
   const avatarImg =
     post.author.avatar != null
@@ -41,6 +57,16 @@ export default function SinglePostScreen({ navigation, route }) {
 
   const goBack = () => {
     navigation.goBack();
+  };
+
+  const handleAfterEditPost = (id) => {
+    console.log('handle after edit post, id:', id);
+    const fetchdata = async () => {
+      let post = await get_post(id);
+      setPost(post);
+      setPostPassing(post);
+    };
+    fetchdata();
   };
 
   const postStatus = getStatus(post.modified);
@@ -94,7 +120,15 @@ export default function SinglePostScreen({ navigation, route }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <MoreOption setvisible={setModalShow} visible={modalShow} />
+      <MoreOption
+        setvisible={setModalShow}
+        visible={modalShow}
+        post={post}
+        updatePosts={goBack}
+        navigate={navigation}
+        handleAfterEditPost={handleAfterEditPost}
+        isposter={isposter}
+      />
       <InfoComponent />
       <ScrollView
         horizontal={false}
@@ -104,14 +138,15 @@ export default function SinglePostScreen({ navigation, route }) {
         }
       >
         <PostComponent
-          post={post}
+          postPassing={post}
           type={'single'}
           goBack={goBack}
           inputComment={inputComment}
+          setCommentFocus={setCommentFocus}
         />
       </ScrollView>
       {post.can_comment == '1' && (
-        <CommentInputComp focus={focus} onPressSend={onPressSend} />
+        <CommentInputComp focus={commentFocus} onPressSend={onPressSend} />
       )}
     </SafeAreaView>
   );

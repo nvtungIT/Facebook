@@ -13,9 +13,10 @@ import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import Octicons from 'react-native-vector-icons/Octicons';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import CommentModal from './CommentModal';
+import ScreenNames from 'general/constants/ScreenNames';
 
 export default PostOneImage = (params) => {
-  const { visible, setvisible, post, isposter } = params;
+  const { visible, setvisible, post, navigate, type, isposter } = params;
   const [visibleNested, setVisibleNested] = useState(false);
   const image = [{ url: post.image[0].url }];
   const [iconLikeName, setIconLikeName] = useState(
@@ -27,7 +28,7 @@ export default PostOneImage = (params) => {
   const [numLikes, setNumLikes] = useState(Number(post.like));
   const postStatus = getStatus(post.modified);
   const [numberLines, setNumberLines] = useState(1);
-  const showhideButton = post.described.length > 80 ? true : false;
+  const showhideButton = post.described?.length > 80 ? true : false;
   const [showDescribed, setShowDescribed] = useState(true);
 
   useEffect(() => {
@@ -59,7 +60,15 @@ export default PostOneImage = (params) => {
   };
 
   const handlePressComment = () => {
-    setVisibleNested(true);
+    if (type == 'single') {
+      setvisible(false);
+    } else {
+      navigate.navigate(ScreenNames.singlePostScreen, {
+        postPassing: post,
+        focus: true,
+      });
+      setvisible(false);
+    }
   };
 
   const FooterComp = () =>
