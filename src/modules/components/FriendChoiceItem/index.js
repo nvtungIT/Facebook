@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import VerifyModal from '../../components/VerifyModal'
 import styles from './style'
 import { accept_request } from './function/accept_request'
+import { add_friend } from './function/add_friend'
 export default function FriendChoiceItem(props) {
   const { onAccept } = props
   const [isFirstButtonClicked, setIsFirstButtonClicked] = useState(false)
@@ -61,7 +62,12 @@ export default function FriendChoiceItem(props) {
     onVerifyPressed = () => {
       accept_request(props.user_id)
     }
-  } else console.log('Không phải request')
+  } else {
+    onVerifyPressed = () => {
+      add_friend(props.user_id)
+    }
+  }
+  //  else console.log('Không phải request')
   // chấp nhận lời mời kết bạn
   if (isFirstButtonClicked && isVerifyButtonClicked) {
     respondeText = props.firstTaskResponse
