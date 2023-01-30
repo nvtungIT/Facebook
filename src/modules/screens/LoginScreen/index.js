@@ -107,12 +107,15 @@ export default LoginScreen = ({ navigation }) => {
         console.log(data)
 
         if (data.code === '1000') {
+          const userId = await data.data.id
+          const userName = await data.data.username
           const token = await data.data.token
           const avatar = await data.data.avatar
-          const userId = await data.data.id
           const username = await data.data.username
           console.log('Login Token' + token)
           try {
+            setPreference(PreferenceKeys.UserId, userId)
+            setPreference(PreferenceKeys.UserName, userName)
             setPreference(PreferenceKeys.UserToken, token)
             setPreference(PreferenceKeys.UserAvatar, avatar)
             setPreference(PreferenceKeys.UserId, userId)
@@ -123,7 +126,6 @@ export default LoginScreen = ({ navigation }) => {
           setPhoneNumber('')
           setPassword('')
           navigation.navigate(ScreenNames.mainTab, { token: token })
-          console.log('Đăng nhập thành công, token:  ', token)
         } else if (data.code === '9995' || data.code === '1004') {
           setModalTitle('Sai thông tin đăng nhập')
           setModalContent('Tên người dùng hoặc mật khẩu không hợp lệ')

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import styles from './styles'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -10,8 +10,16 @@ import { serverDomain, PreferenceKeys } from 'general/constants/Global'
 export default function MenuScreen({ navigation: { navigate } }) {
   const [openHelp, setOpenHelp] = useState(false)
   const [openSetting, setOpenSetting] = useState(false)
+  const [userName, setUserName] = useState()
   const token = getPreference(PreferenceKeys.UserToken)
 
+  useEffect(() => {
+    async function fetchData() {
+      const userName = await getPreference(PreferenceKeys.UserName)
+      setUserName(userName)
+    }
+    fetchData();
+}, [])
   const handleLogOut = async () => {
     try {
       const api = serverDomain + '/auth/logout/'
@@ -43,9 +51,10 @@ export default function MenuScreen({ navigation: { navigate } }) {
           onPress={() => {
             navigate(ScreenNames.profileView)
           }}
-          style={styles.user}
+          style={styles.linkUser}
         >
-          <Text style={styles.userName}>User</Text>
+          <Text style={styles.userName}>{userName}</Text>
+          <Text style={styles.textNoteUser}>Xem trang cá nhân của bạn</Text>
         </TouchableOpacity>
       </View>
       {/* Trợ giúp & hỗ trợ */}

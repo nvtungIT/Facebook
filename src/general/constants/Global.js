@@ -15,9 +15,9 @@ export const PreferenceKeys = {
   // FirstRun: 'FirstRun',
   // ExpireTimeMS: 'ExpireTimeMS',
   // LastTimeServerMS: 'LastTimeServerMS',
+  UserId: 'UserId',
   UserToken: 'UserToken',
   UserAvatar: 'UserAvatar',
-  UserId: 'UserId',
   UserName: 'UserName',
 }
 

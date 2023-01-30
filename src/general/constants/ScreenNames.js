@@ -25,6 +25,7 @@ export default ScreenNames = {
 
   // friendScreen
 
+  //menu
   termsPolicies: 'Điều khoản và chính sách',
   setting: 'Cài đặt & quyền riêng tư',
   inforUser: 'Thông tin cá nhân và tài khoản',
@@ -32,4 +33,6 @@ export default ScreenNames = {
   block: 'Chặn',
   notificationSetting: 'Cài đặt thông báo',
   nameSetting: 'Tên',
+  changePassword: 'Đổi mật khẩu',
+  addBlock: 'Thêm người chặn'
 }

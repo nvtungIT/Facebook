@@ -6,12 +6,15 @@ import {
   Button,
   Image,
   TouchableOpacity,
+  Linking
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import DatePicker from 'react-native-date-picker'
 import { useForm, Controller } from 'react-hook-form'
 import PhoneInput from 'react-native-phone-number-input'
 import ScreenNames from 'general/constants/ScreenNames'
+import { localIPAddress } from 'general/constants/Global'
+
 import styles from './styles'
 import { serverDomain } from 'general/constants/Global'
 export default function SignupScreen({ navigation }) {
@@ -68,6 +71,7 @@ export default function SignupScreen({ navigation }) {
         }),
       })
       const json = await response.json()
+      console.log(json);
       return json.movies
     } catch (error) {
       console.error(error)
@@ -377,7 +381,14 @@ export default function SignupScreen({ navigation }) {
           <View style={styles.form}>
             <Text style={styles.formLabel}>Hoàn tất đăng ký</Text>
             <Text style={styles.formNote}>
-              Bằng cách nhấn vào Đăng ký, bạn đồng ý với ...{' '}
+              Bằng cách nhấn vào Đăng ký, bạn đồng ý với 
+              <Text style={styles.link} onPress={() => Linking.openURL("https://www.facebook.com/legal/terms/update")}> Điều khoản, </Text>
+              <Text style={styles.link} onPress={() => Linking.openURL("https://www.facebook.com/privacy/policy/?entry_point=data_policy_redirect&entry=0")}>Chính sách quyền riêng tư </Text>và
+              <Text style={styles.link} onPress={() => Linking.openURL("https://www.facebook.com/privacy/policies/cookies/?entry_point=cookie_policy_redirect&entry=0")}> Chính sách cookie </Text> 
+              của chúng tôi. Bạn có thể nhận được thông báo của chúng tôi qua SMS và chọn không nhận bất cứ lúc naof. Thông tin từ danh bạ 
+              của bạn sẽ được tải lên Facebook liên tục để chúng tôi có thể gợi ý bạn bè,
+              cung cấp và cải thiện quảng cáo cho bạn và người khác, cũng như mang đến dịch vụ 
+              tốt hơn.
             </Text>
             <View style={styles.buttonView}>
               <Button
