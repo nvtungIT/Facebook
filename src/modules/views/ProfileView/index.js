@@ -14,6 +14,8 @@ import { getPreference } from 'libs/storage/PreferenceStorage'
 import { AppColors } from 'general/constants/AppColor'
 import Entypo from 'react-native-vector-icons/Entypo'
 import { serverDomain } from 'general/constants/Global'
+import { FriendDataTest } from 'assets/FriendDataTest'
+import FriendBoxItem from 'modules/components/FriendBoxItem'
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
