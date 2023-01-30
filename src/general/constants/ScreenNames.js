@@ -6,18 +6,14 @@ export default ScreenNames = {
   menuScreen: 'MenuScreen',
   notificationScreen: 'NotificationScreen',
   videoScreen: 'VideoScreen',
-  signUpScreen: 'SignUpScreen',
-  termsPolicies: 'Điều khoản và chính sách',
-  setting: 'Cài đặt & quyền riêng tư',
-  inforUser: 'Thông tin cá nhân và tài khoản',
-  security: 'Bảo mật và đăng nhập',
-  block: 'Chặn',
-  notificationSetting: 'Cài đặt thông báo',
-  nameSetting: 'Tên',
+  singlePostScreen: 'SinglePostScreen',
+  homeNavigator: 'HomeNavigator',
+
   // views
   allFriendView: 'Tất cả bạn bè',
   suggestedFriendView: 'Gợi ý',
   searchFriendView: 'SearchFriendView',
+  profileView: 'Trang cá nhân',
 
   //login screens
   loginScreen: 'LoginScreen',
@@ -25,7 +21,7 @@ export default ScreenNames = {
   loginWithExistAccScreen: 'LoginWithExistAccScreen',
 
   //Signup
-  // signupScreen: 'SignupScreen',
+  signupScreen: 'SignupScreen',
 
   // friendScreen
 
@@ -37,6 +33,16 @@ export default ScreenNames = {
   peopleMayKnowNotification: 'Những người bạn có thể biết',
   birthdaysNotification: 'Sinh nhật',
   videoNotification: 'Video',
-  pushNofitication: 'Đẩy'
+  pushNofitication: 'Đẩy',
 
+  //menu
+  termsPolicies: 'Điều khoản và chính sách',
+  setting: 'Cài đặt & quyền riêng tư',
+  inforUser: 'Thông tin cá nhân và tài khoản',
+  security: 'Bảo mật và đăng nhập',
+  block: 'Chặn',
+  notificationSetting: 'Cài đặt thông báo',
+  nameSetting: 'Tên',
+  changePassword: 'Đổi mật khẩu',
+  addBlock: 'Thêm người chặn'
 }

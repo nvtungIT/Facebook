@@ -5,7 +5,6 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { useIsFocused } from '@react-navigation/native'
 
-import HomeScreen from 'modules/screens/HomeScreen'
 import FriendScreen from 'modules/screens/FriendScreen'
 import MenuScreen from 'modules/screens/MenuScreen'
 import ScreenNames from 'general/constants/ScreenNames'
@@ -13,11 +12,12 @@ import NotificationScreen from 'modules/screens/NotificationScreen'
 import VideoScreen from 'modules/screens/VideoScreen'
 import AppHeader from 'modules/components/AppHeader'
 import { AppColors } from 'general/constants/AppColor'
+import HomeNavigator from './HomeNavigator'
 const Tab = createMaterialTopTabNavigator()
 
 export default MainTabNavigator = () => {
   return (
-    <SafeAreaProvider>
+    <>
       <AppHeader />
       <Tab.Navigator initialRouteName={ScreenNames.homeScreen}>
         <Tab.Screen
@@ -30,8 +30,8 @@ export default MainTabNavigator = () => {
               />
             ),
           }}
-          name={ScreenNames.homeScreen}
-          component={HomeScreen}
+          name={ScreenNames.homeNavigator}
+          component={HomeNavigator}
         />
         <Tab.Screen
           options={{
@@ -87,6 +87,6 @@ export default MainTabNavigator = () => {
           component={MenuScreen}
         />
       </Tab.Navigator>
-    </SafeAreaProvider>
+    </>
   )
 }

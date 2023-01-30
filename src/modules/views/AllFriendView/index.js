@@ -9,10 +9,39 @@ import {
 } from 'react-native'
 import { FriendDataTest } from 'assets/FriendDataTest'
 import SortFriendModal from '../SortFriendModal'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ViewHeader from 'modules/components/ViewHeader'
+import { getPreference } from 'libs/storage/PreferenceStorage'
+import { serverDomain } from 'general/constants/Global'
 export default function AllFriendView({ navigation }) {
   const [isSortFriendModal, setIsSortFriendModal] = useState(false)
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    getUserFriend()
+  }, [])
+  const getUserFriend = async () => {
+    const token = await getPreference('UserToken')
+
+    fetch(
+      serverDomain +
+        `friend/get_user_friends?token=${token}&user_id=&index=${0}&count=${10}`,
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      },
+    )
+      .then((data) => data.json())
+      .then((data) => {
+        // console.log(data.data.friends[0])
+        setData(data.data.friends)
+      })
+      .catch((err) => console.error(err))
+  }
 
   return (
     <SafeAreaView>
@@ -62,8 +91,13 @@ export default function AllFriendView({ navigation }) {
           </TouchableOpacity>
         </View>
         <View>
-          {FriendDataTest.map((item) => (
-            <FriendItem key={item.id} avt={item.avtUrl} name={item.name} />
+          {data.map((item) => (
+            <FriendItem
+              key={item._id}
+              user_id={item._id}
+              avt={item.avatar.url}
+              name={item.name}
+            />
           ))}
         </View>
       </ScrollView>

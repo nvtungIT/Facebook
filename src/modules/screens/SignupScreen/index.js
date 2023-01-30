@@ -1,12 +1,21 @@
 import React, { useState, useRef } from 'react'
-import { View, Text, TextInput, Button, Image } from 'react-native'
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  Image,
+  TouchableOpacity,
+  Linking,
+} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import DatePicker from 'react-native-date-picker'
 import { useForm, Controller } from 'react-hook-form'
 import PhoneInput from 'react-native-phone-number-input'
 import ScreenNames from 'general/constants/ScreenNames'
-import styles from './styles'
 
+import styles from './styles'
+import { serverDomain } from 'general/constants/Global'
 export default function SignupScreen({ navigation }) {
   const [lastName, setLastName] = useState('')
   const [firstName, setFirstName] = useState('')
@@ -43,26 +52,25 @@ export default function SignupScreen({ navigation }) {
 
   const handleRegister = async () => {
     try {
-      const response = await fetch(
-        'http://192.168.8.121:5000/it4788/auth/signup',
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            firstName: firstName,
-            lastName: lastName,
-            birthday: date,
-            phoneNumber: phone,
-            email: email,
-            password: password,
-          }),
+      const api = serverDomain + 'auth/signup'
+
+      const response = await fetch(api, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
-      )
+        body: JSON.stringify({
+          firstName: firstName,
+          lastName: lastName,
+          birthday: date,
+          phoneNumber: phone,
+          email: email,
+          password: password,
+        }),
+      })
       const json = await response.json()
-      // console.log(json);
+      console.log(json)
       return json.movies
     } catch (error) {
       console.error(error)
@@ -74,7 +82,9 @@ export default function SignupScreen({ navigation }) {
       {field == 0 && (
         <View style={styles.formGroup}>
           <View style={styles.formNavigate}>
-            <Icon name="arrow-left" style={styles.icon} />
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <Icon name="arrow-left" style={styles.icon} />
+            </TouchableOpacity>
             <Text style={styles.formNavigateLabel}>Tạo tài khoản</Text>
           </View>
           <View>
@@ -93,7 +103,13 @@ export default function SignupScreen({ navigation }) {
             </Text>
 
             <View style={styles.buttonView}>
-              <Button onPress={() => setField(field + 1)} title="Tiếp" />
+              <Button
+                onPress={() => {
+                  setField(field + 1)
+                  console.log('press')
+                }}
+                title="Tiếp"
+              />
             </View>
           </View>
         </View>
@@ -164,7 +180,7 @@ export default function SignupScreen({ navigation }) {
                     onBlur={onBlur}
                     onChangeText={(firstName) => {
                       onChange(firstName)
-                      setLastName(firstName)
+                      setFirstName(firstName)
                     }}
                     value={value}
                   />
@@ -335,7 +351,7 @@ export default function SignupScreen({ navigation }) {
                     placeholderTextColor="#8a8b8d"
                     onChangeText={(password) => {
                       onChange(password)
-                      setLastName(password)
+                      setPassword(password)
                     }}
                     value={value}
                   />
@@ -364,13 +380,49 @@ export default function SignupScreen({ navigation }) {
           <View style={styles.form}>
             <Text style={styles.formLabel}>Hoàn tất đăng ký</Text>
             <Text style={styles.formNote}>
-              Bằng cách nhấn vào Đăng ký, bạn đồng ý với ...{' '}
+              Bằng cách nhấn vào Đăng ký, bạn đồng ý với
+              <Text
+                style={styles.link}
+                onPress={() =>
+                  Linking.openURL('https://www.facebook.com/legal/terms/update')
+                }
+              >
+                {' '}
+                Điều khoản,{' '}
+              </Text>
+              <Text
+                style={styles.link}
+                onPress={() =>
+                  Linking.openURL(
+                    'https://www.facebook.com/privacy/policy/?entry_point=data_policy_redirect&entry=0',
+                  )
+                }
+              >
+                Chính sách quyền riêng tư{' '}
+              </Text>
+              và
+              <Text
+                style={styles.link}
+                onPress={() =>
+                  Linking.openURL(
+                    'https://www.facebook.com/privacy/policies/cookies/?entry_point=cookie_policy_redirect&entry=0',
+                  )
+                }
+              >
+                {' '}
+                Chính sách cookie{' '}
+              </Text>
+              của chúng tôi. Bạn có thể nhận được thông báo của chúng tôi qua
+              SMS và chọn không nhận bất cứ lúc naof. Thông tin từ danh bạ của
+              bạn sẽ được tải lên Facebook liên tục để chúng tôi có thể gợi ý
+              bạn bè, cung cấp và cải thiện quảng cáo cho bạn và người khác,
+              cũng như mang đến dịch vụ tốt hơn.
             </Text>
             <View style={styles.buttonView}>
               <Button
                 onPress={() => {
                   handleRegister()
-                  navigation.navigate(ScreenNames.mainTab)
+                  navigation.navigate(ScreenNames.loginScreen)
                 }}
                 title="Đăng ký"
               />
