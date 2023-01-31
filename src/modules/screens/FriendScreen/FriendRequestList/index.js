@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, Button } from 'react-native'
+import { View, Text, Button, ScrollView, RefreshControl } from 'react-native'
 import { FriendDataTest } from '../../../../assets/FriendDataTest'
 import FriendChoiceItem from 'modules/components/FriendChoiceItem'
 import { getPreference } from 'libs/storage/PreferenceStorage'
@@ -9,7 +9,18 @@ export default function FriendRequestList() {
     getData()
   }, [])
 
-  const [isLoading, setLoading] = useState(true)
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    getData()
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
+
+ 
+
+  const [refreshing, setRefreshing] = useState()
+  
   const [data, setData] = useState([])
   const getRequestedFriendList = async (token, index, count) => {
     try {
@@ -53,7 +64,9 @@ export default function FriendRequestList() {
     }
   }
   return (
-    <View>
+    <ScrollView horizontal={false} refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
       <Text
         style={{
           fontFamily: 'FACEBOLF',
@@ -62,16 +75,12 @@ export default function FriendRequestList() {
           color: 'black',
           marginLeft: 20,
           lineHeight: 40,
+          height:100,
         }}
       >
         Lời mời kết bạn
       </Text>
-      {/* <Button
-        onPress={() => {
-          getData()
-        }}
-        title="Friend List"
-      ></Button> */}
+      
       {data.map((item) => (
         <FriendChoiceItem
           isRequested={true}
@@ -87,6 +96,6 @@ export default function FriendRequestList() {
           secondTaskResponse="Đã xóa"
         />
       ))}
-    </View>
+    </ScrollView>
   )
 }
