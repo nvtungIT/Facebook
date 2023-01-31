@@ -28,6 +28,7 @@ import PeopleMayKnowNotification from 'modules/screens/MenuScreen/Setting/Notifi
 import BirthdaysNotification from 'modules/screens/MenuScreen/Setting/NotificationSetting/BirthdaysSetting'
 import VideoNotification from 'modules/screens/MenuScreen/Setting/NotificationSetting/VideosSetting'
 import ProfileView from 'modules/views/ProfileView'
+import FriendProfileView from 'modules/views/FriendProfileView'
 import ScreenNames from 'general/constants/ScreenNames'
 import HomeNavigator from './HomeNavigator'
 const Stack = createNativeStackNavigator()
@@ -149,6 +150,7 @@ export default AppNavigator = (navigation) => {
           screenOptions={{
             presentation: 'modal',
             animation: 'slide_from_right',
+            
           }}
         >
           <Stack.Screen
@@ -169,6 +171,11 @@ export default AppNavigator = (navigation) => {
           <Stack.Screen
             name={ScreenNames.profileView}
             component={ProfileView}
+            options={{ title: '' }}
+          /><Stack.Screen
+            name={ScreenNames.friendProfileView}
+            component={FriendProfileView}
+            options={{ title: '' }}
           />
         </Stack.Group>
       </Stack.Navigator>
