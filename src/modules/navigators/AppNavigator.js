@@ -20,6 +20,13 @@ import ExistAccScreen from 'modules/screens/LoginScreen/LoginExistAcc/ExistAccSc
 import LoginWithExistAccScreen from 'modules/screens/LoginScreen/LoginExistAcc/LoginWithExistAccScreen'
 import LoginScreen from 'modules/screens/LoginScreen'
 import SearchFriendView from 'modules/views/SearchFriendView'
+import UpdatesFromFriendsNotification from 'modules/screens/MenuScreen/Setting/NotificationSetting/UpdatesFromFriendsNotification'
+import PushNotificationSetting from 'modules/screens/MenuScreen/Setting/NotificationSetting/PushNotificationSetting'
+import CommentsNotification from 'modules/screens/MenuScreen/Setting/NotificationSetting/CommentsSetting'
+import FriendRequestsNotification from 'modules/screens/MenuScreen/Setting/NotificationSetting/FriendRequestsSetting'
+import PeopleMayKnowNotification from 'modules/screens/MenuScreen/Setting/NotificationSetting/PeopleMayKnowSetting'
+import BirthdaysNotification from 'modules/screens/MenuScreen/Setting/NotificationSetting/BirthdaysSetting'
+import VideoNotification from 'modules/screens/MenuScreen/Setting/NotificationSetting/VideosSetting'
 import ProfileView from 'modules/views/ProfileView'
 import ScreenNames from 'general/constants/ScreenNames'
 const Stack = createNativeStackNavigator()
@@ -29,6 +36,13 @@ export default AppNavigator = (navigation) => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Group>
+          {/* <Stack.Screen
+            name={ScreenNames.signUpScreen}
+            component={SignupScreen}
+            options={{ headerShown: false }}
+          /> */}
+
+          {/* <Stack.Screen
           <Stack.Screen
             name={ScreenNames.loginScreen}
             component={LoginScreen}
@@ -51,6 +65,11 @@ export default AppNavigator = (navigation) => {
             name={ScreenNames.loginWithExistAccScreen}
             component={LoginWithExistAccScreen}
           />
+          <Stack.Screen
+            name={ScreenNames.homeScreen}
+            component={HomeScreen}
+            options={{ headerShown: false }}
+          /> */}
         </Stack.Group>
 
         <Stack.Group>
@@ -98,6 +117,35 @@ export default AppNavigator = (navigation) => {
           <Stack.Screen
             name={ScreenNames.nameSetting}
             component={NameSetting}
+          />
+          <Stack.Screen
+            name={ScreenNames.updatesFromFriendsNotification}
+            component={UpdatesFromFriendsNotification}
+          />
+          {/* Sửa component */}
+          <Stack.Screen
+            name={ScreenNames.commentsNotification}
+            component={CommentsNotification}
+          />
+          <Stack.Screen
+            name={ScreenNames.friendRequestsNotification}
+            component={FriendRequestsNotification}
+          />
+          <Stack.Screen
+            name={ScreenNames.peopleMayKnowNotification}
+            component={PeopleMayKnowNotification}
+          />
+          <Stack.Screen
+            name={ScreenNames.birthdaysNotification}
+            component={BirthdaysNotification}
+          />
+          <Stack.Screen
+            name={ScreenNames.videoNotification}
+            component={VideoNotification}
+          />
+          <Stack.Screen
+            name={ScreenNames.pushNofitication}
+            component={PushNotificationSetting}
           />
       </Stack.Group>
       <Stack.Group>

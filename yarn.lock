@@ -6494,11 +6494,6 @@
     "is-plain-object" "^2.0.3"
     "split-string" "^3.0.1"
 
-"setimmediate@^1.0.5":
-  "integrity" "sha512-MATJdZp8sLqDl/68LfQmbP8zKPLQNV6BIZoIgrscFDQ+RsvK/BxeDQOgyxKKoh0y/8h3BqVFnCqQ/gd+reiIXA=="
-  "resolved" "https://registry.npmjs.org/setimmediate/-/setimmediate-1.0.5.tgz"
-  "version" "1.0.5"
-
 "setprototypeof@1.2.0":
   "integrity" "sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw=="
   "resolved" "https://registry.npmjs.org/setprototypeof/-/setprototypeof-1.2.0.tgz"

@@ -134,6 +134,10 @@ export default LoginScreen = ({ navigation }) => {
           setModalTitle('Thiếu thông tin')
           setModalContent('Thiếu thông tin tên người dùng hoặc mật khẩu')
           setVisible(true)
+        } else {
+          setModalTitle('Thông tin không hợp lệ')
+          setModalContent('Thông tin tên người dùng hoặc mật khẩu không hợp lệ')
+          setVisible(true)
         }
       } else {
         setModalTitle('Đăng nhập không thành công')

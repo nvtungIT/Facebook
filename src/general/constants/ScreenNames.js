@@ -25,6 +25,16 @@ export default ScreenNames = {
 
   // friendScreen
 
+  //Menu
+  ///Menu_Notification
+  commentsNotification: 'Bình luận',
+  updatesFromFriendsNotification: 'Cập nhật từ bạn bè',
+  friendRequestsNotification: 'Lời mời kết bạn',
+  peopleMayKnowNotification: 'Những người bạn có thể biết',
+  birthdaysNotification: 'Sinh nhật',
+  videoNotification: 'Video',
+  pushNofitication: 'Đẩy',
+
   //menu
   termsPolicies: 'Điều khoản và chính sách',
   setting: 'Cài đặt & quyền riêng tư',
