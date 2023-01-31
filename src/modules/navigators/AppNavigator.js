@@ -29,6 +29,7 @@ import BirthdaysNotification from 'modules/screens/MenuScreen/Setting/Notificati
 import VideoNotification from 'modules/screens/MenuScreen/Setting/NotificationSetting/VideosSetting'
 import ProfileView from 'modules/views/ProfileView'
 import ScreenNames from 'general/constants/ScreenNames'
+import HomeNavigator from './HomeNavigator'
 const Stack = createNativeStackNavigator()
 
 export default AppNavigator = (navigation) => {
@@ -36,13 +37,6 @@ export default AppNavigator = (navigation) => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Group>
-          {/* <Stack.Screen
-            name={ScreenNames.signUpScreen}
-            component={SignupScreen}
-            options={{ headerShown: false }}
-          /> */}
-
-          {/* <Stack.Screen
           <Stack.Screen
             name={ScreenNames.loginScreen}
             component={LoginScreen}
@@ -67,9 +61,9 @@ export default AppNavigator = (navigation) => {
           />
           <Stack.Screen
             name={ScreenNames.homeScreen}
-            component={HomeScreen}
+            component={HomeNavigator}
             options={{ headerShown: false }}
-          /> */}
+          />
         </Stack.Group>
 
         <Stack.Group>
@@ -91,23 +85,24 @@ export default AppNavigator = (navigation) => {
             component={TermsPolocies}
           />
           <Stack.Screen name={ScreenNames.setting} component={Setting} />
-          <Stack.Screen name={ScreenNames.inforUser} component={InforUser} options={{title : ""}}/>
-          <Stack.Screen 
-            name={ScreenNames.security} 
+          <Stack.Screen
+            name={ScreenNames.inforUser}
+            component={InforUser}
+            options={{ title: '' }}
+          />
+          <Stack.Screen
+            name={ScreenNames.security}
             component={Security}
-            options={{title : ""}}
+            options={{ title: '' }}
           />
-          <Stack.Screen 
-            name={ScreenNames.block} 
-            component={Block} 
+          <Stack.Screen name={ScreenNames.block} component={Block} />
+          <Stack.Screen
+            name={ScreenNames.addBlock}
+            component={AddBlock}
+            options={{ headerShown: false }}
           />
-          <Stack.Screen 
-            name={ScreenNames.addBlock} 
-            component={AddBlock} 
-            options={{ headerShown: false }}  
-          />
-          <Stack.Screen 
-            name={ScreenNames.changePassword} 
+          <Stack.Screen
+            name={ScreenNames.changePassword}
             component={ChangePassword}
           />
           <Stack.Screen
@@ -147,9 +142,8 @@ export default AppNavigator = (navigation) => {
             name={ScreenNames.pushNofitication}
             component={PushNotificationSetting}
           />
-      </Stack.Group>
-      <Stack.Group>
         </Stack.Group>
+        <Stack.Group></Stack.Group>
 
         <Stack.Group
           screenOptions={{
@@ -179,5 +173,5 @@ export default AppNavigator = (navigation) => {
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
-  );
-};
+  )
+}

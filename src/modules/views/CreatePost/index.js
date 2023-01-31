@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import {
   Modal,
   Text,
@@ -7,127 +7,131 @@ import {
   Image,
   TextInput,
   ScrollView,
-} from 'react-native';
-import styles from 'modules/views/CreatePost/styles';
-import FeatherIcon from 'react-native-vector-icons/Feather';
-import EntypoIcon from 'react-native-vector-icons/Entypo';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import ImagePicker from 'react-native-image-crop-picker';
-import RNFS from 'react-native-fs';
-import ImageBox from 'modules/views/CreatePost/image-box';
-import Popup from 'modules/views/CreatePost/exit-popup';
-import Feeling from 'modules/views/CreatePost//feeling-selection';
-import icons from 'general/constants/icon';
-import domain from 'general/constants/domain';
-import { useEffect } from 'react';
-import { getPreference } from 'libs/storage/PreferenceStorage';
-import FetchingPopup from './fetching-popup';
+} from 'react-native'
+import styles from 'modules/views/CreatePost/styles'
+import FeatherIcon from 'react-native-vector-icons/Feather'
+import EntypoIcon from 'react-native-vector-icons/Entypo'
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
+import ImagePicker from 'react-native-image-crop-picker'
+import RNFS from 'react-native-fs'
+import ImageBox from 'modules/views/CreatePost/image-box'
+import Popup from 'modules/views/CreatePost/exit-popup'
+import Feeling from 'modules/views/CreatePost//feeling-selection'
+import icons from 'general/constants/icon'
+import { domain } from 'general/constants/Global'
+import { useEffect } from 'react'
+import { getPreference } from 'libs/storage/PreferenceStorage'
+import FetchingPopup from './fetching-popup'
 
 const AddPost = (params) => {
-  console.log('CreatePost render');
-  const { visible, setvisible, isEditPostMode, route, navigation } = params;
-  const postEdit = route?.params.postEdit;
-  const handleAfterEditPost = route?.params.handleAfterEditPost;
-  const isEditing = isEditPostMode === false ? false : true;
-  const [popupVisible, setPopupVisible] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [description, setDescription] = useState('');
-  const [images, setImages] = useState([]);
-  const [feelingModal, setFeelingModal] = useState(false);
-  const [status, setStatus] = useState('');
-  const [willBeDeletedImages, setWillBeDeletedImages] = useState([]);
-  const [isUploadingImages, setIsUploadingImages] = useState(false);
-  const [fetching, setFetching] = useState(false);
-  const [token, setToken] = useState('');
-  const [userId, setUserId] = useState('');
-  const [userName, setUserName] = useState('');
-  const [avatarUrl, setAvatarUrl] = useState('');
+  console.log('CreatePost render')
+  const { visible, setvisible, isEditPostMode, route, navigation } = params
+  const postEdit = route?.params.postEdit
+  const handleAfterEditPost = route?.params.handleAfterEditPost
+  const isEditing = isEditPostMode === false ? false : true
+  const [popupVisible, setPopupVisible] = useState(false)
+  const [modalVisible, setModalVisible] = useState(false)
+  const [description, setDescription] = useState('')
+  const [images, setImages] = useState([])
+  const [feelingModal, setFeelingModal] = useState(false)
+  const [status, setStatus] = useState('')
+  const [willBeDeletedImages, setWillBeDeletedImages] = useState([])
+  const [isUploadingImages, setIsUploadingImages] = useState(false)
+  const [fetching, setFetching] = useState(false)
+  const [token, setToken] = useState('')
+  const [userId, setUserId] = useState('')
+  const [userName, setUserName] = useState('')
+  const [avatarUrl, setAvatarUrl] = useState('')
 
   useEffect(() => {
     //get token
     async function getToken() {
-      let token = await getPreference('UserToken');
-      setToken(token);
+      let token = await getPreference('UserToken')
+      setToken(token)
     }
-    if (!token) getToken();
+    if (!token) getToken()
 
     //get userid
     async function getUserId() {
-      let userId = await getPreference('UserId');
-      setUserId(userId);
+      let userId = await getPreference('UserId')
+      setUserId(userId)
     }
-    if (!userId) getUserId();
+    if (!userId) getUserId()
 
     //get username
     async function getUserName() {
-      let userName = await getPreference('UserName');
-      setUserName(userName);
+      let userName = await getPreference('UserName')
+      setUserName(userName)
     }
-    if (!userName) getUserName();
+    if (!userName) getUserName()
 
     //get user avatar
     async function getAvatar() {
-      let avatarUrl = await getPreference('UserAvatar');
-      setAvatarUrl(avatarUrl);
+      let avatarUrl = await getPreference('UserAvatar')
+      setAvatarUrl(avatarUrl)
     }
-    if (!avatarUrl) getAvatar();
-  }, []);
+    if (!avatarUrl) getAvatar()
+  }, [])
 
   const avatarSrc =
     avatarUrl != '' && avatarUrl != null
       ? { uri: avatarUrl }
-      : require('assets/images/male-avatar.jpg');
+      : require('assets/images/male-avatar.jpg')
 
   useEffect(() => {
-    setModalVisible(visible);
-  }, [visible]);
+    setModalVisible(visible)
+  }, [visible])
 
   useEffect(() => {
-    if (images.length == 0) setIsUploadingImages(false);
-  }, [images.length]);
+    if (images.length == 0) setIsUploadingImages(false)
+  }, [images.length])
 
   const convertObject = (data) => {
     return {
       id: data.id,
       path: data.url,
-    };
-  };
+    }
+  }
 
   useEffect(() => {
     if (isEditing === true) {
-      setDescription(postEdit.described);
-      if (postEdit.state != undefined) setStatus(postEdit.state);
+      setDescription(postEdit.described)
+      if (postEdit.state != undefined) setStatus(postEdit.state)
       if (postEdit.image) {
-        console.log('post image: ', postEdit.image);
-        setIsUploadingImages(true);
-        let images = [];
+        console.log('post image: ', postEdit.image)
+        setIsUploadingImages(true)
+        let images = []
         postEdit.image.forEach((img) => {
-          images = [...images, convertObject(img)];
-        });
-        setImages(images);
+          images = [...images, convertObject(img)]
+        })
+        setImages(images)
       }
       if (postEdit.video) {
-        let images = convertObject(postEdit.video[0]);
-        setImages(images);
+        let images = convertObject(postEdit.video[0])
+        setImages(images)
       }
     }
-  }, [isEditing]);
+  }, [isEditing])
+
+  const resetState = () => {
+    setDescription('')
+    setImages([])
+    setStatus('')
+  }
 
   const addIconsToDescription = (value) => {
-    let haveIconDescription = value;
+    let haveIconDescription = value
     icons.forEach((item) => {
-      haveIconDescription = haveIconDescription
-        .split(item.text)
-        .join(item.icon);
-    });
-    setDescription(haveIconDescription);
-  };
+      haveIconDescription = haveIconDescription.split(item.text).join(item.icon)
+    })
+    setDescription(haveIconDescription)
+  }
   const modifyMetadata = async (data) => {
-    let newImages;
-    const numberOfNewImages = data.length;
+    let newImages
+    const numberOfNewImages = data.length
     if (data[0]?.mime.includes('video')) {
-      const buffer = await RNFS.readFile(data[0]?.path, 'base64');
-      const video = data[numberOfNewImages - 1];
+      const buffer = await RNFS.readFile(data[0]?.path, 'base64')
+      const video = data[numberOfNewImages - 1]
       newImages = [
         {
           fieldname: 'video',
@@ -138,7 +142,7 @@ const AddPost = (params) => {
           buffer,
           path: video.path,
         },
-      ];
+      ]
     } else
       newImages = data.map((image) => {
         return {
@@ -149,25 +153,25 @@ const AddPost = (params) => {
           size: image.size,
           buffer: image.data,
           path: image.path,
-        };
-      });
-    return newImages;
-  };
+        }
+      })
+    return newImages
+  }
   const getExactlyNumberOfImagesAsRequire = (currentImages, newImages) => {
-    const numberOfCurrentImages = currentImages.length;
-    const numberOfNewImages = newImages.length;
+    const numberOfCurrentImages = currentImages.length
+    const numberOfNewImages = newImages.length
     if (newImages[0]?.mimetype.includes('video')) {
-      return [newImages[numberOfNewImages - 1]];
+      return [newImages[numberOfNewImages - 1]]
     }
-    if (numberOfNewImages >= 4) return newImages.slice(numberOfNewImages - 4);
+    if (numberOfNewImages >= 4) return newImages.slice(numberOfNewImages - 4)
     if (numberOfCurrentImages + numberOfNewImages > 4) {
       return [
         ...currentImages.slice(numberOfCurrentImages + numberOfNewImages - 4),
         ...newImages,
-      ];
+      ]
     }
-    return [...currentImages, ...newImages];
-  };
+    return [...currentImages, ...newImages]
+  }
   const chooseFiles = async () => {
     ImagePicker.openPicker({
       multiple: true,
@@ -175,108 +179,99 @@ const AddPost = (params) => {
       mediaType: isUploadingImages ? 'photo' : 'any',
     })
       .then(async (data) => {
-        const newImages = await modifyMetadata(data);
-        if (newImages[0].mimetype.includes('image')) setIsUploadingImages(true);
+        const newImages = await modifyMetadata(data)
+        if (newImages[0].mimetype.includes('image')) setIsUploadingImages(true)
         setImages((currentImages) =>
-          getExactlyNumberOfImagesAsRequire(currentImages, newImages)
-        );
+          getExactlyNumberOfImagesAsRequire(currentImages, newImages),
+        )
       })
-      .catch((err) => console.log(err));
-  };
+      .catch((err) => console.log(err))
+  }
   const closeModal = () => {
-    setPopupVisible(true);
-  };
+    setPopupVisible(true)
+  }
   const chooseFeeling = () => {
-    setFeelingModal(true);
-  };
+    setFeelingModal(true)
+  }
   const addPost = () => {
-    const data = new FormData();
-    data.append('described', description);
-    data.append('status', status);
+    const data = new FormData()
+    data.append('described', description)
+    data.append('status', status)
     if (images.length > 0) {
       if (isUploadingImages)
-        data.append(
-          'image',
-          JSON.stringify(images.filter((item) => !item?.id))
-        );
+        data.append('image', JSON.stringify(images.filter((item) => !item?.id)))
       else
-        data.append(
-          'video',
-          JSON.stringify(images.filter((item) => !item?.id))
-        );
+        data.append('video', JSON.stringify(images.filter((item) => !item?.id)))
     }
-    data.append('userId', userId);
-    data.append('token', token);
+    data.append('userId', userId)
+    data.append('token', token)
     const options = {
       method: 'post',
       body: data,
       headers: {
         'Content-Type': 'multipart/form-data',
       },
-    };
-    console.log('add_post request send');
-    setFetching(true);
+    }
+    console.log('add_post request send')
+    setFetching(true)
     fetch(domain + '/it4788/post/add_post', options)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        console.log(data)
         if (data.code == '1000') {
-          setFetching(false);
-          setvisible(false);
+          setFetching(false)
+          setvisible(false)
         }
-        setFetching(false);
+        setFetching(false)
       })
       .catch((err) => {
-        console.log(err);
-      });
-  };
+        console.log(err)
+      })
+  }
   const editPost = () => {
-    const data = new FormData();
-    data.append('described', description);
-    postEdit.described = description;
-    data.append('status', status);
-    postEdit.state = status;
-    data.append('image_del', JSON.stringify(willBeDeletedImages));
-    let imagesUpload = images.filter((item) => !item?.id);
+    const data = new FormData()
+    data.append('described', description)
+    postEdit.described = description
+    data.append('status', status)
+    postEdit.state = status
+    data.append('image_del', JSON.stringify(willBeDeletedImages))
+    let imagesUpload = images.filter((item) => !item?.id)
     if (imagesUpload.length > 0) {
-      if (isUploadingImages) data.append('image', JSON.stringify(imagesUpload));
+      if (isUploadingImages) data.append('image', JSON.stringify(imagesUpload))
       else {
-        data.append(
-          'video',
-          JSON.stringify(images.filter((item) => !item?.id))
-        );
-        console.log('video:', images);
+        data.append('video', JSON.stringify(images.filter((item) => !item?.id)))
+        console.log('video:', images)
       }
     }
-    data.append('userId', userId);
-    data.append('id', postEdit?.id);
-    data.append('token', token);
+    data.append('userId', userId)
+    data.append('id', postEdit?.id)
+    data.append('token', token)
     const options = {
       method: 'post',
       body: data,
       headers: {
         'Content-Type': 'multipart/form-data',
       },
-    };
-    console.log('edit post request send');
-    setFetching(true);
+    }
+    console.log('edit post request send')
+    setFetching(true)
     fetch(domain + '/it4788/post/edit_post', options)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        console.log(data)
         if (data.code == '1000') {
-          setFetching(false);
-          navigation.goBack();
-          handleAfterEditPost(postEdit.id);
+          setFetching(false)
+          navigation.goBack()
+          handleAfterEditPost(postEdit.id)
         }
-        setFetching(false);
+        setFetching(false)
       })
-      .catch((err) => console.log(err));
-  };
+      .catch((err) => console.log(err))
+  }
   const post = () => {
-    if (isEditing === false) addPost();
-    else editPost();
-  };
+    if (isEditing === false) addPost()
+    else editPost()
+  }
 
   return (
     <Modal animationType="slide" transparent={true} visible={modalVisible}>
@@ -332,7 +327,7 @@ const AddPost = (params) => {
                         chooseFiles={chooseFiles}
                         videoUpload={!isUploadingImages}
                       />
-                    );
+                    )
                   })}
               </View>
             )}
@@ -356,6 +351,7 @@ const AddPost = (params) => {
             setPopupVisible={setPopupVisible}
             setModalVisible={setModalVisible}
             setvisible={setvisible}
+            resetState={resetState}
             navigate={navigation}
             isEditing={isEditing}
           />
@@ -366,7 +362,7 @@ const AddPost = (params) => {
       </View>
       {fetching && <FetchingPopup />}
     </Modal>
-  );
-};
+  )
+}
 
-export default AddPost;
+export default AddPost

@@ -22,4 +22,5 @@ export const PreferenceKeys = {
 }
 
 // sửa ip ở đây nhé
-export const serverDomain = 'http://192.168.254.32:5000/it4788/'
+export const serverDomain = 'http://192.168.1.19:5000/it4788/'
+export const domain = 'http://192.168.1.19:5000'

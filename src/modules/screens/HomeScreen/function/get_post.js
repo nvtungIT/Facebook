@@ -1,10 +1,9 @@
-import { getPreference } from 'libs/storage/PreferenceStorage';
-import { serverDomain } from './variables';
-
+import { getPreference } from 'libs/storage/PreferenceStorage'
+import { serverDomain } from 'general/constants/Global'
 export async function get_post(id) {
-  const token = await getPreference('UserToken');
+  const token = await getPreference('UserToken')
 
-  const url = serverDomain + 'post/get_post';
+  const url = serverDomain + 'post/get_post'
   const options = {
     method: 'post',
     body: JSON.stringify({
@@ -14,10 +13,10 @@ export async function get_post(id) {
     headers: {
       'Content-Type': 'application/json',
     },
-  };
+  }
   return await fetch(url, options)
     .then((response) => response.json())
     .then((json) => {
-      return json.data; //is a post object
-    });
+      return json.data //is a post object
+    })
 }

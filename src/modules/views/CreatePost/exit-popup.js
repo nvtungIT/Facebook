@@ -1,6 +1,6 @@
-import React from 'react';
-import { Text, Pressable, View } from 'react-native';
-import styles from 'modules/views/CreatePost/styles';
+import React from 'react'
+import { Text, Pressable, View } from 'react-native'
+import styles from 'modules/views/CreatePost/styles'
 
 function Popup({
   setPopupVisible,
@@ -8,16 +8,17 @@ function Popup({
   setvisible,
   navigate,
   isEditing,
+  resetState,
 }) {
   const discardChange = () => {
-    setPopupVisible(false);
-    setModalVisible(false);
-    if (isEditing === false) setvisible(false);
-    else navigate.goBack();
-  };
+    setPopupVisible(false)
+    setModalVisible(false)
+    if (isEditing === false) setvisible(false)
+    else navigate.goBack()
+  }
   const continueWritingPost = () => {
-    setPopupVisible(false);
-  };
+    setPopupVisible(false)
+  }
 
   return (
     <View style={styles.popupWrapper}>
@@ -39,7 +40,13 @@ function Popup({
             </Text>
           </Pressable>
         )}
-        <Pressable style={[styles.popupBtn]} onPress={discardChange}>
+        <Pressable
+          style={[styles.popupBtn]}
+          onPress={() => {
+            resetState()
+            discardChange()
+          }}
+        >
           <Text style={[styles.textPopup, { color: 'red' }]}>
             {isEditing ? 'Bỏ' : 'Bỏ bài viết'}
           </Text>
@@ -53,7 +60,7 @@ function Popup({
         </Pressable>
       </View>
     </View>
-  );
+  )
 }
 
-export default Popup;
+export default Popup
