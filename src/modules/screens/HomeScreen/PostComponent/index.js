@@ -7,10 +7,10 @@ import {
   Dimensions,
 } from 'react-native'
 import { useState } from 'react'
-import ImagesComponent from '../imagesComponent'
+import ImagesComponent from '../ImageComponent'
 import TextComponent from '../textComponent'
 import VideoComponent from '../videoComponent'
-import CommentsComponent from '../commentComponent'
+import CommentsComponent from '../CommentComponent'
 import AntDesignIcon from 'react-native-vector-icons/AntDesign'
 import Octicons from 'react-native-vector-icons/Octicons'
 import FeatherIcon from 'react-native-vector-icons/Feather'
@@ -20,10 +20,11 @@ import { useEffect } from 'react'
 import { getStatus } from '../function/status'
 import { like } from '../function/like'
 import ScreenNames from 'general/constants/ScreenNames'
-import PostOneImage from 'modules/views/PostOneImage'
+import OneImageModal from 'modules/views/PostOneImage'
 import { get_post } from '../function/get_post'
 import styles from './styles'
 import { getPreference } from 'libs/storage/PreferenceStorage'
+import Avatar from '../Avatar'
 
 const window = Dimensions.get('window')
 
@@ -100,11 +101,6 @@ export default PostComponent = (params) => {
   }
 
   const postStatus = getStatus(post.modified)
-
-  const avatarImg =
-    post.author.avatar != null
-      ? { uri: post.author.avatar }
-      : require('assets/images/default_avafb.jpg')
 
   const changeState = () => {
     if (!(type == 'single')) {
@@ -184,7 +180,7 @@ export default PostComponent = (params) => {
           isposter={isposter}
         />
         {post.image != null && (
-          <PostOneImage
+          <OneImageModal
             setvisible={setSingleImageShow}
             visible={singleImageShow}
             post={post}
@@ -204,7 +200,7 @@ export default PostComponent = (params) => {
               </Pressable>
             )}
             <View style={styles.topPart.posterInfo}>
-              <Image style={styles.topPart.avaImg} source={avatarImg} />
+              <Avatar url={post.author.avatar} navigate={navigate} />
               <View>
                 <Text style={styles.topPart.userNamePart}>
                   {post.author.username}
@@ -298,7 +294,11 @@ export default PostComponent = (params) => {
         </View>
         {/* list comments part */}
         {type == 'single' && (
-          <CommentsComponent postId={post.id} inputComment={inputComment} />
+          <CommentsComponent
+            postId={post.id}
+            inputComment={inputComment}
+            navigate={navigate}
+          />
         )}
       </View>
     )

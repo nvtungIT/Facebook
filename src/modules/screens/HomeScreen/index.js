@@ -18,6 +18,7 @@ import { check_new_item } from './function/check_new_item'
 import { getPreference } from 'libs/storage/PreferenceStorage'
 import AddPost from 'modules/views/CreatePost'
 import FetchingPopup from 'modules/views/CreatePost/fetching-popup'
+import Avatar from './Avatar'
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout))
@@ -35,7 +36,7 @@ export default function HomeScreen({ navigation, ishome = true }) {
   const [refreshing, setRefreshing] = useState(false)
   const [render, setRender] = useState([true]) //state to render flatlist
   const [avatarUrl, setAvatarUrl] = useState('')
-
+  const [addPostVisible, setAddPostVisible] = useState(false)
   useEffect(() => {
     get_list_posts({
       setLoading: setLoading,
@@ -54,6 +55,10 @@ export default function HomeScreen({ navigation, ishome = true }) {
   )
 
   useEffect(() => {
+    if (addPostVisible == false) onRefresh()
+  }, [addPostVisible])
+
+  useEffect(() => {
     async function getAvatar() {
       let avatarUrl = await getPreference('UserAvatar')
       setAvatarUrl(avatarUrl)
@@ -66,8 +71,6 @@ export default function HomeScreen({ navigation, ishome = true }) {
       ? { uri: avatarUrl }
       : require('assets/images/male-avatar.jpg')
 
-  const [addPostVisible, setAddPostVisible] = useState(false)
-
   const AddPostComponent = () => (
     <View>
       <View
@@ -78,15 +81,7 @@ export default function HomeScreen({ navigation, ishome = true }) {
         }}
       >
         <Pressable>
-          <Image
-            source={avatarSrc}
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: 40,
-              margin: 8,
-            }}
-          />
+          <Avatar url={avatarUrl} navigate={navigation} />
         </Pressable>
         <Pressable
           onPress={() => {

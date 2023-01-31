@@ -10,17 +10,15 @@ export default function FriendRequestList() {
   }, [])
 
   const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
+    setRefreshing(true)
     getData()
     setTimeout(() => {
-      setRefreshing(false);
-    }, 2000);
-  }, []);
-
- 
+      setRefreshing(false)
+    }, 2000)
+  }, [])
 
   const [refreshing, setRefreshing] = useState()
-  
+
   const [data, setData] = useState([])
   const getRequestedFriendList = async (token, index, count) => {
     try {
@@ -64,9 +62,12 @@ export default function FriendRequestList() {
     }
   }
   return (
-    <ScrollView horizontal={false} refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }>
+    <ScrollView
+      horizontal={false}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
       <Text
         style={{
           fontFamily: 'FACEBOLF',
@@ -75,12 +76,12 @@ export default function FriendRequestList() {
           color: 'black',
           marginLeft: 20,
           lineHeight: 40,
-          height:100,
+          height: 100,
         }}
       >
         Lời mời kết bạn
       </Text>
-      
+
       {data.map((item) => (
         <FriendChoiceItem
           isRequested={true}

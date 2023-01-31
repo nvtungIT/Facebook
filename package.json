@@ -1,5 +1,5 @@
 {
-  "name": "Facebook",
+  "name": "facebook",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "server": "npm run server --prefix ../Facebook-api"
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",

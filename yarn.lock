@@ -6466,9 +6466,15 @@
     "prop-types" "^15.5.8"
 
 "react-native-tab-view@^3.3.0", "react-native-tab-view@>= 3.0.0":
+<<<<<<< HEAD
   "integrity" "sha512-rceAYWpHa6knA7tsTnnjlcOxlCErR4F+yXQPpNm125IvYFyv09YRhE5uMU2IzyPIQ1CJvADCHurF3KySzVI+4Q=="
   "resolved" "https://registry.npmjs.org/react-native-tab-view/-/react-native-tab-view-3.3.4.tgz"
   "version" "3.3.4"
+=======
+  "integrity" "sha512-xjAQe657Gp/de2QHb7ptksTg8Jcb+j3fLAdcYryzfavt/pe+HtKLpkCtQsxyIJpRrAO7YPxFsymi2N4MnNfePA=="
+  "resolved" "https://registry.npmjs.org/react-native-tab-view/-/react-native-tab-view-3.3.0.tgz"
+  "version" "3.3.0"
+>>>>>>> 88a15ced9cdd47e6f82f792cebaaf678366ae0f3
   dependencies:
     "use-latest-callback" "^0.1.5"
 

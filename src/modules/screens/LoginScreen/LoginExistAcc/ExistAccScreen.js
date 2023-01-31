@@ -1,23 +1,31 @@
-import ScreenNames from "general/constants/ScreenNames";
-import { useState } from "react";
-import { Button, Image, Pressable, SafeAreaView, StyleSheet, Text, TextInput, TouchableHighlight, TouchableNativeFeedback, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native"
+import ScreenNames from 'general/constants/ScreenNames';
+import { useState } from 'react';
+import {
+  Button,
+  Image,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableHighlight,
+  TouchableNativeFeedback,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 
-export default ExistAccScreen = ({navigation}) => {
-  const [isPlusPress, setIsPlusPress] = useState(false)
-  const [isSearchPress, setIsSearchPress] = useState(false)
-  const [isCreateNewPress, setIsCreateNewPress] = useState(false)
-  const [isShowExtendedList, setIsShowExtendedList] = useState(false)
-
-  console.log(navigation)
+export default ExistAccScreen = ({ navigation }) => {
+  const [isPlusPress, setIsPlusPress] = useState(false);
+  const [isSearchPress, setIsSearchPress] = useState(false);
+  const [isCreateNewPress, setIsCreateNewPress] = useState(false);
+  const [isShowExtendedList, setIsShowExtendedList] = useState(false);
 
   return (
     <SafeAreaView style={styles.body}>
       <View style={styles.container}>
-
-        <View
-          style={styles.imgIconWrap}
-        >
+        <View style={styles.imgIconWrap}>
           <Image
             source={require('../../../../assets/images/FB-icon.png')}
             style={styles.imageIcon}
@@ -27,25 +35,18 @@ export default ExistAccScreen = ({navigation}) => {
         <Pressable
           style={({ pressed }) => [
             {
-              backgroundColor: pressed
-                ? '#ececec'
-                : 'white'
-              },
-              {
-                paddingVertical: 10
-              }
+              backgroundColor: pressed ? '#ececec' : 'white',
+            },
+            {
+              paddingVertical: 10,
+            },
           ]}
-          
           onPress={() => {
-            navigation.navigate(ScreenNames.loginWithExistAccScreen)
+            navigation.navigate(ScreenNames.loginWithExistAccScreen);
           }}
         >
-          <View
-            style={styles.userExistWrap}
-          >
-            <View
-              style={styles.userImgWrap}
-            >
+          <View style={styles.userExistWrap}>
+            <View style={styles.userImgWrap}>
               <Image
                 source={require('../../../../assets/images/default_image.jpg')}
                 style={styles.userImg}
@@ -57,48 +58,41 @@ export default ExistAccScreen = ({navigation}) => {
                 color: 'black',
                 fontWeight: '700',
                 fontSize: 15,
-                flex: 1
-              }}
-            >Chu Mạnh Tiến</Text>
-            <TouchableHighlight
-              onPress={() => {
-                setIsShowExtendedList(!isShowExtendedList)
-              }}
-              underlayColor='#e6f0ff'
-              style={{
-                padding: 4
+                flex: 1,
               }}
             >
-              <Icon
-                size={15}
-                color='black'
-                name="dots-three-vertical"
-              />
-              
+              Chu Mạnh Tiến
+            </Text>
+            <TouchableHighlight
+              onPress={() => {
+                setIsShowExtendedList(!isShowExtendedList);
+              }}
+              underlayColor="#e6f0ff"
+              style={{
+                padding: 4,
+              }}
+            >
+              <Icon size={15} color="black" name="dots-three-vertical" />
             </TouchableHighlight>
-            
+
             {/* Icons */}
           </View>
         </Pressable>
-        
+
         <Pressable
           style={({ pressed }) => [
             {
-              backgroundColor: pressed
-                ? '#ececec'
-                : 'white'
+              backgroundColor: pressed ? '#ececec' : 'white',
             },
-            styles.plusSearchWrap
+            styles.plusSearchWrap,
           ]}
           onPressIn={() => {
-            setIsPlusPress(true)
+            setIsPlusPress(true);
           }}
           onPressOut={() => {
-            setIsPlusPress(false)
+            setIsPlusPress(false);
           }}
-          onPress={() => {
-
-          }}
+          onPress={() => {}}
         >
           <View
             style={isPlusPress ? styles.plusIconWrapPress : styles.plusIconWrap}
@@ -107,13 +101,9 @@ export default ExistAccScreen = ({navigation}) => {
               color={'#176ef0'}
               name="plus"
               size={isPlusPress ? 22.5 : 21}
-            >
-
-            </Icon>
+            ></Icon>
           </View>
-          <Text
-            style={styles.plusSearchText}
-          >
+          <Text style={styles.plusSearchText}>
             Đăng nhập bằng tài khoản khác
           </Text>
         </Pressable>
@@ -121,119 +111,96 @@ export default ExistAccScreen = ({navigation}) => {
         <Pressable
           style={({ pressed }) => [
             {
-              backgroundColor: pressed
-                ? '#ececec'
-                : 'white'
+              backgroundColor: pressed ? '#ececec' : 'white',
             },
-            styles.plusSearchWrap
+            styles.plusSearchWrap,
           ]}
           onPressIn={() => {
-            setIsSearchPress(true)
+            setIsSearchPress(true);
           }}
           onPressOut={() => {
-            setIsSearchPress(false)
+            setIsSearchPress(false);
           }}
-          onPress={() => {
-            
-          }}
+          onPress={() => {}}
         >
           <Text
-            style={isSearchPress ? styles.searchIconWrapPress : styles.searchIconWrap}
+            style={
+              isSearchPress ? styles.searchIconWrapPress : styles.searchIconWrap
+            }
           >
             <Icon
               color={'#176ef0'}
               name="magnifying-glass"
               size={isSearchPress ? 19 : 18}
-            >
-            </Icon>
+            ></Icon>
           </Text>
-          <Text
-            style={styles.plusSearchText}
-          >
-            Tìm tài khoản
-          </Text>
+          <Text style={styles.plusSearchText}>Tìm tài khoản</Text>
         </Pressable>
-      
-        <TouchableHighlight
-          style={isCreateNewPress ? styles.createNewAccWrapPress : styles.createNewAccWrap}
-          onPress={() => {
 
-          }}
-          underlayColor='#FFFFFF'
+        <TouchableHighlight
+          style={
+            isCreateNewPress
+              ? styles.createNewAccWrapPress
+              : styles.createNewAccWrap
+          }
+          onPress={() => {}}
+          underlayColor="#FFFFFF"
           onPressIn={() => {
-            setIsCreateNewPress(true)
+            setIsCreateNewPress(true);
           }}
           onPressOut={() => {
-            setIsCreateNewPress(false)
+            setIsCreateNewPress(false);
           }}
         >
           <Text
-            style={isCreateNewPress ? styles.createNewAccPress : styles.createNewAcc}
+            style={
+              isCreateNewPress ? styles.createNewAccPress : styles.createNewAcc
+            }
           >
             TẠO TÀI KHOẢN FACEBOOK MỚI
           </Text>
         </TouchableHighlight>
       </View>
-      
+
       <TouchableWithoutFeedback
         style={[
           styles.container,
           {
             position: 'absolute',
             top: 0,
-            left: 0, 
+            left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: 'gray'
-          }
-        ]
-        }
-        onPress ={() => {
-          setIsShowExtendedList(false)
+            backgroundColor: 'gray',
+          },
+        ]}
+        onPress={() => {
+          setIsShowExtendedList(false);
         }}
-    >
-      {isShowExtendedList ?
-        <View
-          style={styles.extendedListWrap}
-        >
-          <TouchableHighlight
-            underlayColor={'#e8e9ee'}
-              onPress={() => {
-              
-            }}
-          >
-            <Text
-              style={styles.extendedElementText}
-            >Xóa lịch sử tin nhắn</Text>
-          </TouchableHighlight>
-          <TouchableHighlight
-            underlayColor={'#e8e9ee'}
-            onPress={() => {
-
-            }}
-          >
-            <Text
-              style={styles.extendedElementText}
-            >Gỡ tài khoản khỏi thiết bị</Text>
-          </TouchableHighlight>
-          <TouchableHighlight
-            underlayColor={'#e8e9ee'}
-            onPress={() => {
-              
-            }}
-          >
-            <Text
-              style={styles.extendedElementText}
-            >Tắt thông báo đẩy</Text>
-          </TouchableHighlight>
-          
-        </View> : (<></>)
-      }
+      >
+        {isShowExtendedList ? (
+          <View style={styles.extendedListWrap}>
+            <TouchableHighlight underlayColor={'#e8e9ee'} onPress={() => {}}>
+              <Text style={styles.extendedElementText}>
+                Xóa lịch sử tin nhắn
+              </Text>
+            </TouchableHighlight>
+            <TouchableHighlight underlayColor={'#e8e9ee'} onPress={() => {}}>
+              <Text style={styles.extendedElementText}>
+                Gỡ tài khoản khỏi thiết bị
+              </Text>
+            </TouchableHighlight>
+            <TouchableHighlight underlayColor={'#e8e9ee'} onPress={() => {}}>
+              <Text style={styles.extendedElementText}>Tắt thông báo đẩy</Text>
+            </TouchableHighlight>
+          </View>
+        ) : (
+          <></>
+        )}
       </TouchableWithoutFeedback>
-
     </SafeAreaView>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   body: {
@@ -241,27 +208,27 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 1
+    flex: 1,
   },
   container: {
     width: '100%',
-    flex: 1
+    flex: 1,
   },
   imgIconWrap: {
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 265,
-    marginBottom: 23
+    marginBottom: 23,
   },
   imageIcon: {
     width: 50,
     height: 50,
-    borderRadius: 50 / 2
+    borderRadius: 50 / 2,
   },
   userExistWrap: {
     alignItems: 'center',
     flexDirection: 'row',
-    marginHorizontal: 35
+    marginHorizontal: 35,
   },
   userImgWrap: {
     width: 60,
@@ -277,47 +244,47 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: '700',
     fontSize: 15,
-    flex: 1
+    flex: 1,
   },
 
   plusIconWrap: {
     padding: 3.5,
     backgroundColor: '#e6f0ff',
     borderRadius: 5,
-    marginRight: 13
+    marginRight: 13,
   },
 
   plusIconWrapPress: {
     padding: 2.8,
     backgroundColor: '#e6f0ff',
     borderRadius: 5,
-    marginRight:12.8
+    marginRight: 12.8,
   },
 
   plusSearchWrap: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 35,
-    paddingVertical: 8
+    paddingVertical: 8,
   },
 
   searchIconWrap: {
     padding: 3.5,
     backgroundColor: '#e6f0ff',
     borderRadius: 5,
-    marginRight: 13
+    marginRight: 13,
   },
 
   searchIconWrapPress: {
     padding: 2.8,
     backgroundColor: '#e6f0ff',
     borderRadius: 5,
-    marginRight: 12.8
+    marginRight: 12.8,
   },
 
   plusSearchText: {
     color: '#176ef0',
-    fontWeight: '700'
+    fontWeight: '700',
   },
 
   createNewAccWrap: {
@@ -325,7 +292,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 32,
     right: 0,
-    left: 0
+    left: 0,
   },
 
   createNewAccWrapPress: {
@@ -333,7 +300,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 32,
     right: 0,
-    left: 0
+    left: 0,
   },
 
   createNewAcc: {
@@ -343,7 +310,7 @@ const styles = StyleSheet.create({
     color: '#0952ba',
     fontSize: 13.5,
     backgroundColor: '#e6f0ff',
-    borderRadius: 5
+    borderRadius: 5,
   },
 
   createNewAccPress: {
@@ -353,7 +320,7 @@ const styles = StyleSheet.create({
     color: '#0952ba',
     fontSize: 13.36,
     backgroundColor: '#ececec',
-    borderRadius: 5
+    borderRadius: 5,
   },
 
   extendedListWrap: {
@@ -369,7 +336,7 @@ const styles = StyleSheet.create({
 
     shadowOffset: {
       width: -2,
-      height: 4
+      height: 4,
     },
     shadowRadius: 3,
     shadowOpacity: 0.9,
@@ -380,6 +347,6 @@ const styles = StyleSheet.create({
     color: '#000000',
     textAlign: 'left',
     paddingLeft: 18,
-    paddingVertical: 12.5
-  }
-})
+    paddingVertical: 12.5,
+  },
+});

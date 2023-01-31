@@ -15,7 +15,7 @@ import ImageViewer from 'react-native-image-zoom-viewer'
 import CommentModal from './CommentModal'
 import ScreenNames from 'general/constants/ScreenNames'
 
-export default PostOneImage = (params) => {
+export default OneImageModal = (params) => {
   const { visible, setvisible, post, navigate, type, isposter } = params
   const [visibleNested, setVisibleNested] = useState(false)
   const image = [{ url: post.image[0].url }]
