@@ -15,6 +15,8 @@ import { getPreference } from 'libs/storage/PreferenceStorage'
 import { serverDomain } from 'general/constants/Global'
 export default function AllFriendView({ navigation }) {
   const [isSortFriendModal, setIsSortFriendModal] = useState(false)
+  const [totalFriend, setTotalFriend] = useState(0)
+
   const [data, setData] = useState([])
 
   useEffect(() => {
@@ -39,6 +41,7 @@ export default function AllFriendView({ navigation }) {
       .then((data) => {
         // console.log(data.data.friends[0])
         setData(data.data.friends)
+        setTotalFriend(data.data.total)
       })
       .catch((err) => console.error(err))
   }
@@ -70,7 +73,7 @@ export default function AllFriendView({ navigation }) {
               fontWeight: 'bold',
             }}
           >
-            53 bạn bè
+            {totalFriend} bạn bè
           </Text>
           <TouchableOpacity
             style={{}}

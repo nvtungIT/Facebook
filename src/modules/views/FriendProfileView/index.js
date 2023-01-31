@@ -19,72 +19,72 @@ import FriendBoxItem from 'modules/components/FriendBoxItem'
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
-export default function ProfileView() {
-  useEffect(() => {
-    getData()
-  }, [])
+export default function FriendProfileView() {
+  // useEffect(() => {
+  //   getData()
+  // }, [])
 
-  const [userData, setUserData] = useState({})
-  const [friendData, setFriendData] = useState([])
-  const [totalFriend, setTotalFriend] = useState(0)
-  const getUserInfo = async (token) => {
-    try {
-      const response = await fetch(
-        serverDomain + `user/get_user_info/?token=${encodeURIComponent(token)}`,
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          credentials: 'include',
-        },
-      )
+  // const [userData, setUserData] = useState({})
+  // const [friendData, setFriendData] = useState([])
+  // const [totalFriend, setTotalFriend] = useState(0)
+  // const getUserInfo = async (token) => {
+  //   try {
+  //     const response = await fetch(
+  //       serverDomain + `user/get_user_info/?token=${encodeURIComponent(token)}`,
+  //       {
+  //         method: 'POST',
+  //         headers: {
+  //           Accept: 'application/json',
+  //           'Content-Type': 'application/json',
+  //         },
+  //         credentials: 'include',
+  //       },
+  //     )
 
-      const dataReceived = await response.json()
-      if (dataReceived) {
-        console.log(dataReceived)
-        setUserData(dataReceived.data)
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  //     const dataReceived = await response.json()
+  //     if (dataReceived) {
+  //       console.log(dataReceived)
+  //       setUserData(dataReceived.data)
+  //     }
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
 
-  const getUserFriend = async (token) => {
-    fetch(
-      serverDomain +
-        `friend/get_user_friends?token=${token}&user_id=&index=${0}&count=${6}`,
-      {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-      },
-    )
-      .then((data) => data.json())
-      .then((data) => {
-        // console.log(data.data.friends)
-        setFriendData(data.data.friends)
-        setTotalFriend(data.data.total)
-      })
-      .catch((err) => console.error(err))
-  }
+  // const getUserFriend = async (token) => {
+  //   fetch(
+  //     serverDomain +
+  //       `friend/get_user_friends?token=${token}&user_id=&index=${0}&count=${6}`,
+  //     {
+  //       method: 'POST',
+  //       headers: {
+  //         Accept: 'application/json',
+  //         'Content-Type': 'application/json',
+  //       },
+  //       credentials: 'include',
+  //     },
+  //   )
+  //     .then((data) => data.json())
+  //     .then((data) => {
+  //       // console.log(data.data.friends)
+  //       setFriendData(data.data.friends)
+  //       setTotalFriend(data.data.total)
+  //     })
+  //     .catch((err) => console.error(err))
+  // }
 
-  const getData = async () => {
-    try {
-      const token = await getPreference('UserToken')
+  // const getData = async () => {
+  //   try {
+  //     const token = await getPreference('UserToken')
 
-      if (token !== null) {
-        getUserInfo(token)
-        getUserFriend(token)
-      } else console.log('Không có thông tin')
-    } catch (e) {
-      console.log(e)
-    }
-  }
+  //     if (token !== null) {
+  //       getUserInfo(token)
+  //       getUserFriend(token)
+  //     } else console.log('Không có thông tin')
+  //   } catch (e) {
+  //     console.log(e)
+  //   }
+  // }
 
   return (
     <View>

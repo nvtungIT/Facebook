@@ -1,8 +1,8 @@
 import { AppColors } from 'general/constants/AppColor'
-import { Image, View, Text } from 'react-native'
+import { Image, View, Text, TouchableOpacity } from 'react-native'
 export default function FriendBoxItem(props) {
   return (
-    <View
+    <TouchableOpacity
       style={{
         width: '30%',
         height: 175,
@@ -24,6 +24,6 @@ export default function FriendBoxItem(props) {
       >
         {props.name}
       </Text>
-    </View>
+    </TouchableOpacity>
   )
 }
