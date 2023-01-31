@@ -19,72 +19,74 @@ import FriendBoxItem from 'modules/components/FriendBoxItem'
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
-export default function FriendProfileView() {
-  // useEffect(() => {
-  //   getData()
-  // }, [])
+export default function FriendProfileView({ route },props) {
+  useEffect(() => {
+    getData()
+  }, [])
 
-  // const [userData, setUserData] = useState({})
-  // const [friendData, setFriendData] = useState([])
-  // const [totalFriend, setTotalFriend] = useState(0)
-  // const getUserInfo = async (token) => {
-  //   try {
-  //     const response = await fetch(
-  //       serverDomain + `user/get_user_info/?token=${encodeURIComponent(token)}`,
-  //       {
-  //         method: 'POST',
-  //         headers: {
-  //           Accept: 'application/json',
-  //           'Content-Type': 'application/json',
-  //         },
-  //         credentials: 'include',
-  //       },
-  //     )
+  const { user_id } = route.params;
 
-  //     const dataReceived = await response.json()
-  //     if (dataReceived) {
-  //       console.log(dataReceived)
-  //       setUserData(dataReceived.data)
-  //     }
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
+  const [userData, setUserData] = useState({})
+  const [friendData, setFriendData] = useState([])
+  const [totalFriend, setTotalFriend] = useState(0)
+  const getUserInfo = async (token) => {
+    try {
+      const response = await fetch(
+        serverDomain + `user/get_user_info/?token=${encodeURIComponent(token)}&user_id=${encodeURIComponent(user_id)}`,
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+        },
+      )
 
-  // const getUserFriend = async (token) => {
-  //   fetch(
-  //     serverDomain +
-  //       `friend/get_user_friends?token=${token}&user_id=&index=${0}&count=${6}`,
-  //     {
-  //       method: 'POST',
-  //       headers: {
-  //         Accept: 'application/json',
-  //         'Content-Type': 'application/json',
-  //       },
-  //       credentials: 'include',
-  //     },
-  //   )
-  //     .then((data) => data.json())
-  //     .then((data) => {
-  //       // console.log(data.data.friends)
-  //       setFriendData(data.data.friends)
-  //       setTotalFriend(data.data.total)
-  //     })
-  //     .catch((err) => console.error(err))
-  // }
+      const dataReceived = await response.json()
+      if (dataReceived) {
+        // console.log(dataReceived)
+        setUserData(dataReceived.data)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
-  // const getData = async () => {
-  //   try {
-  //     const token = await getPreference('UserToken')
+  const getUserFriend = async (token) => {
+    fetch(
+      serverDomain +
+        `friend/get_user_friends?token=${token}&user_id=${user_id}&index=${0}&count=${6}`,
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      },
+    )
+      .then((data) => data.json())
+      .then((data) => {
+        console.log(data.data.friends)
+        setFriendData(data.data.friends)
+        setTotalFriend(data.data.total)
+      })
+      .catch((err) => console.error(err))
+  }
 
-  //     if (token !== null) {
-  //       getUserInfo(token)
-  //       getUserFriend(token)
-  //     } else console.log('Không có thông tin')
-  //   } catch (e) {
-  //     console.log(e)
-  //   }
-  // }
+  const getData = async () => {
+    try {
+      const token = await getPreference('UserToken')
+      const user_id = props.user_id
+      if (token !== null) {
+        getUserInfo(token, user_id)
+        getUserFriend(token)
+      } else console.log('Không có thông tin')
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   return (
     <View>
@@ -114,8 +116,8 @@ export default function FriendProfileView() {
         <Text style={styles.name}>{userData.username}</Text>
         <View style={styles.more_button_container}>
           <TouchableOpacity style={styles.edit_profile_button}>
-            <Icon name="pencil" size={14} color={AppColors.black} />
-            <Text style={styles.edit_button_text}>Chỉnh sửa trang cá nhân</Text>
+            <Icon name="user" size={14} color={AppColors.black} />
+            <Text style={styles.edit_button_text}>Bạn bè</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.more_button}>
             <Entypo
@@ -142,7 +144,7 @@ export default function FriendProfileView() {
 
         <View style={styles.friend_view}>
           <Text style={styles.detail_text}>Bạn bè</Text>
-          <Text style={styles.small_text}> {totalFriend} người bạn</Text>
+          <Text style={styles.small_text}>{totalFriend} người bạn</Text>
           <View
             style={{
               width: '100%',

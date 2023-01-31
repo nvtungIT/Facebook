@@ -96,6 +96,7 @@ export default function AllFriendView({ navigation }) {
         <View>
           {data.map((item) => (
             <FriendItem
+              navigation={navigation}
               key={item._id}
               user_id={item._id}
               avt={item.avatar.url}

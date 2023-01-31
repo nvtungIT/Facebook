@@ -2,13 +2,17 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import Icon from 'react-native-vector-icons/Entypo'
 import MoreAllFriendModal from 'modules/views/MoreAllFriendModal'
 import { useState } from 'react'
+import ScreenNames from 'general/constants/ScreenNames'
 export default function FriendItem(props) {
+  const user_id = props.user_id
   const [moreAllFriendModalVisible, setMoreAllFriendModalVisible] = useState(
     false,
   )
 
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={() => {
+        props.navigation.navigate(ScreenNames.friendProfileView, {user_id:user_id})
+      }}>
       <MoreAllFriendModal
         isVisible={moreAllFriendModalVisible}
         onModalHidden={() => {
