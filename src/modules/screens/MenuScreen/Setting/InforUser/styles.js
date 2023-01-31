@@ -8,6 +8,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#f2f2f2"
    },
+   title: {
+    color:'black',
+    fontSize: 25,
+    fontWeight: '600',
+    padding: 10
+    },
    itemGroup: {
     width: width,
     display: "flex",

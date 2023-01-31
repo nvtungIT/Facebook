@@ -3,7 +3,10 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { useState, useEffect } from 'react'
 import VerifyModal from '../../components/VerifyModal'
 import styles from './style'
+import { accept_request } from './function/accept_request'
+import { add_friend } from './function/add_friend'
 export default function FriendChoiceItem(props) {
+  const { onAccept } = props
   const [isFirstButtonClicked, setIsFirstButtonClicked] = useState(false)
   const [isSecondButtonClicked, setIsSecondButtonClicked] = useState(false)
   const [isVerifyModalVisible, setIsVerifyModalVisible] = useState(false)
@@ -52,6 +55,19 @@ export default function FriendChoiceItem(props) {
   let noButton = <View style={styles.button_container}></View>
 
   let respondeView = choiceButtons
+
+  function onVerifyPressed() {}
+
+  if (props.isRequested) {
+    onVerifyPressed = () => {
+      accept_request(props.user_id)
+    }
+  } else {
+    onVerifyPressed = () => {
+      add_friend(props.user_id)
+    }
+  }
+  //  else console.log('Không phải request')
   // chấp nhận lời mời kết bạn
   if (isFirstButtonClicked && isVerifyButtonClicked) {
     respondeText = props.firstTaskResponse
@@ -90,6 +106,7 @@ export default function FriendChoiceItem(props) {
         onVerifyPressed={() => {
           setIsVerifyButtonClicked(true)
           setIsVerifyModalVisible(false)
+          onVerifyPressed()
         }}
         onModalHidden={() => {
           setIsVerifyModalVisible(false)

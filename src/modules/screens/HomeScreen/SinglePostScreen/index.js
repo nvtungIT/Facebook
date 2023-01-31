@@ -8,9 +8,10 @@ import {
   View,
   RefreshControl,
   Animated,
+  LogBox,
 } from 'react-native';
 import PostComponent from '../PostComponent';
-import { CommentInputComp } from '../commentComponent';
+import { CommentInputComp } from '../CommentComponent';
 import { useState, useCallback, useRef } from 'react';
 import { set_comment } from '../function/set_comment';
 import { get_comment } from '../function/get_comment';
@@ -21,6 +22,8 @@ import MoreOption from 'modules/views/MoreOption';
 import { get_post } from '../function/get_post';
 import { useEffect } from 'react';
 import { getPreference } from 'libs/storage/PreferenceStorage';
+import styles from './styles';
+import Avatar from '../Avatar';
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -36,6 +39,11 @@ export default function SinglePostScreen(params) {
   const [commentFocus, setCommentFocus] = useState(focus);
   const [post, setPost] = useState(postPassing);
   const [isposter, setIsposter] = useState(false);
+  let posterStatus = post.state;
+
+  LogBox.ignoreLogs([
+    'Non-serializable values were found in the navigation state',
+  ]);
 
   useEffect(() => {
     const checkIsPoster = async () => {
@@ -100,10 +108,15 @@ export default function SinglePostScreen(params) {
         </Pressable>
 
         <View style={styles.topPart.posterInfo}>
-          <Image style={styles.topPart.avaImg} source={avatarImg} />
+          <Avatar url={post.author.avatar} navigate={navigation} />
           <View>
             <Text style={styles.topPart.userNamePart}>
               {post.author.username}
+              {posterStatus && (
+                <Text style={styles.topPart.posterStatus}>
+                  {' đang cảm thấy ' + posterStatus}
+                </Text>
+              )}
             </Text>
             <Text>{postStatus}</Text>
           </View>
@@ -118,8 +131,6 @@ export default function SinglePostScreen(params) {
       </View>
     </View>
   );
-
-  let scrollOffsetY = useRef(new Animated.Value(0)).current;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -146,54 +157,16 @@ export default function SinglePostScreen(params) {
           goBack={goBack}
           inputComment={inputComment}
           setCommentFocus={setCommentFocus}
+          navigate={navigation}
         />
       </ScrollView>
       {post.can_comment == '1' && (
-        <CommentInputComp focus={commentFocus} onPressSend={onPressSend} />
+        <CommentInputComp
+          focus={commentFocus}
+          onPressSend={onPressSend}
+          navigate={navigation}
+        />
       )}
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  cardShadow: {
-    backgroundColor: 'red',
-    zIndex: 0,
-  },
-  container: {
-    flex: 1,
-  },
-  topPart: {
-    goBackIcon: {
-      paddingLeft: 5,
-    },
-    posterInfo: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      flex: 5,
-    },
-    moreicon: {
-      flex: 1,
-      alignItems: 'flex-end',
-      paddingRight: 10,
-    },
-    avaImg: {
-      width: 40,
-      height: 40,
-      borderRadius: 40,
-      margin: 8,
-    },
-    userNamePart: {
-      fontSize: 16,
-      fontWeight: 'bold',
-    },
-    flexDirection: 'row',
-    // flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    overflow: 'hidden',
-  },
-  scrollView: {
-    backgroundColor: 'white',
-  },
-});

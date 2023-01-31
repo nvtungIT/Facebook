@@ -1,10 +1,9 @@
-import { getPreference } from 'libs/storage/PreferenceStorage';
-import { serverDomain } from './variables';
-
+import { getPreference } from 'libs/storage/PreferenceStorage'
+import { serverDomain } from 'general/constants/Global'
 export async function set_comment(params) {
-  const token = await getPreference('UserToken');
+  const token = await getPreference('UserToken')
 
-  const { comment, postId } = params;
+  const { comment, postId } = params
   const url =
     serverDomain +
     'comment/set_comment?token=' +
@@ -13,6 +12,6 @@ export async function set_comment(params) {
     postId +
     '&comment=' +
     comment +
-    '&index=0&count=20';
-  fetch(url, { method: 'POST' });
+    '&index=0&count=20'
+  fetch(url, { method: 'POST' })
 }

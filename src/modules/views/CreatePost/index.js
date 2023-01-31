@@ -191,7 +191,7 @@ const AddPost = (params) => {
   };
   const addPost = () => {
     const data = new FormData();
-    data.append('described', description);
+    if (description != null) data.append('described', description);
     data.append('status', status);
     if (images.length > 0) {
       if (isUploadingImages)

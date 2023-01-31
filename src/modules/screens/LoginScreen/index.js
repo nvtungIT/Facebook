@@ -17,8 +17,8 @@ import {
 
 import styles from './styles';
 
-import { PreferenceKeys } from 'general/constants/Global';
-import { setPreference } from 'libs/storage/PreferenceStorage';
+import { serverDomain, PreferenceKeys } from 'general/constants/Global';
+import { getPreference, setPreference } from 'libs/storage/PreferenceStorage';
 
 const ModalPopup = ({ visibile, modalTitle, modalContent, setVisible }) => {
   const toggleModal = () => {
@@ -43,9 +43,7 @@ const ModalPopup = ({ visibile, modalTitle, modalContent, setVisible }) => {
           </View>
           <View style={styles.modalContentWrap}>
             <Text style={styles.modalContent}>
-              {modalContent
-                ? modalContent
-                : 'Modal Content Default slkgjsldfgjs;ldgjlds;fgjfdklgjfdgj'}
+              {modalContent ? modalContent : 'Modal Content Default'}
             </Text>
           </View>
           <TouchableOpacity
@@ -87,45 +85,47 @@ export default LoginScreen = ({ navigation }) => {
     setIsKeyBoardShow(false);
   });
 
+  // console.log('token: ', getPreference('UserToken'))
   const login = async (phoneNumber, password) => {
     try {
-      const response = await fetch(
-        `http://192.168.1.136:5000/it4788/auth/login`,
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            phoneNumber,
-            password,
-          }),
-        }
-      );
+      const api = serverDomain + 'auth/login';
+
+      const response = await fetch(api, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          phoneNumber,
+          password,
+        }),
+      });
 
       const data = await response.json();
       if (data) {
         console.log(data);
 
         if (data.code === '1000') {
+          const userId = await data.data.id;
+          const userName = await data.data.username;
           const token = await data.data.token;
           const avatar = await data.data.avatar;
-          const userId = await data.data.id;
           const username = await data.data.username;
           console.log('Login Token' + token);
           try {
+            setPreference(PreferenceKeys.UserId, userId);
+            setPreference(PreferenceKeys.UserName, userName);
             setPreference(PreferenceKeys.UserToken, token);
-            if (avatar != null)
-              setPreference(PreferenceKeys.UserAvatar, avatar);
-            else setPreference(PreferenceKeys.UserAvatar, '');
+            setPreference(PreferenceKeys.UserAvatar, avatar);
             setPreference(PreferenceKeys.UserId, userId);
             setPreference(PreferenceKeys.UserName, username);
           } catch (error) {
             alert(error);
           }
+          setPhoneNumber('');
+          setPassword('');
           navigation.navigate(ScreenNames.mainTab, { token: token });
-          console.log('Đăng nhập thành công, token:  ', token);
         } else if (data.code === '9995' || data.code === '1004') {
           setModalTitle('Sai thông tin đăng nhập');
           setModalContent('Tên người dùng hoặc mật khẩu không hợp lệ');
@@ -315,7 +315,7 @@ export default LoginScreen = ({ navigation }) => {
           underlayColor="#bdbdbd"
           activeOpacity={0.9}
           onPress={() => {
-            navigation.navigate(ScreenNames.signUpScreen);
+            navigation.navigate(ScreenNames.signupScreen);
           }}
           onShowUnderlay={() => {
             setIsCreateAccPressed(true);

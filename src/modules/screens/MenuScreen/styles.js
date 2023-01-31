@@ -30,8 +30,18 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         padding: 6,
     },
+    linkUser: {
+        borderBottomColor: "#888",
+        borderBottomWidth: 0.5,
+        margin: 10
+    },
     userName: {
-        color: "black"
+        color: "black",
+        fontWeight: "600",
+        fontSize: 18
+    },
+    textNoteUser: {
+        paddingBottom: 10
     },
     dropdownHelpOpen: {
         height: 139,

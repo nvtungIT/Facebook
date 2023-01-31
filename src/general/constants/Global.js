@@ -15,8 +15,11 @@ export const PreferenceKeys = {
   // FirstRun: 'FirstRun',
   // ExpireTimeMS: 'ExpireTimeMS',
   // LastTimeServerMS: 'LastTimeServerMS',
+  UserId: 'UserId',
   UserToken: 'UserToken',
   UserAvatar: 'UserAvatar',
-  UserId: 'UserId',
   UserName: 'UserName',
 };
+
+// sửa ip ở đây nhé
+export const serverDomain = 'http://192.168.1.136:5000/it4788/';

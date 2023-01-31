@@ -1,5 +1,5 @@
 import { getPreference } from 'libs/storage/PreferenceStorage';
-import { serverDomain } from './variables';
+import { serverDomain } from 'general/constants/Global';
 
 export async function get_post(id) {
   const token = await getPreference('UserToken');

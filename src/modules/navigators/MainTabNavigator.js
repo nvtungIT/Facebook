@@ -1,23 +1,23 @@
-import React from 'react';
-import Icon from 'react-native-vector-icons/Ionicons';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { useIsFocused } from '@react-navigation/native';
+import React from 'react'
+import Icon from 'react-native-vector-icons/Ionicons'
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { useIsFocused } from '@react-navigation/native'
 
-import FriendScreen from 'modules/screens/FriendScreen';
-import MenuScreen from 'modules/screens/MenuScreen';
-import ScreenNames from 'general/constants/ScreenNames';
-import NotificationScreen from 'modules/screens/NotificationScreen';
-import VideoScreen from 'modules/screens/VideoScreen';
-import AppHeader from 'modules/components/AppHeader';
-import { AppColors } from 'general/constants/AppColor';
-import HomeNavigator from './HomeNavigator';
-const Tab = createMaterialTopTabNavigator();
+import FriendScreen from 'modules/screens/FriendScreen'
+import MenuScreen from 'modules/screens/MenuScreen'
+import ScreenNames from 'general/constants/ScreenNames'
+import NotificationScreen from 'modules/screens/NotificationScreen'
+import VideoScreen from 'modules/screens/VideoScreen'
+import AppHeader from 'modules/components/AppHeader'
+import { AppColors } from 'general/constants/AppColor'
+import HomeNavigator from './HomeNavigator'
+const Tab = createMaterialTopTabNavigator()
 
 export default MainTabNavigator = () => {
   return (
-    <SafeAreaProvider>
+    <>
       <AppHeader />
       <Tab.Navigator initialRouteName={ScreenNames.homeScreen}>
         <Tab.Screen
@@ -87,6 +87,6 @@ export default MainTabNavigator = () => {
           component={MenuScreen}
         />
       </Tab.Navigator>
-    </SafeAreaProvider>
-  );
-};
+    </>
+  )
+}

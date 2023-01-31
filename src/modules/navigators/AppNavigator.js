@@ -1,28 +1,28 @@
-import { Button, TouchableOpacity } from 'react-native';
-import { NavigationContainer, StackActions } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { NavigationContainer, StackActions } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import MainTabNavigator from './MainTabNavigator'
+import SignupScreen from 'modules/screens/SignupScreen'
+import FriendScreen from 'modules/screens/FriendScreen'
+import MenuScreen from 'modules/screens/MenuScreen'
+import TermsPolocies from 'modules/screens/MenuScreen/TermsPolicies'
+import Setting from 'modules/screens/MenuScreen/Setting'
+import InforUser from 'modules/screens/MenuScreen/Setting/InforUser'
+import Security from 'modules/screens/MenuScreen/Setting/Security'
+import Block from 'modules/screens/MenuScreen/Setting/Block'
+import NotificationSetting from 'modules/screens/MenuScreen/Setting/NotificationSetting'
+import NameSetting from 'modules/screens/MenuScreen/Setting/InforUser/NameSetting'
+import ChangePassword from 'modules/screens/MenuScreen/Setting/Security/ChangePassword'
+import AddBlock from 'modules/screens/MenuScreen/Setting/Block/AddBlock'
 
-import SignupScreen from 'modules/screens/SignupScreen';
-import HomeScreen from 'modules/screens/HomeScreen';
-import FriendScreen from 'modules/screens/FriendScreen';
-import MenuScreen from 'modules/screens/MenuScreen';
-import ScreenNames from 'general/constants/ScreenNames';
-import MainTabNavigator from './MainTabNavigator';
-import TermsPolocies from 'modules/screens/MenuScreen/TermsPolicies';
-import Setting from 'modules/screens/MenuScreen/Setting';
-import InforUser from 'modules/screens/MenuScreen/Setting/InforUser';
-import Security from 'modules/screens/MenuScreen/Setting/Security';
-import Block from 'modules/screens/MenuScreen/Setting/Block';
-import NotificationSetting from 'modules/screens/MenuScreen/Setting/NotificationSetting';
-import NameSetting from 'modules/screens/MenuScreen/Setting/InforUser/NameSetting';
-import AllFriendView from 'modules/views/AllFriendView';
-import SuggestedFriendView from 'modules/views/SuggestedFriendView';
-import ExistAccScreen from 'modules/screens/LoginScreen/LoginExistAcc/ExistAccScreen';
-import LoginWithExistAccScreen from 'modules/screens/LoginScreen/LoginExistAcc/LoginWithExistAccScreen';
-import LoginScreen from 'modules/screens/LoginScreen';
-import SearchFriendView from 'modules/views/SearchFriendView';
-const Stack = createNativeStackNavigator();
+import AllFriendView from 'modules/views/AllFriendView'
+import SuggestedFriendView from 'modules/views/SuggestedFriendView'
+import ExistAccScreen from 'modules/screens/LoginScreen/LoginExistAcc/ExistAccScreen'
+import LoginWithExistAccScreen from 'modules/screens/LoginScreen/LoginExistAcc/LoginWithExistAccScreen'
+import LoginScreen from 'modules/screens/LoginScreen'
+import SearchFriendView from 'modules/views/SearchFriendView'
+import ProfileView from 'modules/views/ProfileView'
+import ScreenNames from 'general/constants/ScreenNames'
+const Stack = createNativeStackNavigator()
 
 export default AppNavigator = (navigation) => {
   return (
@@ -37,7 +37,7 @@ export default AppNavigator = (navigation) => {
             }}
           />
           <Stack.Screen
-            name={ScreenNames.signUpScreen}
+            name={ScreenNames.signupScreen}
             component={SignupScreen}
             options={{ headerShown: false }}
           />
@@ -60,15 +60,37 @@ export default AppNavigator = (navigation) => {
             options={{ headerShown: false }}
           />
         </Stack.Group>
-        <Stack.Group>
+
+        <Stack.Group
+          screenOptions={{
+            presentation: 'modal',
+            animation: 'slide_from_right',
+          }}
+        >
           <Stack.Screen
             name={ScreenNames.termsPolicies}
             component={TermsPolocies}
           />
           <Stack.Screen name={ScreenNames.setting} component={Setting} />
-          <Stack.Screen name={ScreenNames.inforUser} component={InforUser} />
-          <Stack.Screen name={ScreenNames.security} component={Security} />
-          <Stack.Screen name={ScreenNames.block} component={Block} />
+          <Stack.Screen name={ScreenNames.inforUser} component={InforUser} options={{title : ""}}/>
+          <Stack.Screen 
+            name={ScreenNames.security} 
+            component={Security}
+            options={{title : ""}}
+          />
+          <Stack.Screen 
+            name={ScreenNames.block} 
+            component={Block} 
+          />
+          <Stack.Screen 
+            name={ScreenNames.addBlock} 
+            component={AddBlock} 
+            options={{ headerShown: false }}  
+          />
+          <Stack.Screen 
+            name={ScreenNames.changePassword} 
+            component={ChangePassword}
+          />
           <Stack.Screen
             name={ScreenNames.notificationSetting}
             component={NotificationSetting}
@@ -77,8 +99,9 @@ export default AppNavigator = (navigation) => {
             name={ScreenNames.nameSetting}
             component={NameSetting}
           />
+      </Stack.Group>
+      <Stack.Group>
         </Stack.Group>
-        <Stack.Group></Stack.Group>
 
         <Stack.Group
           screenOptions={{
@@ -96,11 +119,14 @@ export default AppNavigator = (navigation) => {
             component={AllFriendView}
             options={{ headerShown: false }}
           />
-
           <Stack.Screen
             name={ScreenNames.searchFriendView}
             component={SearchFriendView}
             options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name={ScreenNames.profileView}
+            component={ProfileView}
           />
         </Stack.Group>
       </Stack.Navigator>
