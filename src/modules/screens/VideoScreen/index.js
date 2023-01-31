@@ -11,10 +11,11 @@ import {
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import FronAwesome5Icon from 'react-native-vector-icons/FontAwesome5'
+import HomeScreen from '../HomeScreen'
 
-export default function VideoScreen(props) {
+export default function VideoScreen({ navigation }) {
   return (
-    <View style={styles.wrapper}>
+    <View style={{ ...styles.wrapper, flex: 1 }}>
       <View style={styles.navbarWatch}>
         <View style={styles.labelNav}>
           <Text style={styles.labelWatch}>Watch</Text>
@@ -36,6 +37,10 @@ export default function VideoScreen(props) {
             <Text style={styles.labelTag}>Chơi game</Text>
           </View>
         </View>
+      </View>
+
+      <View style={{ height: '100%' }}>
+        <HomeScreen navigation={navigation} ishome={false} />
       </View>
     </View>
   )

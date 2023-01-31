@@ -5,27 +5,27 @@ import {
   Image,
   StyleSheet,
   Dimensions,
-} from 'react-native';
-import { useState } from 'react';
-import ImagesComponent from '../imagesComponent';
-import TextComponent from '../textComponent';
-import VideoComponent from '../videoComponent';
-import CommentsComponent from '../commentComponent';
-import AntDesignIcon from 'react-native-vector-icons/AntDesign';
-import Octicons from 'react-native-vector-icons/Octicons';
-import FeatherIcon from 'react-native-vector-icons/Feather';
-import MoreOption from 'modules/views/MoreOption';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { useEffect } from 'react';
-import { getStatus } from '../function/status';
-import { like } from '../function/like';
-import ScreenNames from 'general/constants/ScreenNames';
-import PostOneImage from 'modules/views/PostOneImage';
-import { get_post } from '../function/get_post';
-import styles from './styles';
-import { getPreference } from 'libs/storage/PreferenceStorage';
+} from 'react-native'
+import { useState } from 'react'
+import ImagesComponent from '../imagesComponent'
+import TextComponent from '../textComponent'
+import VideoComponent from '../videoComponent'
+import CommentsComponent from '../commentComponent'
+import AntDesignIcon from 'react-native-vector-icons/AntDesign'
+import Octicons from 'react-native-vector-icons/Octicons'
+import FeatherIcon from 'react-native-vector-icons/Feather'
+import MoreOption from 'modules/views/MoreOption'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import { useEffect } from 'react'
+import { getStatus } from '../function/status'
+import { like } from '../function/like'
+import ScreenNames from 'general/constants/ScreenNames'
+import PostOneImage from 'modules/views/PostOneImage'
+import { get_post } from '../function/get_post'
+import styles from './styles'
+import { getPreference } from 'libs/storage/PreferenceStorage'
 
-const window = Dimensions.get('window');
+const window = Dimensions.get('window')
 
 export default PostComponent = (params) => {
   const {
@@ -36,88 +36,89 @@ export default PostComponent = (params) => {
     navigate,
     inputComment,
     setCommentFocus,
-  } = params;
+    ishome,
+  } = params
 
-  const [post, setPost] = useState(postPassing);
-  const showhideButton = post.described?.length > 300 ? true : false;
-  const [numOfLine, setNumOfLine] = useState(type == 'single' ? 0 : 4);
+  const [post, setPost] = useState(postPassing)
+  const showhideButton = post.described?.length > 300 ? true : false
+  const [numOfLine, setNumOfLine] = useState(type == 'single' ? 0 : 4)
   const [iconLikeName, setIconLikeName] = useState(
-    post.is_liked == '1' ? 'like1' : 'like2'
-  );
+    post.is_liked == '1' ? 'like1' : 'like2',
+  )
   const [iconLikeColor, setIconLikeColor] = useState(
-    post.is_liked == '1' ? 'blue' : 'black'
-  );
-  const [numLikes, setNumLikes] = useState(Number(post.like));
-  const [described, setDescribed] = useState(post.described);
-  const [numCmt, setNumCmt] = useState(Number(post.comment));
-  const [images, setImages] = useState(post.image);
-  const [video, setVideo] = useState(post.video);
-  let posterStatus = post.state;
-  const [isposter, setIsposter] = useState(false);
+    post.is_liked == '1' ? 'blue' : 'black',
+  )
+  const [numLikes, setNumLikes] = useState(Number(post.like))
+  const [described, setDescribed] = useState(post.described)
+  const [numCmt, setNumCmt] = useState(Number(post.comment))
+  const [images, setImages] = useState(post.image)
+  const [video, setVideo] = useState(post.video)
+  let posterStatus = post.state
+  const [isposter, setIsposter] = useState(false)
 
   useEffect(() => {
     const checkIsPoster = async () => {
-      let userid = await getPreference('UserId');
-      if (userid == post.author.id) setIsposter(true);
-    };
-    checkIsPoster();
-  }, []);
+      let userid = await getPreference('UserId')
+      if (userid == post.author.id) setIsposter(true)
+    }
+    checkIsPoster()
+  }, [])
 
   useEffect(() => {
-    setNumLikes(Number(post.like));
-    setIconLikeColor(post.is_liked == '1' ? 'blue' : 'black');
-    setIconLikeName(post.is_liked == '1' ? 'like1' : 'like2');
-  }, [post.like]);
+    setNumLikes(Number(post.like))
+    setIconLikeColor(post.is_liked == '1' ? 'blue' : 'black')
+    setIconLikeName(post.is_liked == '1' ? 'like1' : 'like2')
+  }, [post.like])
 
   useEffect(() => {
-    setNumCmt(Number(post.comment));
-  }, [post.comment]);
+    setNumCmt(Number(post.comment))
+  }, [post.comment])
 
   useEffect(() => {
-    setDescribed(post.described);
-  }, [post.described]);
+    setDescribed(post.described)
+  }, [post.described])
 
   useEffect(() => {
-    setImages(post.image);
-  }, [post.image]);
+    setImages(post.image)
+  }, [post.image])
 
   useEffect(() => {
-    setVideo(post.video);
-  }, [post.video]);
+    setVideo(post.video)
+  }, [post.video])
 
   useEffect(() => {
-    setPost(postPassing);
-  }, [postPassing]);
+    setPost(postPassing)
+  }, [postPassing])
 
   const handleAfterEditPost = (id) => {
-    console.log('handle after edit post, id:', id);
+    console.log('handle after edit post, id:', id)
     const fetchdata = async () => {
-      let post = await get_post(id);
-      setPost(post);
-    };
-    fetchdata();
-  };
+      let post = await get_post(id)
+      setPost(post)
+    }
+    fetchdata()
+  }
 
-  const postStatus = getStatus(post.modified);
+  const postStatus = getStatus(post.modified)
 
   const avatarImg =
     post.author.avatar != null
       ? { uri: post.author.avatar }
-      : require('assets/images/default_avafb.jpg');
+      : require('assets/images/default_avafb.jpg')
 
   const changeState = () => {
     if (!(type == 'single')) {
-      if (numOfLine == 4) setNumOfLine(0);
-      else setNumOfLine(4);
+      if (numOfLine == 4) setNumOfLine(0)
+      else setNumOfLine(4)
     }
-  };
+  }
 
-  const [modalShow, setModalShow] = useState(false);
-  const [singleImageShow, setSingleImageShow] = useState(false);
+  const [modalShow, setModalShow] = useState(false)
+  const [singleImageShow, setSingleImageShow] = useState(false)
 
   const showModal = () => {
-    setModalShow(true);
-  };
+    setModalShow(true)
+  }
 
   const onPressComment = () => {
     if (type !== 'single') {
@@ -125,28 +126,28 @@ export default PostComponent = (params) => {
         postPassing: post,
         focus: true,
         setPostPassing: setPost,
-      });
+      })
     } else {
-      setCommentFocus(true);
+      setCommentFocus(true)
     }
-  };
+  }
 
   const onPressLike = () => {
     if (post.is_liked == '1') {
-      post.like = String(Number(post.like) - 1);
-      post.is_liked = '0';
-      setNumLikes(numLikes - 1);
-      setIconLikeName('like2');
-      setIconLikeColor('black');
+      post.like = String(Number(post.like) - 1)
+      post.is_liked = '0'
+      setNumLikes(numLikes - 1)
+      setIconLikeName('like2')
+      setIconLikeColor('black')
     } else {
-      post.like = String(Number(post.like) + 1);
-      post.is_liked = '1';
-      setNumLikes(numLikes + 1);
-      setIconLikeName('like1');
-      setIconLikeColor('blue');
+      post.like = String(Number(post.like) + 1)
+      post.is_liked = '1'
+      setNumLikes(numLikes + 1)
+      setIconLikeName('like1')
+      setIconLikeColor('blue')
     }
-    like(post.id);
-  };
+    like(post.id)
+  }
 
   const onPressPostArea = (post) => {
     if (type != 'single')
@@ -154,24 +155,24 @@ export default PostComponent = (params) => {
         postPassing: post,
         handleAfterEditPost: handleAfterEditPost,
         setPostPassing: setPost,
-      });
-  };
+      })
+  }
 
   const onPressImg = () => {
     if (post.image.length == 1) {
-      setSingleImageShow(true);
+      setSingleImageShow(true)
     } else {
       if (!(type == 'single'))
         navigate.navigate(ScreenNames.singlePostScreen, {
           postPassing: post,
           handleAfterEditPost: handleAfterEditPost,
           setPostPassing: setPost,
-        });
+        })
     }
-  };
+  }
 
   return (
-    post != undefined && (
+    (ishome || post.video) && (
       <View style={styles.container}>
         <MoreOption
           setvisible={setModalShow}
@@ -224,12 +225,17 @@ export default PostComponent = (params) => {
         )}
         {/* content part */}
         <View style={styles.contentPart}>
-          <Pressable onPress={changeState} style={styles.contentPart.textPart}>
-            <TextComponent numLine={numOfLine} content={described} />
-            {!(type == 'single') && showhideButton && (
-              <Text onPress={changeState}>Show/hide</Text>
-            )}
-          </Pressable>
+          {
+            <Pressable
+              onPress={changeState}
+              style={styles.contentPart.textPart}
+            >
+              <TextComponent numLine={numOfLine} content={described} />
+              {!(type == 'single') && showhideButton && (
+                <Text onPress={changeState}>Show/hide</Text>
+              )}
+            </Pressable>
+          }
           {!video && images && (
             <Pressable onPress={onPressImg}>
               <ImagesComponent type={type} image={images} />
@@ -296,5 +302,5 @@ export default PostComponent = (params) => {
         )}
       </View>
     )
-  );
-};
+  )
+}

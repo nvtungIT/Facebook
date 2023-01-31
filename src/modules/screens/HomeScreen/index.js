@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   View,
   SafeAreaView,
@@ -7,65 +7,66 @@ import {
   Pressable,
   RefreshControl,
   Image,
-} from 'react-native';
+} from 'react-native'
 
-import PostComponent from './PostComponent';
-import ScreenNames from 'general/constants/ScreenNames';
-import { useState, useCallback } from 'react';
-import { get_list_posts } from './function/get_list_posts';
-import { useEffect } from 'react';
-import { check_new_item } from './function/check_new_item';
-import { getPreference } from 'libs/storage/PreferenceStorage';
-import AddPost from 'modules/views/CreatePost';
-import FetchingPopup from 'modules/views/CreatePost/fetching-popup';
+import PostComponent from './PostComponent'
+import ScreenNames from 'general/constants/ScreenNames'
+import { useState, useCallback } from 'react'
+import { get_list_posts } from './function/get_list_posts'
+import { useEffect } from 'react'
+import { check_new_item } from './function/check_new_item'
+import { getPreference } from 'libs/storage/PreferenceStorage'
+import AddPost from 'modules/views/CreatePost'
+import FetchingPopup from 'modules/views/CreatePost/fetching-popup'
 
 const wait = (timeout) => {
-  return new Promise((resolve) => setTimeout(resolve, timeout));
-};
+  return new Promise((resolve) => setTimeout(resolve, timeout))
+}
 
-export default function HomeScreen({ navigation }) {
-  console.log('HomeScreen is rendering !!!!');
+export default function HomeScreen({ navigation, ishome = true }) {
+  console.log('HomeScreen is rendering !!!!')
+  console.log('navigation: ' + navigation)
 
   //fetch data here
 
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true); //state to render topLoading posts state
-  const [loadingText, setLoadingText] = useState('isLoading');
-  const [refreshing, setRefreshing] = useState(false);
-  const [render, setRender] = useState([true]); //state to render flatlist
-  const [avatarUrl, setAvatarUrl] = useState('');
+  const [posts, setPosts] = useState([])
+  const [loading, setLoading] = useState(true) //state to render topLoading posts state
+  const [loadingText, setLoadingText] = useState('isLoading')
+  const [refreshing, setRefreshing] = useState(false)
+  const [render, setRender] = useState([true]) //state to render flatlist
+  const [avatarUrl, setAvatarUrl] = useState('')
 
   useEffect(() => {
     get_list_posts({
       setLoading: setLoading,
       setPosts: setPosts,
       type: 'get first time',
-    });
-    console.log('get list post first time');
-  }, []);
+    })
+    console.log('get list post first time')
+  }, [])
 
   useEffect(
     () =>
       navigation.addListener('focus', () => {
-        setRender([...render]);
+        setRender([...render])
       }),
-    [navigation]
-  );
+    [navigation],
+  )
 
   useEffect(() => {
     async function getAvatar() {
-      let avatarUrl = await getPreference('UserAvatar');
-      setAvatarUrl(avatarUrl);
+      let avatarUrl = await getPreference('UserAvatar')
+      setAvatarUrl(avatarUrl)
     }
-    if (!avatarUrl) getAvatar();
-  }, []);
+    if (!avatarUrl) getAvatar()
+  }, [])
 
   const avatarSrc =
     avatarUrl != '' && avatarUrl != null
       ? { uri: avatarUrl }
-      : require('assets/images/male-avatar.jpg');
+      : require('assets/images/male-avatar.jpg')
 
-  const [addPostVisible, setAddPostVisible] = useState(false);
+  const [addPostVisible, setAddPostVisible] = useState(false)
 
   const AddPostComponent = () => (
     <View>
@@ -89,14 +90,14 @@ export default function HomeScreen({ navigation }) {
         </Pressable>
         <Pressable
           onPress={() => {
-            setAddPostVisible(true);
+            setAddPostVisible(true)
           }}
         >
           <Text>Bạn đang nghĩ gì?</Text>
         </Pressable>
       </View>
     </View>
-  );
+  )
 
   const exampleData = [
     {
@@ -121,15 +122,15 @@ export default function HomeScreen({ navigation }) {
       },
       postStatus: 'Vua xong',
     },
-  ];
+  ]
 
   const onRefresh = useCallback(() => {
     // setLoading(true);
-    setRefreshing(true);
-    const lastid = posts[0]?.id ?? 0;
-    console.log(lastid);
+    setRefreshing(true)
+    const lastid = posts[0]?.id ?? 0
+    console.log(lastid)
     check_new_item(lastid).then((rs) => {
-      console.log('newposts: ' + rs);
+      console.log('newposts: ' + rs)
       if (rs > 0) {
         get_list_posts({
           posts: posts,
@@ -138,47 +139,48 @@ export default function HomeScreen({ navigation }) {
           newItems: rs,
           type: 'get new posts',
         }).then(() => {
-          setRefreshing(false);
-        });
-        console.log('get new posts on refresh');
+          setRefreshing(false)
+        })
+        console.log('get new posts on refresh')
       } else {
-        setRefreshing(false);
+        setRefreshing(false)
         // setLoading(false);
-        console.log('dont get new posts on refresh');
+        console.log('dont get new posts on refresh')
       }
-    });
-  }, [posts]);
+    })
+  }, [posts])
 
   const updatePosts = (postId) => {
     let newPosts = posts.filter(function (post) {
-      return post.id != postId;
-    });
-    setPosts(newPosts);
-  };
+      return post.id != postId
+    })
+    setPosts(newPosts)
+  }
 
   const renderItem = ({ item }) => (
     <PostComponent
+      ishome={ishome}
       postPassing={item}
       navigate={navigation}
       updatePosts={updatePosts}
     />
-  );
+  )
 
   const handlePullUpLoadMore = () => {
-    setLoadingText('isLoading');
+    setLoadingText('isLoading')
     if (posts.length > 0) {
-      let length = posts.length;
-      let lastid = posts[length - 1].id;
+      let length = posts.length
+      let lastid = posts[length - 1].id
       get_list_posts({
         posts: posts,
         setLoadingText: setLoadingText,
         setPosts: setPosts,
         last_id: lastid,
         type: 'get old posts',
-      }).then(setRender([...render]));
+      }).then(setRender([...render]))
     }
-    console.log('get older post');
-  };
+    console.log('get older post')
+  }
 
   return (
     <View style={{ flex: 1 }}>
@@ -208,7 +210,7 @@ export default function HomeScreen({ navigation }) {
               }
               onEndReachedThreshold={0.5}
               onEndReached={handlePullUpLoadMore}
-              ListHeaderComponent={<AddPostComponent />}
+              ListHeaderComponent={ishome && <AddPostComponent />}
               ListFooterComponent={<Text>{loadingText}</Text>}
               ListEmptyComponent={<Text>No post to show!</Text>}
             />
@@ -217,5 +219,5 @@ export default function HomeScreen({ navigation }) {
       </SafeAreaView>
       {loading && <FetchingPopup />}
     </View>
-  );
+  )
 }

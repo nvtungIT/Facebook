@@ -97,8 +97,8 @@ export default LoginScreen = ({ navigation }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          phoneNumber,
-          password,
+          phoneNumber: '0335594597',
+          password: '123456s!',
         }),
       })
 

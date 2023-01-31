@@ -1,18 +1,16 @@
-import { View, Text } from 'react-native';
-import Video from 'react-native-video';
+import { View, Text } from 'react-native'
+import Video from 'react-native-video'
 
 export default VideoComponent = (params) => {
-  const { video } = params;
-  console.log(video);
+  const { video } = params
   return (
     <View>
-      <Text>Video here</Text>
-      {/* <Video
+      <Video
         repeat={true}
         source={{ uri: video.url }}
-        style={{ width: 300, height: 300 }}
+        style={{ width: '100%', height: 300 }}
         controls={true}
-      /> */}
+      />
     </View>
-  );
-};
+  )
+}

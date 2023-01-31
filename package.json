@@ -35,7 +35,8 @@
     "react-native-spinkit": "^1.5.1",
     "react-native-tab-view": "^3.3.0",
     "react-native-vector-icons": "^9.2.0",
-    "react-native-video": "^6.0.0-alpha.4"
+    "react-native-video": "^6.0.0-alpha.4",
+    "socket.io-client": "^4.5.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
