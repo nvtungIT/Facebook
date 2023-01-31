@@ -43,6 +43,7 @@ const SingleComment = ({ comment }) => {
 
 export const CommentInputComp = (params) => {
   const { focus, onPressSend } = params;
+  console.log('cmt input render');
   const [comment, setComment] = useState(null);
   const [avatarUrl, setAvatarUrl] = useState('');
 
@@ -55,9 +56,8 @@ export const CommentInputComp = (params) => {
     }
     if (!avatarUrl) getAvatar();
   }, []);
-
   const avatarSrc =
-    avatarUrl != ''
+    avatarUrl != '' && avatarUrl != null
       ? { uri: avatarUrl }
       : require('assets/images/default_avafb.jpg');
 

@@ -59,7 +59,8 @@ export async function get_list_posts(params) {
           setLoading(false)
         }
       } else if (json.code == '9994') {
-        setLoadingText('End of list data')
+        if (type == 'get old posts') setLoadingText('End of list data')
+        else if (type == 'get first time') setLoading(false)
         console.log('End of list data')
       } else if (json.code == '9998') console.log('token invalid')
     })

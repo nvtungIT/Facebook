@@ -114,10 +114,9 @@ export default LoginScreen = ({ navigation }) => {
           const username = await data.data.username
           console.log('Login Token' + token)
           try {
-            setPreference(PreferenceKeys.UserId, userId)
-            setPreference(PreferenceKeys.UserName, userName)
             setPreference(PreferenceKeys.UserToken, token)
-            setPreference(PreferenceKeys.UserAvatar, avatar)
+            if (avatar != null) setPreference(PreferenceKeys.UserAvatar, avatar)
+            else setPreference(PreferenceKeys.UserAvatar, '')
             setPreference(PreferenceKeys.UserId, userId)
             setPreference(PreferenceKeys.UserName, username)
           } catch (error) {

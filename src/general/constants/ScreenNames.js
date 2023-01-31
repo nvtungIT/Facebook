@@ -1,13 +1,16 @@
 export default ScreenNames = {
   //main screens
   mainTab: 'MainTab',
-  homeScreen: 'HomeScreen',
+  homeNavigator: 'HomeNavigator',
   friendScreen: 'FriendScreen',
   menuScreen: 'MenuScreen',
   notificationScreen: 'NotificationScreen',
   videoScreen: 'VideoScreen',
+
+  //home navigator
+  homeScreen: 'HomeScreen',
   singlePostScreen: 'SinglePostScreen',
-  homeNavigator: 'HomeNavigator',
+  addPostScreen: 'AddPostScreen',
 
   // views
   allFriendView: 'Tất cả bạn bè',
@@ -44,5 +47,5 @@ export default ScreenNames = {
   notificationSetting: 'Cài đặt thông báo',
   nameSetting: 'Tên',
   changePassword: 'Đổi mật khẩu',
-  addBlock: 'Thêm người chặn'
+  addBlock: 'Thêm người chặn',
 }

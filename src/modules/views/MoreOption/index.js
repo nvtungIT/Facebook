@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   Dimensions,
   Modal,
@@ -6,11 +5,38 @@ import {
   View,
   Pressable,
   ScrollView,
+  Text,
 } from 'react-native';
-import OptionComponent from './optionComponent';
+import OptionComponent from './OptionComponent';
 import MinusIcon from 'react-native-vector-icons/AntDesign';
+import { delete_post } from 'modules/screens/HomeScreen/function/delete_post';
+import ScreenNames from 'general/constants/ScreenNames';
 
-export default MoreOption = ({ visible, setvisible, isposter }) => {
+export default MoreOption = (params) => {
+  const {
+    visible,
+    setvisible,
+    post,
+    updatePosts,
+    navigate,
+    handleAfterEditPost,
+    isposter,
+  } = params;
+
+  const onEdit = () => {
+    navigate.navigate(ScreenNames.addPostScreen, {
+      postEdit: post,
+      handleAfterEditPost: handleAfterEditPost,
+    });
+    setvisible(false);
+  };
+  const onDelete = () => {
+    console.log('delete');
+    let postId = post.id;
+    delete_post(postId);
+    setvisible(false);
+    updatePosts(postId);
+  };
   return (
     <Modal animationType="slide" transparent={true} visible={visible}>
       <View style={styles.modalView}>
@@ -20,10 +46,24 @@ export default MoreOption = ({ visible, setvisible, isposter }) => {
             <MinusIcon name="minus" size={45} style={{ margin: -20 }} />
           </View>
           <ScrollView style={styles.optionsArea}>
-            <OptionComponent optionName={'option 1'} />
-            <OptionComponent optionName={'option 2'} />
-            <OptionComponent optionName={'option 3'} />
-            <OptionComponent optionName={'option 4'} />
+            {isposter && (
+              <Pressable onPress={onEdit}>
+                {/* edit post option*/}
+                <OptionComponent optionNumber={1} />
+              </Pressable>
+            )}
+            {isposter && (
+              <Pressable onPress={onDelete}>
+                {/* delete post option*/}
+                <OptionComponent optionNumber={2} />
+              </Pressable>
+            )}
+            {/* <Pressable>
+              <OptionComponent optionNumber={3} />
+            </Pressable>
+            <Pressable>
+              <OptionComponent optionNumber={4} />
+            </Pressable> */}
           </ScrollView>
         </View>
       </View>

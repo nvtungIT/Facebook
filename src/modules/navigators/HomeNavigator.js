@@ -1,8 +1,9 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import ScreenNames from 'general/constants/ScreenNames';
-import SinglePostScreen from '../screens/HomeScreen/SinglePostScreen';
+import SinglePostScreen from 'modules/screens/HomeScreen/SinglePostScreen';
 import HomeScreen from 'modules/screens/HomeScreen';
+import AddPost from 'modules/views/CreatePost';
 
 const Tab = createNativeStackNavigator();
 
@@ -19,6 +20,11 @@ export default HomeNavigator = () => {
       <Tab.Screen
         name={ScreenNames.singlePostScreen}
         component={SinglePostScreen}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name={ScreenNames.addPostScreen}
+        component={AddPost}
         options={{ headerShown: false }}
       />
     </Tab.Navigator>

@@ -71,7 +71,6 @@ export default function SignupScreen({ navigation }) {
       })
       const json = await response.json()
       console.log(json)
-      return json.movies
     } catch (error) {
       console.error(error)
     }

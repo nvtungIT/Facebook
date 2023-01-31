@@ -9,7 +9,7 @@ import {
   Image,
 } from 'react-native';
 
-import PostComponent from './postComponent';
+import PostComponent from './PostComponent';
 import ScreenNames from 'general/constants/ScreenNames';
 import { useState, useCallback } from 'react';
 import { get_list_posts } from './function/get_list_posts';
@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import { check_new_item } from './function/check_new_item';
 import { getPreference } from 'libs/storage/PreferenceStorage';
 import AddPost from 'modules/views/CreatePost';
+import FetchingPopup from 'modules/views/CreatePost/fetching-popup';
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -33,9 +34,6 @@ export default function HomeScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const [render, setRender] = useState([true]); //state to render flatlist
   const [avatarUrl, setAvatarUrl] = useState('');
-  const [token, setToken] = useState('');
-  const [userId, setUserId] = useState('');
-  const [userName, setUserName] = useState('');
 
   useEffect(() => {
     get_list_posts({
@@ -57,58 +55,46 @@ export default function HomeScreen({ navigation }) {
   useEffect(() => {
     async function getAvatar() {
       let avatarUrl = await getPreference('UserAvatar');
-      console.log(avatarUrl);
       setAvatarUrl(avatarUrl);
     }
-    async function getToken() {
-      let token = await getPreference('UserToken');
-      setToken(token);
-    }
-    async function getUserId() {
-      let userId = await getPreference('UserId');
-      setUserId(userId);
-      console.log(userId);
-    }
-    async function getUserName() {
-      let userName = await getPreference('UserName');
-      console.log(userName);
-      setUserName(userName);
-    }
     if (!avatarUrl) getAvatar();
-    if (!token) getToken();
-    if (!userId) getUserId();
-    if (!userName) getUserName();
   }, []);
 
   const avatarSrc =
-    avatarUrl != ''
+    avatarUrl != '' && avatarUrl != null
       ? { uri: avatarUrl }
-      : require('assets/images/default_avafb.jpg');
+      : require('assets/images/male-avatar.jpg');
 
   const [addPostVisible, setAddPostVisible] = useState(false);
 
   const AddPostComponent = () => (
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: 'white',
-      }}
-    >
-      <Pressable>
-        <Image
-          source={avatarSrc}
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: 40,
-            margin: 8,
+    <View>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          backgroundColor: 'white',
+        }}
+      >
+        <Pressable>
+          <Image
+            source={avatarSrc}
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: 40,
+              margin: 8,
+            }}
+          />
+        </Pressable>
+        <Pressable
+          onPress={() => {
+            setAddPostVisible(true);
           }}
-        />
-      </Pressable>
-      <Pressable onPress={() => setAddPostVisible(true)}>
-        <Text>Bạn đang nghĩ gì?</Text>
-      </Pressable>
+        >
+          <Text>Bạn đang nghĩ gì?</Text>
+        </Pressable>
+      </View>
     </View>
   );
 
@@ -138,9 +124,11 @@ export default function HomeScreen({ navigation }) {
   ];
 
   const onRefresh = useCallback(() => {
+    // setLoading(true);
     setRefreshing(true);
-    setLoading(true);
-    check_new_item(posts[0].id).then((rs) => {
+    const lastid = posts[0]?.id ?? 0;
+    console.log(lastid);
+    check_new_item(lastid).then((rs) => {
       console.log('newposts: ' + rs);
       if (rs > 0) {
         get_list_posts({
@@ -155,22 +143,25 @@ export default function HomeScreen({ navigation }) {
         console.log('get new posts on refresh');
       } else {
         setRefreshing(false);
-        setLoading(false);
+        // setLoading(false);
         console.log('dont get new posts on refresh');
       }
     });
   }, [posts]);
 
-  const onPressPostArea = ({ item }) => {
-    navigation.navigate(ScreenNames.singlePostScreen, {
-      post: item,
+  const updatePosts = (postId) => {
+    let newPosts = posts.filter(function (post) {
+      return post.id != postId;
     });
+    setPosts(newPosts);
   };
 
   const renderItem = ({ item }) => (
-    <Pressable onPress={() => onPressPostArea({ item })}>
-      <PostComponent post={item} navigate={navigation} />
-    </Pressable>
+    <PostComponent
+      postPassing={item}
+      navigate={navigation}
+      updatePosts={updatePosts}
+    />
   );
 
   const handlePullUpLoadMore = () => {
@@ -193,17 +184,14 @@ export default function HomeScreen({ navigation }) {
     <View style={{ flex: 1 }}>
       <SafeAreaView>
         {loading ? (
-          <Text>is Loading</Text>
+          <Text>isLoading</Text>
         ) : (
           <View>
             <AddPost
-              modalVisible={addPostVisible}
-              setModalVisible={setAddPostVisible}
-              token={token}
-              userId={userId}
-              avatar={avatarUrl}
-              userName={userName}
-              postData
+              visible={addPostVisible}
+              setvisible={setAddPostVisible}
+              avatarSrc={avatarSrc}
+              isEditPostMode={false}
             />
             <FlatList
               data={posts}
@@ -211,7 +199,12 @@ export default function HomeScreen({ navigation }) {
               renderItem={renderItem}
               keyExtractor={(post) => post.id}
               refreshControl={
-                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                <RefreshControl
+                  refreshing={refreshing}
+                  onRefresh={onRefresh}
+                  // progressViewOffset={1000}
+                  size={'large'}
+                />
               }
               onEndReachedThreshold={0.5}
               onEndReached={handlePullUpLoadMore}
@@ -222,6 +215,7 @@ export default function HomeScreen({ navigation }) {
           </View>
         )}
       </SafeAreaView>
+      {loading && <FetchingPopup />}
     </View>
   );
 }
