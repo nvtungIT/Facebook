@@ -19,12 +19,12 @@ import FriendBoxItem from 'modules/components/FriendBoxItem'
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
-export default function FriendProfileView({ route },props) {
+export default function FriendProfileView({ route }, props) {
   useEffect(() => {
     getData()
   }, [])
 
-  const { user_id } = route.params;
+  const { user_id } = route.params
 
   const [userData, setUserData] = useState({})
   const [friendData, setFriendData] = useState([])
@@ -32,7 +32,10 @@ export default function FriendProfileView({ route },props) {
   const getUserInfo = async (token) => {
     try {
       const response = await fetch(
-        serverDomain + `user/get_user_info/?token=${encodeURIComponent(token)}&user_id=${encodeURIComponent(user_id)}`,
+        serverDomain +
+          `user/get_user_info/?token=${encodeURIComponent(
+            token,
+          )}&user_id=${encodeURIComponent(user_id)}`,
         {
           method: 'POST',
           headers: {
@@ -98,8 +101,7 @@ export default function FriendProfileView({ route },props) {
           <Image
             style={styles.cover_image}
             source={{
-              uri:
-                'https://scontent.fhan15-2.fna.fbcdn.net/v/t1.6435-9/90253030_528227334546061_1570172745575038976_n.jpg?stp=dst-jpg_p960x960&_nc_cat=107&ccb=1-7&_nc_sid=e3f864&_nc_ohc=7N6Kbhz5LrMAX9dvwLA&_nc_ht=scontent.fhan15-2.fna&oh=00_AfC8Tx2Jr_jX5L4k4Bfokj4VcIGMlxyfwZFc9oLQspAj8Q&oe=63F1CBA6',
+              uri: 'https://scontent.fhan15-2.fna.fbcdn.net/v/t1.6435-9/90253030_528227334546061_1570172745575038976_n.jpg?stp=dst-jpg_p960x960&_nc_cat=107&ccb=1-7&_nc_sid=e3f864&_nc_ohc=7N6Kbhz5LrMAX9dvwLA&_nc_ht=scontent.fhan15-2.fna&oh=00_AfC8Tx2Jr_jX5L4k4Bfokj4VcIGMlxyfwZFc9oLQspAj8Q&oe=63F1CBA6',
             }}
           ></Image>
 
